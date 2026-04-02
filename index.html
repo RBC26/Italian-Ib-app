@@ -103,9 +103,9 @@ h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--te
 .feedback-box.info{background:#e8eef5;border:1px solid #a8c0d8;color:#1a2a3c;}
 
 /* SENTENCES */
-.sentence-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:9px;display:flex;flex-direction:column;gap:4px;}
-.sentence-it{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text);}
-.sentence-en{font-size:13px;color:var(--text-muted);}
+.sentence-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:9px;display:flex;flex-direction:column;gap:6px;}
+.sentence-it{font-family:'Inter',Arial,sans-serif;font-size:19px;font-style:normal;font-weight:700;color:var(--text);line-height:1.4;}
+.sentence-en{font-family:'Inter',Arial,sans-serif;font-size:14px;color:var(--text-muted);line-height:1.5;}
 
 /* TEXT TYPES */
 .text-type-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;}
@@ -140,9 +140,9 @@ h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--te
 /* HIGHER LEVEL */
 .hl-card{background:linear-gradient(135deg,var(--surface) 0%,#f5f0e8 100%);border:1px solid var(--gold);border-radius:12px;padding:16px 18px;margin-bottom:11px;position:relative;}
 .hl-card::before{content:'★';position:absolute;top:12px;right:14px;color:var(--gold);font-size:15px;}
-.hl-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:5px;}
-.hl-sentence{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text);margin-bottom:4px;}
-.hl-breakdown{font-size:12px;color:var(--text-muted);line-height:1.6;}
+.hl-label{font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:6px;}
+.hl-sentence{font-family:'Inter',Arial,sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.45;}
+.hl-breakdown{font-family:'Inter',Arial,sans-serif;font-size:13px;color:var(--text-muted);line-height:1.6;}
 
 /* WRITING */
 .writing-area{width:100%;min-height:180px;background:#fff;border:2px solid var(--border);border-radius:10px;padding:14px;font-family:'Outfit',sans-serif;font-size:15px;line-height:1.7;color:var(--text);resize:vertical;outline:none;transition:border-color 0.18s;}
@@ -194,6 +194,10 @@ h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--te
 #sb-input{width:100%;background:var(--bg2);border:2px solid var(--border);border-radius:10px;padding:11px 14px;font-size:15px;font-family:'Outfit',sans-serif;color:var(--text);outline:none;}
 #sb-input:focus{border-color:var(--accent);background:#fff;}
 select.practice-input{min-height:0;resize:none;cursor:pointer;}
+
+.translation-toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:11px 14px;border-radius:10px;background:rgba(0,0,0,0.88);color:#fff;font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,0.25);opacity:0;transition:opacity 0.22s ease,transform 0.22s ease;transform:translateY(8px);pointer-events:none;}
+.translation-toast.show{opacity:1;transform:translateY(0);}
+
 </style>
 </head>
 <body>
@@ -202,25 +206,26 @@ select.practice-input{min-height:0;resize:none;cursor:pointer;}
 <nav id="main-nav">
   <div class="nav-logo" onclick="showSection('home')">🇮🇹 Italiano</div>
   <div class="nav-scroll">
-    <button class="nav-btn active" onclick="showSection('home')">Home</button>
-    <button class="nav-btn" onclick="showSection('grammar')">Grammatica</button>
-    <button class="nav-btn" onclick="showSection('sentences')">Frasi</button>
-    <button class="nav-btn" onclick="showSection('texttypes')">Text Types</button>
-    <button class="nav-btn" onclick="showSection('topics')">Argomenti</button>
-    <button class="nav-btn" onclick="showSection('connectors')">Connettori</button>
-    <button class="nav-btn" onclick="showSection('higher')">Higher Level</button>
-    <button class="nav-btn" onclick="showSection('writing')">Writing</button>
-    <button class="nav-btn" onclick="showSection('games')">Giochi</button>
-    <button class="nav-btn" onclick="showSection('rules')">Rules</button>
+    <button class="nav-btn active" onclick="showSection('home')" data-translate="Home">Home</button>
+    <button class="nav-btn" onclick="showSection('grammar')" data-translate="Grammar">Grammatica</button>
+    <button class="nav-btn" onclick="showSection('sentences')" data-translate="Sentences">Frasi</button>
+    <button class="nav-btn" onclick="showSection('texttypes')" data-translate="Text Types">Text Types</button>
+    <button class="nav-btn" onclick="showSection('topics')" data-translate="Topics">Argomenti</button>
+    <button class="nav-btn" onclick="showSection('connectors')" data-translate="Connectors">Connettori</button>
+    <button class="nav-btn" onclick="showSection('higher')" data-translate="Higher Level">Higher Level</button>
+    <button class="nav-btn" onclick="showSection('writing')" data-translate="Writing">Writing</button>
+    <button class="nav-btn" onclick="showSection('games')" data-translate="Games">Giochi</button>
+    <button class="nav-btn" onclick="showSection('rules')" data-translate="Rules">Rules</button>
   </div>
 </nav>
+<div id="translation-toast" class="translation-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <!-- HOME -->
 <div id="home" class="section active" style="padding-top:0;max-width:100%;">
   <div class="home-hero">
     <div style="font-size:44px;margin-bottom:10px;">🇮🇹</div>
-    <div class="hero-title">Italiano</div>
-    <div class="hero-sub">IB Ab Initio · SL · Complete Revision App</div>
+    <div class="hero-title" data-translate="Italian">Italiano</div>
+    <div class="hero-sub" data-translate="IB Ab Initio · SL · Complete Revision App">IB Ab Initio · SL · Complete Revision App</div>
     <div class="hero-stats">
       <div class="hero-stat">📚 5 Themes · 20 Topics</div>
       <div class="hero-stat">✏️ 65+ Sentence Templates</div>
@@ -230,35 +235,35 @@ select.practice-input{min-height:0;resize:none;cursor:pointer;}
     </div>
   </div>
   <div class="home-grid">
-    <div class="home-card" style="--card-color:#c0392b" onclick="showSection('grammar')">
+    <div class="home-card" style="--card-color:#c0392b" onclick="showSection('grammar')" data-translate="Grammar">
       <div class="card-icon">🔤</div>
-      <div class="card-title">Grammatica</div>
-      <div class="card-desc">All verb tenses with conjugation tables, pronouns, adjectives, negation — plus grammar practice exercises.</div>
+      <div class="card-title" data-translate="Grammar">Grammatica</div>
+      <div class="card-desc" data-translate="All verb tenses with conjugation tables, pronouns, adjectives, negation — plus grammar practice exercises.">All verb tenses with conjugation tables, pronouns, adjectives, negation — plus grammar practice exercises.</div>
       <div class="card-badge">Presente · Passato · Futuro · Imperfetto</div>
     </div>
-    <div class="home-card" style="--card-color:#1a3a5c" onclick="showSection('sentences')">
+    <div class="home-card" style="--card-color:#1a3a5c" onclick="showSection('sentences')" data-translate="Model sentences">
       <div class="card-icon">💬</div>
-      <div class="card-title">Frasi Modello</div>
-      <div class="card-desc">65+ model sentences across all topics and tenses. Filter, shuffle, and practise translation.</div>
+      <div class="card-title" data-translate="Model sentences">Frasi Modello</div>
+      <div class="card-desc" data-translate="65+ model sentences across all topics and tenses. Filter, shuffle, and practise translation.">65+ model sentences across all topics and tenses. Filter, shuffle, and practise translation.</div>
       <div class="card-badge">65+ sentences · All topics</div>
     </div>
-    <div class="home-card" style="--card-color:#b8860b" onclick="showSection('texttypes')">
+    <div class="home-card" style="--card-color:#b8860b" onclick="showSection('texttypes')" data-translate="Text types">
       <div class="card-icon">📄</div>
-      <div class="card-title">Tipologie Testuali</div>
-      <div class="card-desc">All 18 text types for Paper 1 with full structure, grammar, register notes and model examples.</div>
+      <div class="card-title" data-translate="Text types">Tipologie Testuali</div>
+      <div class="card-desc" data-translate="All 18 text types for Paper 1 with full structure, grammar, register notes and model examples.">All 18 text types for Paper 1 with full structure, grammar, register notes and model examples.</div>
       <div class="card-badge">18 text types · From PDF</div>
     </div>
-    <div class="home-card" style="--card-color:#2c6e49" onclick="showSection('topics')">
+    <div class="home-card" style="--card-color:#2c6e49" onclick="showSection('topics')" data-translate="Topics">
       <div class="card-icon">🗂️</div>
-      <div class="card-title">Argomenti</div>
-      <div class="card-desc">Key vocab and your personal writing notes for all 20 IB topics. Auto-saved to your browser.</div>
+      <div class="card-title" data-translate="Topics">Argomenti</div>
+      <div class="card-desc" data-translate="Key vocab and your personal writing notes for all 20 IB topics. Auto-saved to your browser.">Key vocab and your personal writing notes for all 20 IB topics. Auto-saved to your browser.</div>
       <div class="card-badge">5 Themes · 20 Topics</div>
     </div>
-    <div class="home-card" style="--card-color:#7c4daa" onclick="showSection('connectors')">
+    <div class="home-card" style="--card-color:#7c4daa" onclick="showSection('connectors')" data-translate="Connectors">
       <div class="card-icon">🔗</div>
-      <div class="card-title">Connettori</div>
-      <div class="card-desc">All discourse connectors by function from the PDF. Click any to copy it to your clipboard.</div>
-      <div class="card-badge">50+ connectors · Click to copy</div>
+      <div class="card-title" data-translate="Connectors">Connettori</div>
+      <div class="card-desc" data-translate="All discourse connectors by function from the PDF. Click any to copy it to your clipboard.">All discourse connectors by function from the PDF. Click any to copy it to your clipboard.</div>
+      <div class="card-badge">60+ connectors · Click to copy</div>
     </div>
     <div class="home-card" style="--card-color:#b8860b" onclick="showSection('higher')">
       <div class="card-icon">⭐</div>
@@ -541,99 +546,125 @@ console.log('JavaScript is loaded and running');
 window.testShowSection = function(id){ console.log('Direct call to testShowSection with:', id); };
 
 const SENTENCES = [
-  // IDENTITÀ — PRESENTE
-  {it:"Mi chiamo [Nome] e ho [età] anni.",en:"My name is [Name] and I am [age] years old.",topic:"identita",tense:"presente",tags:["identity","intro"]},
-  {it:"Sono alto/a con i capelli castani e gli occhi verdi.",en:"I am tall with brown hair and green eyes.",topic:"identita",tense:"presente",tags:["appearance"]},
-  {it:"Sono una persona gentile, curiosa e un po' timida.",en:"I am a kind, curious and slightly shy person.",topic:"identita",tense:"presente",tags:["personality"]},
-  {it:"Sono di origine italiana ma vivo in Inghilterra da dieci anni.",en:"I am of Italian origin but I have lived in England for ten years.",topic:"identita",tense:"presente",tags:["nationality"]},
-  {it:"Parlo tre lingue: l'inglese, l'italiano e un po' di spagnolo.",en:"I speak three languages: English, Italian and a bit of Spanish.",topic:"identita",tense:"presente",tags:["languages"]},
-  {it:"Mi piace molto la musica e suono la chitarra da tre anni.",en:"I really like music and I have been playing guitar for three years.",topic:"identita",tense:"presente",tags:["hobbies"]},
-  {it:"Non mi piacciono i film d'orrore perché sono troppo spaventosi.",en:"I don't like horror films because they are too scary.",topic:"tempo",tense:"presente",tags:["opinions","films"]},
-  {it:"La mia materia preferita è la biologia perché è molto interessante.",en:"My favourite subject is biology because it is very interesting.",topic:"scuola",tense:"presente",tags:["school"]},
-  // FAMIGLIA
-  {it:"La mia famiglia è composta da quattro persone: i miei genitori, mia sorella e io.",en:"My family consists of four people: my parents, my sister and me.",topic:"famiglia",tense:"presente",tags:["family"]},
-  {it:"Mio padre lavora come ingegnere in una grande azienda internazionale.",en:"My father works as an engineer at a large international company.",topic:"famiglia",tense:"presente",tags:["family","work"]},
-  {it:"Vado d'accordo molto bene con mia sorella, anche se a volte litighiamo.",en:"I get on very well with my sister, even though we sometimes argue.",topic:"famiglia",tense:"presente",tags:["family","relationships"]},
-  {it:"I miei nonni vivono in Italia e li vedo solo d'estate.",en:"My grandparents live in Italy and I only see them in summer.",topic:"famiglia",tense:"presente",tags:["family","Italy"]},
-  // CIBO
-  {it:"Mangio molta frutta e verdura perché voglio stare bene.",en:"I eat lots of fruit and vegetables because I want to be healthy.",topic:"cibo",tense:"presente",tags:["food","health"]},
-  {it:"Preferisco il cibo italiano a quello inglese.",en:"I prefer Italian food to English food.",topic:"cibo",tense:"presente",tags:["food","preferences"]},
-  {it:"In Italia si mangia molta pasta, pizza e gelato.",en:"In Italy people eat a lot of pasta, pizza and ice cream.",topic:"cibo",tense:"presente",tags:["Italy","food","culture"]},
-  {it:"È importante fare colazione ogni mattina per avere energia durante la giornata.",en:"It is important to have breakfast every morning to have energy during the day.",topic:"cibo",tense:"presente",tags:["health","routine"]},
-  {it:"Non mangio carne da due anni perché sono vegetariano/a.",en:"I haven't eaten meat for two years because I am vegetarian.",topic:"cibo",tense:"presente",tags:["food","lifestyle"]},
-  // ROUTINE
-  {it:"Di solito mi alzo alle sette e faccio colazione.",en:"I usually get up at seven and have breakfast.",topic:"routine",tense:"presente",tags:["daily routine","reflexive"]},
-  {it:"Vado a scuola in autobus ogni mattina.",en:"I go to school by bus every morning.",topic:"routine",tense:"presente",tags:["transport","routine"]},
-  {it:"Dopo la scuola faccio i compiti e poi vedo i miei amici.",en:"After school I do my homework and then I see my friends.",topic:"routine",tense:"presente",tags:["routine","school"]},
-  {it:"La sera mi addormento verso le undici dopo aver letto un po'.",en:"In the evening I fall asleep around eleven after reading a bit.",topic:"routine",tense:"presente",tags:["routine","evening"]},
-  // TEMPO LIBERO
-  {it:"Nel tempo libero faccio sport e vedo i miei amici.",en:"In my free time I do sport and see my friends.",topic:"tempo",tense:"presente",tags:["free time"]},
-  {it:"Il mio sport preferito è il nuoto perché è rilassante e fa bene alla salute.",en:"My favourite sport is swimming because it is relaxing and good for health.",topic:"tempo",tense:"presente",tags:["sport","health"]},
-  {it:"Ogni sabato vado al cinema con i miei amici del quartiere.",en:"Every Saturday I go to the cinema with my neighbourhood friends.",topic:"tempo",tense:"presente",tags:["cinema","friends"]},
-  // TECNOLOGIA
-  {it:"Uso il telefono molte ore al giorno per studiare e per comunicare.",en:"I use my phone for many hours a day to study and to communicate.",topic:"tecnologia",tense:"presente",tags:["technology"]},
-  {it:"Secondo me, i social media possono essere sia utili che pericolosi.",en:"In my opinion, social media can be both useful and dangerous.",topic:"tecnologia",tense:"presente",tags:["media","opinion"]},
-  {it:"Grazie alla tecnologia, possiamo comunicare con persone di tutto il mondo.",en:"Thanks to technology, we can communicate with people from all over the world.",topic:"tecnologia",tense:"presente",tags:["technology","communication"]},
-  {it:"L'intelligenza artificiale sta cambiando il modo in cui lavoriamo e studiamo.",en:"Artificial intelligence is changing the way we work and study.",topic:"tecnologia",tense:"presente",tags:["AI","change"]},
-  // AMBIENTE
-  {it:"L'ambiente è uno dei problemi più gravi del nostro tempo.",en:"The environment is one of the most serious problems of our time.",topic:"ambiente",tense:"presente",tags:["environment","global"]},
-  {it:"Cerco di riciclare il più possibile per aiutare il pianeta.",en:"I try to recycle as much as possible to help the planet.",topic:"ambiente",tense:"presente",tags:["recycling","environment"]},
-  {it:"Mi preoccupo molto per il cambiamento climatico e per il futuro del pianeta.",en:"I am very worried about climate change and the future of the planet.",topic:"ambiente",tense:"presente",tags:["climate change","concern"]},
-  // SOCIETÀ
-  {it:"Il mio quartiere è abbastanza tranquillo ma non ci sono molti negozi.",en:"My neighbourhood is quite quiet but there aren't many shops.",topic:"societa",tense:"presente",tags:["neighbourhood"]},
-  {it:"La disoccupazione giovanile è un problema serio in molti paesi europei.",en:"Youth unemployment is a serious problem in many European countries.",topic:"societa",tense:"presente",tags:["unemployment","Europe"]},
-  // SCUOLA
-  {it:"La mia scuola ha circa mille studenti ed è molto grande.",en:"My school has about a thousand students and is very large.",topic:"scuola",tense:"presente",tags:["school","description"]},
-  {it:"Lavorare in gruppo aiuta a sviluppare competenze sociali importanti.",en:"Working in a group helps to develop important social skills.",topic:"scuola",tense:"presente",tags:["school","skills"]},
-  // LAVORO
-  {it:"In futuro vorrei diventare medico per aiutare le persone.",en:"In the future I would like to become a doctor to help people.",topic:"lavoro",tense:"presente",tags:["work","future"]},
-  // VACANZE
-  {it:"Le feste tradizionali italiane sono molto diverse da quelle inglesi.",en:"Italian traditional celebrations are very different from English ones.",topic:"vacanze",tense:"presente",tags:["culture","traditions"]},
-  {it:"In Italia il Natale si festeggia il 25 dicembre con tutta la famiglia.",en:"In Italy, Christmas is celebrated on 25 December with the whole family.",topic:"vacanze",tense:"presente",tags:["Christmas","Italy"]},
+  // THEME 1: IDENTITÀ (22 sentences)
+  {it:"Lui è alto e ha i capelli ricci.",en:"He is tall and has curly hair.",topic:"identita",tense:"presente",tags:["appearance","physical description"]},
+  {it:"Lei è bassa ma molto atletica.",en:"She is short but very athletic.",topic:"identita",tense:"presente",tags:["appearance","sports"]},
+  {it:"I ragazzi sono simpatici.",en:"The boys are nice.",topic:"identita",tense:"presente",tags:["personality"]},
+  {it:"La ragazza è timida.",en:"The girl is shy.",topic:"identita",tense:"presente",tags:["personality"]},
+  {it:"L'uomo ha la barba.",en:"The man has a beard.",topic:"identita",tense:"presente",tags:["appearance"]},
+  {it:"La donna è elegante.",en:"The woman is elegant.",topic:"identita",tense:"presente",tags:["appearance"]},
+  {it:"I bambini sono allegri.",en:"The children are cheerful.",topic:"identita",tense:"presente",tags:["personality"]},
+  {it:"C'è un uomo calvo.",en:"There is a bald man.",topic:"identita",tense:"presente",tags:["c'è/ci sono","appearance"]},
+  {it:"Ci sono persone molto gentili.",en:"There are very kind people.",topic:"identita",tense:"presente",tags:["c'è/ci sono","personality"]},
+  {it:"Si vede una ragazza con gli occhiali.",en:"You see a girl with glasses.",topic:"identita",tense:"presente",tags:["si impersonal"]},
+  {it:"Tu sei molto intelligente.",en:"You are very intelligent.",topic:"identita",tense:"presente",tags:["personality","tu"]},
+  {it:"Lui indossa una giacca nera.",en:"He wears a black jacket.",topic:"identita",tense:"presente",tags:["clothing"]},
+  {it:"Lei porta una gonna rossa.",en:"She wears a red skirt.",topic:"identita",tense:"presente",tags:["clothing"]},
+  {it:"I ragazzi mettono i jeans.",en:"The boys wear jeans.",topic:"identita",tense:"presente",tags:["clothing"]},
+  {it:"Si comprano vestiti nuovi.",en:"People buy new clothes.",topic:"identita",tense:"presente",tags:["si impersonal","shopping"]},
+  {it:"La famiglia è importante.",en:"Family is important.",topic:"famiglia",tense:"presente",tags:["relationships"]},
+  {it:"I genitori lavorano molto.",en:"Parents work a lot.",topic:"famiglia",tense:"presente",tags:["family","work"]},
+  {it:"Il fratello aiuta la sorella.",en:"The brother helps the sister.",topic:"famiglia",tense:"presente",tags:["family","relationships"]},
+  {it:"I nonni vivono in campagna.",en:"Grandparents live in the countryside.",topic:"famiglia",tense:"presente",tags:["family","location"]},
+  {it:"Lui litiga con il collega.",en:"He argues with the colleague.",topic:"famiglia",tense:"presente",tags:["relationships","conflict"]},
+  {it:"Loro si incontrano spesso.",en:"They meet often.",topic:"famiglia",tense:"presente",tags:["relationships","frequency"]},
+  {it:"Si passa tempo con gli amici.",en:"One spends time with friends.",topic:"famiglia",tense:"presente",tags:["si impersonal","relationships"]},
 
-  // PASSATO PROSSIMO
-  {it:"La settimana scorsa sono andato/a al cinema con i miei amici.",en:"Last week I went to the cinema with my friends.",topic:"tempo",tense:"passato",tags:["cinema","past"]},
-  {it:"Ho mangiato una pizza deliziosa in un ristorante italiano ieri sera.",en:"I ate a delicious pizza at an Italian restaurant yesterday evening.",topic:"cibo",tense:"passato",tags:["food","restaurant"]},
-  {it:"L'anno scorso sono andato/a in vacanza in Italia con la mia famiglia.",en:"Last year I went on holiday to Italy with my family.",topic:"vacanze",tense:"passato",tags:["holiday","Italy"]},
-  {it:"Ho studiato molto per gli esami e ho ottenuto buoni risultati.",en:"I studied a lot for the exams and got good results.",topic:"scuola",tense:"passato",tags:["school","exams"]},
-  {it:"Siamo partiti presto e siamo arrivati a Roma nel pomeriggio.",en:"We left early and arrived in Rome in the afternoon.",topic:"vacanze",tense:"passato",tags:["travel","Rome"]},
-  {it:"Ho visto un film fantastico che mi ha fatto riflettere molto.",en:"I saw a fantastic film that made me think a lot.",topic:"tempo",tense:"passato",tags:["film","opinion"]},
-  {it:"Mia sorella si è laureata l'anno scorso all'università di Milano.",en:"My sister graduated last year from the University of Milan.",topic:"famiglia",tense:"passato",tags:["family","university"]},
-  {it:"Abbiamo festeggiato il Natale tutti insieme con una grande cena.",en:"We celebrated Christmas all together with a big dinner.",topic:"vacanze",tense:"passato",tags:["Christmas","celebration"]},
-  {it:"Ho imparato a cucinare durante il lockdown e ora cucino ogni giorno.",en:"I learnt to cook during lockdown and now I cook every day.",topic:"cibo",tense:"passato",tags:["cooking","learning"]},
-  {it:"Il concerto è stato fantastico e la musica era meravigliosa.",en:"The concert was fantastic and the music was wonderful.",topic:"tempo",tense:"passato",tags:["music","concert"]},
-  {it:"Non ho mai visto un film italiano prima di quest'anno.",en:"I had never seen an Italian film before this year.",topic:"tempo",tense:"passato",tags:["film","Italy"]},
-  {it:"Mi sono alzato/a tardi e ho perso l'autobus per la scuola.",en:"I got up late and missed the school bus.",topic:"routine",tense:"passato",tags:["routine","morning"]},
-  {it:"Abbiamo visitato il Colosseo e i Musei Vaticani durante il viaggio a Roma.",en:"We visited the Colosseum and the Vatican Museums during our trip to Rome.",topic:"vacanze",tense:"passato",tags:["Rome","tourism"]},
+  // THEME 2: ESPERIENZE (22 sentences)
+  {it:"Si mangia alle otto di sera.",en:"People eat at 8pm.",topic:"cibo",tense:"presente",tags:["si impersonal","time"]},
+  {it:"Lui si sveglia presto.",en:"He wakes up early.",topic:"routine",tense:"presente",tags:["daily routine","reflexive"]},
+  {it:"Lei si veste velocemente.",en:"She gets dressed quickly.",topic:"routine",tense:"presente",tags:["daily routine","reflexive"]},
+  {it:"I bambini vanno a scuola.",en:"Children go to school.",topic:"scuola",tense:"presente",tags:["education"]},
+  {it:"Gli studenti studiano molto.",en:"Students study a lot.",topic:"scuola",tense:"presente",tags:["education","study"]},
+  {it:"Si lavora durante la settimana.",en:"People work during the week.",topic:"lavoro",tense:"presente",tags:["si impersonal","work"]},
+  {it:"Tu guardi la TV la sera.",en:"You watch TV in the evening.",topic:"tempo",tense:"presente",tags:["leisure","tu"]},
+  {it:"Noi leggiamo libri interessanti.",en:"We read interesting books.",topic:"tempo",tense:"presente",tags:["leisure","noi"]},
+  {it:"Loro tornano a casa tardi.",en:"They come home late.",topic:"routine",tense:"presente",tags:["daily routine","time"]},
+  {it:"Si dorme poco durante gli esami.",en:"People sleep little during exams.",topic:"routine",tense:"presente",tags:["si impersonal","study"]},
+  {it:"C'è tempo per rilassarsi.",en:"There is time to relax.",topic:"tempo",tense:"presente",tags:["c'è/ci sono","leisure"]},
+  {it:"Lui gioca ai videogiochi.",en:"He plays video games.",topic:"tempo",tense:"presente",tags:["leisure","technology"]},
+  {it:"Lei ascolta musica pop.",en:"She listens to pop music.",topic:"tempo",tense:"presente",tags:["leisure","music"]},
+  {it:"Si va al cinema il sabato.",en:"People go to the cinema on Saturday.",topic:"tempo",tense:"presente",tags:["si impersonal","entertainment"]},
+  {it:"I ragazzi escono con gli amici.",en:"The teenagers go out with friends.",topic:"tempo",tense:"presente",tags:["leisure","social"]},
+  {it:"Tu preferisci il teatro.",en:"You prefer theatre.",topic:"tempo",tense:"presente",tags:["entertainment","tu"]},
+  {it:"Si fanno sport nel tempo libero.",en:"People do sport in free time.",topic:"tempo",tense:"presente",tags:["si impersonal","sports"]},
+  {it:"C'è un parco tranquillo.",en:"There is a quiet park.",topic:"tempo",tense:"presente",tags:["c'è/ci sono","location"]},
+  {it:"Loro visitano musei.",en:"They visit museums.",topic:"tempo",tense:"presente",tags:["tourism","culture"]},
+  {it:"Si prenota un hotel online.",en:"One books a hotel online.",topic:"vacanze",tense:"presente",tags:["si impersonal","travel"]},
+  {it:"I turisti fanno foto.",en:"Tourists take photos.",topic:"vacanze",tense:"presente",tags:["tourism"]},
+  {it:"Ci sono molte spiagge belle.",en:"There are many beautiful beaches.",topic:"vacanze",tense:"presente",tags:["c'è/ci sono","geography"]},
 
-  // IMPERFETTO
-  {it:"Quando ero piccolo/a, giocavo sempre in giardino con i miei amici.",en:"When I was little, I always played in the garden with my friends.",topic:"identita",tense:"imperfetto",tags:["childhood","routine"]},
-  {it:"Da bambino/a, mangiavo la pizza ogni venerdì sera con la famiglia.",en:"As a child, I ate pizza every Friday evening with the family.",topic:"cibo",tense:"imperfetto",tags:["childhood","food"]},
-  {it:"Mia nonna mi raccontava sempre storie bellissime prima di dormire.",en:"My grandmother always told me wonderful stories before bed.",topic:"famiglia",tense:"imperfetto",tags:["family","childhood"]},
-  {it:"Quando andavo alle elementari, avevo molti amici nel quartiere.",en:"When I went to primary school, I had many friends in the neighbourhood.",topic:"scuola",tense:"imperfetto",tags:["school","childhood"]},
-  {it:"Stavo studiando quando il telefono ha squillato all'improvviso.",en:"I was studying when the phone suddenly rang.",topic:"routine",tense:"imperfetto",tags:["past continuous"]},
-  {it:"In passato, le persone usavano meno la tecnologia e leggevano di più.",en:"In the past, people used technology less and read more.",topic:"tecnologia",tense:"imperfetto",tags:["technology","past"]},
-  {it:"Da bambino/a, non capivo l'importanza di proteggere l'ambiente.",en:"As a child, I didn't understand the importance of protecting the environment.",topic:"ambiente",tense:"imperfetto",tags:["environment","childhood"]},
-  {it:"Mio padre lavorava sempre fino a tardi e non lo vedevo molto.",en:"My father always worked until late and I didn't see him much.",topic:"famiglia",tense:"imperfetto",tags:["family","work"]},
+  // THEME 3: INGEGNO UMANO (22 sentences)
+  {it:"Si prende l'autobus ogni giorno.",en:"People take the bus every day.",topic:"trasporti",tense:"presente",tags:["si impersonal","transport"]},
+  {it:"Lui guida la macchina.",en:"He drives the car.",topic:"trasporti",tense:"presente",tags:["transport"]},
+  {it:"Lei prende il treno.",en:"She takes the train.",topic:"trasporti",tense:"presente",tags:["transport"]},
+  {it:"I passeggeri aspettano alla stazione.",en:"Passengers wait at the station.",topic:"trasporti",tense:"presente",tags:["transport","location"]},
+  {it:"C'è molto traffico in città.",en:"There is a lot of traffic in the city.",topic:"trasporti",tense:"presente",tags:["c'è/ci sono","urban"]},
+  {it:"Ci sono molti taxi.",en:"There are many taxis.",topic:"trasporti",tense:"presente",tags:["c'è/ci sono","transport"]},
+  {it:"Tu vai a piedi.",en:"You go on foot.",topic:"trasporti",tense:"presente",tags:["transport","tu"]},
+  {it:"Noi usiamo la bicicletta.",en:"We use the bicycle.",topic:"trasporti",tense:"presente",tags:["transport","noi"]},
+  {it:"Si gira a destra.",en:"You turn right.",topic:"trasporti",tense:"presente",tags:["si impersonal","directions"]},
+  {it:"Il treno parte alle otto.",en:"The train leaves at eight.",topic:"trasporti",tense:"presente",tags:["transport","time"]},
+  {it:"L'aereo arriva in ritardo.",en:"The plane arrives late.",topic:"trasporti",tense:"presente",tags:["transport"]},
+  {it:"Lui guarda un film.",en:"He watches a film.",topic:"intrattenimento",tense:"presente",tags:["entertainment"]},
+  {it:"Lei legge un libro.",en:"She reads a book.",topic:"intrattenimento",tense:"presente",tags:["entertainment","books"]},
+  {it:"Si ascolta musica al concerto.",en:"People listen to music at concerts.",topic:"intrattenimento",tense:"presente",tags:["si impersonal","music"]},
+  {it:"Gli attori recitano bene.",en:"Actors perform well.",topic:"intrattenimento",tense:"presente",tags:["entertainment"]},
+  {it:"Il film è emozionante.",en:"The film is exciting.",topic:"intrattenimento",tense:"presente",tags:["entertainment","description"]},
+  {it:"Ci sono molti spettacoli.",en:"There are many shows.",topic:"intrattenimento",tense:"presente",tags:["c'è/ci sono","entertainment"]},
+  {it:"Si usa internet ogni giorno.",en:"People use the internet every day.",topic:"tecnologia",tense:"presente",tags:["si impersonal","internet"]},
+  {it:"Lui manda un messaggio.",en:"He sends a message.",topic:"tecnologia",tense:"presente",tags:["social media"]},
+  {it:"Lei condivide una foto.",en:"She shares a photo.",topic:"tecnologia",tense:"presente",tags:["social media"]},
+  {it:"I giovani usano i social media.",en:"Young people use social media.",topic:"tecnologia",tense:"presente",tags:["social media"]},
+  {it:"Il computer è utile.",en:"The computer is useful.",topic:"tecnologia",tense:"presente",tags:["technology","description"]},
 
-  // FUTURO
-  {it:"L'anno prossimo andrò all'università per studiare biologia.",en:"Next year I will go to university to study biology.",topic:"scuola",tense:"futuro",tags:["future","university"]},
-  {it:"In futuro, spero di lavorare come medico in un paese in via di sviluppo.",en:"In the future, I hope to work as a doctor in a developing country.",topic:"lavoro",tense:"futuro",tags:["future","work"]},
-  {it:"Quest'estate andremo in vacanza in Sicilia per due settimane.",en:"This summer we will go on holiday to Sicily for two weeks.",topic:"vacanze",tense:"futuro",tags:["holidays","plans"]},
-  {it:"Se continuerò a praticare, diventerò più fluente in italiano.",en:"If I keep practising, I will become more fluent in Italian.",topic:"identita",tense:"futuro",tags:["language","future"]},
-  {it:"In futuro, la tecnologia cambierà completamente il modo in cui lavoriamo.",en:"In the future, technology will completely change the way we work.",topic:"tecnologia",tense:"futuro",tags:["technology","future"]},
-  {it:"Spero che il governo prenderà misure concrete per proteggere l'ambiente.",en:"I hope the government will take concrete measures to protect the environment.",topic:"ambiente",tense:"futuro",tags:["environment","government"]},
-  {it:"Domani sera farò una cena speciale per il compleanno di mia madre.",en:"Tomorrow evening I will make a special dinner for my mother's birthday.",topic:"famiglia",tense:"futuro",tags:["family","celebration"]},
-  {it:"L'anno prossimo inizierò un corso di chitarra per migliorare la mia tecnica.",en:"Next year I will start a guitar course to improve my technique.",topic:"tempo",tense:"futuro",tags:["music","plans"]},
+  // THEME 4: ORGANIZZAZIONE SOCIALE (22 sentences)
+  {it:"C'è un supermercato nel quartiere.",en:"There is a supermarket in the neighbourhood.",topic:"societa",tense:"presente",tags:["c'è/ci sono","location"]},
+  {it:"Ci sono molti negozi.",en:"There are many shops.",topic:"societa",tense:"presente",tags:["c'è/ci sono","shopping"]},
+  {it:"La città è moderna.",en:"The city is modern.",topic:"societa",tense:"presente",tags:["urban","description"]},
+  {it:"Il parco è grande.",en:"The park is big.",topic:"societa",tense:"presente",tags:["location","description"]},
+  {it:"Le persone vivono in centro.",en:"People live in the centre.",topic:"societa",tense:"presente",tags:["location","urban"]},
+  {it:"Si abita in periferia.",en:"People live in the suburbs.",topic:"societa",tense:"presente",tags:["si impersonal","location"]},
+  {it:"Il mercato apre presto.",en:"The market opens early.",topic:"societa",tense:"presente",tags:["shopping","time"]},
+  {it:"Gli studenti fanno i compiti.",en:"Students do homework.",topic:"scuola",tense:"presente",tags:["education","study"]},
+  {it:"Il professore spiega la lezione.",en:"The teacher explains the lesson.",topic:"scuola",tense:"presente",tags:["education"]},
+  {it:"La scuola è difficile.",en:"School is difficult.",topic:"scuola",tense:"presente",tags:["education","description"]},
+  {it:"Si studia per gli esami.",en:"People study for exams.",topic:"scuola",tense:"presente",tags:["si impersonal","study"]},
+  {it:"Tu impari molto.",en:"You learn a lot.",topic:"scuola",tense:"presente",tags:["education","tu"]},
+  {it:"Noi scriviamo in classe.",en:"We write in class.",topic:"scuola",tense:"presente",tags:["education","noi"]},
+  {it:"Lui lavora in ufficio.",en:"He works in an office.",topic:"lavoro",tense:"presente",tags:["work","location"]},
+  {it:"Lei è medico.",en:"She is a doctor.",topic:"lavoro",tense:"presente",tags:["profession"]},
+  {it:"I colleghi collaborano.",en:"Colleagues collaborate.",topic:"lavoro",tense:"presente",tags:["work","teamwork"]},
+  {it:"Si guadagna uno stipendio.",en:"One earns a salary.",topic:"lavoro",tense:"presente",tags:["si impersonal","work"]},
+  {it:"Il capo parla con i dipendenti.",en:"The boss speaks with employees.",topic:"lavoro",tense:"presente",tags:["work","management"]},
+  {it:"La società cambia.",en:"Society changes.",topic:"societa",tense:"presente",tags:["social issues"]},
+  {it:"Ci sono problemi sociali.",en:"There are social problems.",topic:"societa",tense:"presente",tags:["c'è/ci sono","social issues"]},
+  {it:"La povertà aumenta.",en:"Poverty increases.",topic:"societa",tense:"presente",tags:["social issues"]},
+  {it:"Si aiuta la comunità.",en:"People help the community.",topic:"societa",tense:"presente",tags:["si impersonal","community"]},
 
-  // CONDIZIONALE
-  {it:"Vorrei visitare Roma perché è una città bellissima e ricca di storia.",en:"I would like to visit Rome because it is a beautiful city full of history.",topic:"vacanze",tense:"condizionale",tags:["travel","wishes"]},
-  {it:"Vorrei lavorare come traduttrice perché amo le lingue straniere.",en:"I would like to work as a translator because I love foreign languages.",topic:"lavoro",tense:"condizionale",tags:["work","languages"]},
-  {it:"Se potessi, vivrei in un piccolo paese di montagna lontano dalla città.",en:"If I could, I would live in a small mountain village far from the city.",topic:"societa",tense:"condizionale",tags:["hypothetical","lifestyle"]},
-  {it:"Dovremmo fare di più per ridurre le emissioni di CO₂.",en:"We should do more to reduce CO₂ emissions.",topic:"ambiente",tense:"condizionale",tags:["environment","suggestion"]},
-  {it:"Se avessi più tempo, studierei anche il giapponese e il cinese.",en:"If I had more time, I would also study Japanese and Chinese.",topic:"identita",tense:"condizionale",tags:["hypothetical","languages"]},
-  {it:"Potrei avere maggiori informazioni sul programma del corso, per favore?",en:"Could I have more information about the course programme, please?",topic:"scuola",tense:"condizionale",tags:["polite request","formal"]},
-  {it:"Dovrei mangiare in modo più sano, ma adoro la pizza e i dolci.",en:"I should eat more healthily, but I love pizza and sweets.",topic:"cibo",tense:"condizionale",tags:["health","food"]},
+  // THEME 5: CONDIVISIONE DEL PIANETA (22 sentences)
+  {it:"Oggi piove molto.",en:"Today it rains a lot.",topic:"clima",tense:"presente",tags:["weather"]},
+  {it:"Domani fa caldo.",en:"Tomorrow it will be hot.",topic:"clima",tense:"presente",tags:["weather","future"]},
+  {it:"C'è il sole.",en:"It is sunny.",topic:"clima",tense:"presente",tags:["c'è/ci sono","weather"]},
+  {it:"Ci sono nuvole.",en:"There are clouds.",topic:"clima",tense:"presente",tags:["c'è/ci sono","weather"]},
+  {it:"Il clima cambia.",en:"The climate changes.",topic:"clima",tense:"presente",tags:["environment"]},
+  {it:"La montagna è alta.",en:"The mountain is high.",topic:"geografia",tense:"presente",tags:["geography","description"]},
+  {it:"Il lago è tranquillo.",en:"The lake is calm.",topic:"geografia",tense:"presente",tags:["geography","description"]},
+  {it:"Il fiume passa per la città.",en:"The river passes through the city.",topic:"geografia",tense:"presente",tags:["geography","location"]},
+  {it:"Ci sono molte foreste.",en:"There are many forests.",topic:"geografia",tense:"presente",tags:["c'è/ci sono","nature"]},
+  {it:"L'isola è piccola.",en:"The island is small.",topic:"geografia",tense:"presente",tags:["geography","description"]},
+  {it:"Si ricicla la plastica.",en:"People recycle plastic.",topic:"ambiente",tense:"presente",tags:["si impersonal","environment"]},
+  {it:"L'ambiente è fragile.",en:"The environment is fragile.",topic:"ambiente",tense:"presente",tags:["environment","description"]},
+  {it:"Gli animali vivono nella foresta.",en:"Animals live in the forest.",topic:"ambiente",tense:"presente",tags:["nature","location"]},
+  {it:"Si protegge la natura.",en:"People protect nature.",topic:"ambiente",tense:"presente",tags:["si impersonal","environment"]},
+  {it:"L'inquinamento è pericoloso.",en:"Pollution is dangerous.",topic:"ambiente",tense:"presente",tags:["environment","danger"]},
+  {it:"La guerra distrugge paesi.",en:"War destroys countries.",topic:"problemi",tense:"presente",tags:["global issues"]},
+  {it:"La pace è necessaria.",en:"Peace is necessary.",topic:"problemi",tense:"presente",tags:["global issues"]},
+  {it:"I rifugiati cercano aiuto.",en:"Refugees seek help.",topic:"problemi",tense:"presente",tags:["global issues","humanitarian"]},
+  {it:"Si deve agire subito.",en:"One must act immediately.",topic:"problemi",tense:"presente",tags:["si impersonal","action"]},
+  {it:"Il mondo cambia velocemente.",en:"The world changes quickly.",topic:"problemi",tense:"presente",tags:["global issues","change"]},
+  {it:"Noi speriamo in un futuro migliore.",en:"We hope for a better future.",topic:"problemi",tense:"presente",tags:["noi","aspirations"]},
+  {it:"Tutti vogliono vivere in pace.",en:"Everyone wants to live in peace.",topic:"problemi",tense:"presente",tags:["global issues","universal"]}
 ];
 
 const TEXT_TYPES = {
@@ -739,98 +770,377 @@ const TEXT_TYPES = {
 };
 
 const CONNECTORS = [
-  {group:"Aggiungere informazioni",items:[{it:"Inoltre",en:"moreover, furthermore"},{it:"Poi",en:"then, furthermore"},{it:"A proposito",en:"by the way"},{it:"Tra l'altro",en:"among other things, also"},{it:"Non solo... ma anche",en:"not only... but also"},{it:"In aggiunta",en:"in addition"}]},
-  {group:"Contrastare / Confrontare",items:[{it:"Ma",en:"but"},{it:"Però",en:"however, but"},{it:"Tuttavia",en:"nevertheless, however"},{it:"Invece",en:"instead, on the contrary"},{it:"Al contrario",en:"on the contrary"},{it:"D'altra parte",en:"on the other hand"},{it:"Da una parte... dall'altra",en:"on the one hand... on the other"},{it:"Mentre",en:"while, whereas"},{it:"Comunque",en:"anyway, however"}]},
-  {group:"Causa e ragione",items:[{it:"Perché",en:"because"},{it:"Siccome",en:"as, since"},{it:"Visto che",en:"given that, since"},{it:"Dato che",en:"given that"},{it:"Poiché",en:"since, as"}]},
-  {group:"Conseguenze",items:[{it:"Quindi",en:"so, therefore"},{it:"Perciò",en:"therefore, thus"},{it:"Per cui",en:"for which reason"},{it:"Per questo",en:"for this reason"},{it:"Di conseguenza",en:"as a consequence"}]},
-  {group:"Dare esempi",items:[{it:"Per esempio",en:"for example"},{it:"Ad esempio",en:"for example"},{it:"Come",en:"such as, like"},{it:"Tra cui",en:"among which"}]},
-  {group:"Opinione",items:[{it:"Secondo me",en:"in my opinion"},{it:"Dal mio punto di vista",en:"from my point of view"},{it:"A mio parere",en:"in my opinion"},{it:"Penso che",en:"I think that"},{it:"Credo che",en:"I believe that"},{it:"Sono convinto/a che",en:"I am convinced that"}]},
-  {group:"Fare una correzione",items:[{it:"In realtà",en:"in fact, actually"},{it:"In effetti",en:"in fact, indeed"},{it:"Anzi",en:"on the contrary, indeed"},{it:"Piuttosto",en:"rather"}]},
-  {group:"Concessione",items:[{it:"Anche se",en:"even if, even though"},{it:"Nonostante",en:"despite, although"},{it:"Sebbene",en:"although"},{it:"Benché",en:"although"}]},
-  {group:"Ordinare cronologicamente",items:[{it:"Prima di + infinito",en:"before..."},{it:"Prima",en:"earlier, before"},{it:"Dopo che / Poi",en:"after / afterwards"},{it:"Durante",en:"during"},{it:"Nel frattempo / Intanto",en:"meanwhile"},{it:"Alla fine / Infine",en:"in the end / finally"},{it:"Adesso / Ora",en:"now"}]},
-  {group:"Fare una lista",items:[{it:"Per prima cosa / Anzitutto",en:"first of all"},{it:"In primo luogo",en:"firstly"},{it:"In secondo luogo",en:"secondly"},{it:"Infine / Insomma",en:"finally / in short"}]},
-  {group:"Spiegare",items:[{it:"Infatti",en:"in fact, indeed"},{it:"Vale a dire",en:"that is to say"},{it:"Cioè",en:"that is, i.e."},{it:"Tranne / Eccetto",en:"except for"}]},
+  {group:"Aggiunta",items:[
+    {it:"e",en:"and"},
+    {it:"anche",en:"also"},
+    {it:"inoltre",en:"moreover"},
+    {it:"in più",en:"in addition"},
+    {it:"oltre a questo",en:"besides this"},
+    {it:"non solo… ma anche",en:"not only… but also"},
+    {it:"sia… sia…",en:"both… and…"},
+    {it:"poi",en:"then"},
+    {it:"per di più",en:"furthermore"},
+    {it:"allo stesso tempo",en:"at the same time"}
+  ]},
+  {group:"Contrasto",items:[
+    {it:"ma",en:"but"},
+    {it:"però",en:"however"},
+    {it:"tuttavia",en:"nevertheless"},
+    {it:"invece",en:"instead"},
+    {it:"mentre",en:"whereas / while"},
+    {it:"d’altra parte",en:"on the other hand"},
+    {it:"al contrario",en:"on the contrary"},
+    {it:"anche se",en:"even if / although"},
+    {it:"nonostante",en:"despite"},
+    {it:"sebbene",en:"although"}
+  ]},
+  {group:"Motivo / Causa",items:[
+    {it:"perché",en:"because"},
+    {it:"poiché",en:"since"},
+    {it:"dato che",en:"given that"},
+    {it:"visto che",en:"seeing that"},
+    {it:"siccome",en:"since"},
+    {it:"a causa di",en:"because of"},
+    {it:"grazie a",en:"thanks to"},
+    {it:"per via di",en:"due to"}
+  ]},
+  {group:"Risultato / Conseguenza",items:[
+    {it:"quindi",en:"so / therefore"},
+    {it:"perciò",en:"therefore"},
+    {it:"così",en:"so"},
+    {it:"di conseguenza",en:"consequently"},
+    {it:"dunque",en:"thus"},
+    {it:"ecco perché",en:"that’s why"},
+    {it:"pertanto",en:"therefore"}
+  ]},
+  {group:"Tempo / Sequenza",items:[
+    {it:"prima",en:"before"},
+    {it:"dopo",en:"after"},
+    {it:"poi",en:"then"},
+    {it:"quando",en:"when"},
+    {it:"mentre",en:"while"},
+    {it:"appena",en:"as soon as"},
+    {it:"nel frattempo",en:"meanwhile"},
+    {it:"alla fine",en:"in the end"},
+    {it:"all’inizio",en:"at the beginning"},
+    {it:"subito",en:"immediately"},
+    {it:"ogni giorno",en:"every day"},
+    {it:"di solito",en:"usually"}
+  ]},
+  {group:"Opinione & Argomento",items:[
+    {it:"secondo me",en:"in my opinion"},
+    {it:"penso che",en:"I think that"},
+    {it:"credo che",en:"I believe that"},
+    {it:"ritengo che",en:"I consider that"},
+    {it:"a mio parere",en:"in my opinion"},
+    {it:"sono d’accordo",en:"I agree"},
+    {it:"non sono d’accordo",en:"I disagree"},
+    {it:"è chiaro che",en:"it is clear that"},
+    {it:"è importante",en:"it is important"},
+    {it:"è necessario",en:"it is necessary"},
+    {it:"bisogna",en:"one must"},
+    {it:"si deve",en:"one must"}
+  ]},
+  {group:"Esempi & Chiarificazione",items:[
+    {it:"per esempio",en:"for example"},
+    {it:"ad esempio",en:"for example"},
+    {it:"cioè",en:"that is / in other words"},
+    {it:"infatti",en:"in fact"},
+    {it:"in effetti",en:"actually"},
+    {it:"come",en:"like / as"}
+  ]},
+  {group:"Scopo",items:[
+    {it:"per",en:"to / in order to"},
+    {it:"per + infinito",en:"in order to do"},
+    {it:"allo scopo di",en:"for the purpose of"},
+    {it:"affinché",en:"so that"}
+  ]},
+  {group:"Condizione",items:[
+    {it:"se",en:"if"},
+    {it:"a condizione che",en:"provided that"},
+    {it:"nel caso in cui",en:"in case"},
+    {it:"purché",en:"as long as"}
+  ]},
+  {group:"Enfasi & Strutturazione",items:[
+    {it:"soprattutto",en:"above all"},
+    {it:"in generale",en:"in general"},
+    {it:"in particolare",en:"in particular"},
+    {it:"principalmente",en:"mainly"},
+    {it:"almeno",en:"at least"},
+    {it:"addirittura",en:"even / actually"}
+  ]}
 ];
 
+const TRANSLATION_DICTIONARY = {
+  "Home":"Home",
+  "Grammatica":"Grammar",
+  "Frasi":"Sentences",
+  "Text Types":"Text Types",
+  "Argomenti":"Topics",
+  "Connettori":"Connectors",
+  "Higher Level":"Higher Level",
+  "Writing":"Writing",
+  "Giochi":"Games",
+  "Rules":"Rules",
+  "Frasi Modello":"Model Sentences",
+  "Tipologie Testuali":"Text Types",
+  "Caratteristiche personali":"Personal characteristics",
+  "Relazioni personali":"Personal relationships",
+  "Mangiare e bere":"Eating and drinking",
+  "Benessere fisico":"Physical well-being",
+  "La routine quotidiana":"Daily routine",
+  "Il tempo libero":"Free time",
+  "Le vacanze":"Holidays"
+};
+
+function showTranslation(text){
+  const toast = document.getElementById('translation-toast');
+  if(!toast || !text) return;
+  const cleaned = (text||'').trim();
+  const output = TRANSLATION_DICTIONARY[cleaned] || TRANSLATION_DICTIONARY[cleaned.replace(/^\s+|\s+$/g,'')] || `Translate: ${cleaned}`;
+  toast.textContent = output;
+  toast.classList.add('show');
+  if(window.translationToastTimer) clearTimeout(window.translationToastTimer);
+  window.translationToastTimer = setTimeout(()=>{toast.classList.remove('show');}, 2600);
+}
+
+function initTranslateOnClick(){
+  document.body.addEventListener('click', e => {
+    const target = e.target.closest('[data-translate], button, h1, h2, h3, h4, .card-title, .card-desc, .home-card');
+    if(!target) return;
+    const translateText = target.getAttribute('data-translate') || target.textContent || target.innerText || '';
+    if(translateText) showTranslation(translateText.trim());
+  });
+}
+
 const HIGHER_STRUCTURES = [
-  {label:"Hypothetical (se + imperfetto)",sentence:"Se potessi, vivrei in una piccola città di montagna lontana dal caos urbano.",breakdown:"Se + imperfetto → condizionale — if I could, I would... (polished hypothetical)"},
-  {label:"Nonostante + noun",sentence:"Nonostante i progressi tecnologici, molte persone si sentono ancora isolate.",breakdown:"Nonostante + noun — despite (more formal than 'anche se + subj.')"},
-  {label:"Passive voice",sentence:"Negli ultimi anni, molte misure sono state adottate per ridurre le emissioni.",breakdown:"Essere + past participle — passive gives formal, objective tone"},
-  {label:"Gerundio",sentence:"Lavorando ogni giorno, ho migliorato notevolmente il mio italiano.",breakdown:"Gerundio — by doing / while doing (replaces 'mentre + verb')"},
-  {label:"Cleft sentence",sentence:"È proprio la mancanza di risorse che rende difficile la situazione.",breakdown:"È... che — it is... that (strong emphasis structure)"},
-  {label:"Si impersonale",sentence:"In Italia si mangia bene e si vive all'aria aperta.",breakdown:"Si + verb — impersonal one eats / people eat (very natural in Italian)"},
-  {label:"Per + infinitive",sentence:"Per capire il problema, bisogna analizzare le cause storiche.",breakdown:"Per + infinitive — in order to (purpose clause)"},
-  {label:"Double negation",sentence:"Non ho ancora del tutto capito come affrontare questa situazione.",breakdown:"Non... ancora + del tutto — not yet entirely (complex negation)"},
-  {label:"Affinché + subj.",sentence:"Studio molto affinché io possa superare gli esami con ottimi risultati.",breakdown:"Affinché + subjunctive — in order that (very formal, high marks)"},
-  {label:"Relative pronoun cui",sentence:"Il problema, di cui tutti parlano, è difficile da risolvere rapidamente.",breakdown:"Di cui — of which / about which (replaces basic 'che')"},
+  {label:"Penso che sia importante",sentence:"Penso che sia importante studiare ogni giorno.",breakdown:"Che + subjunctive: expresses personal opinion with nuance."},
+  {label:"Credo che sia utile",sentence:"Credo che sia utile leggere articoli in italiano.",breakdown:"Che + subjunctive is ideal for structured arguments."},
+  {label:"È possibile che",sentence:"È possibile che il tempo migliori domani.",breakdown:"Impersonal phrase + subjunctive for probability."},
+  {label:"È importante che",sentence:"È importante che tutti partecipino attivamente.",breakdown:"Formal recommendation with subjunctive."},
+  {label:"È necessario che",sentence:"È necessario che tu finisca il compito oggi.",breakdown:"Formal obligation with subjunctive."},
+  {label:"È meglio che",sentence:"È meglio che noi partiamo adesso.",breakdown:"Comparison/ advice with subjunctive (often + che)."},
+  {label:"È strano che",sentence:"È strano che non abbia ancora risposto.",breakdown:"Expresses surprise with subjunctive."},
+  {label:"È probabile che",sentence:"È probabile che la lezione inizi tardi.",breakdown:"Probability with subjunctive; strong for writing."},
+  {label:"Spero che",sentence:"Spero che domani ci sarà bel tempo.",breakdown:"Hope expressions + subjunctive."},
+  {label:"Non penso che",sentence:"Non penso che sia una buona idea.",breakdown:"Negative opinion with subjunctive to show complexity."},
+  {label:"Per migliorare",sentence:"Per migliorare il mio italiano, ascolto podcast ogni giorno.",breakdown:"Infinitive clause of purpose (+ per + infinitive)."},
+  {label:"Per avere successo",sentence:"Per avere successo bisogna essere disciplinati.",breakdown:"Purpose + infinitive, strong in essays."},
+  {label:"Senza fare",sentence:"Senza fare errori, non si impara.",breakdown:"Adverbial phrase requiring gerund/infinitive."},
+  {label:"Prima di uscire",sentence:"Prima di uscire, devo finire i compiti.",breakdown:"Temporal clause with 'prima di' + infinitive."},
+  {label:"Dopo aver mangiato",sentence:"Dopo aver mangiato, andremo al parco.",breakdown:"Past infinitive structure."},
+  {label:"Invece di studiare",sentence:"Invece di studiare, ha deciso di guardare un film.",breakdown:"Contrast with 'invece di' + infinitive."},
+  {label:"Per evitare problemi",sentence:"Per evitare problemi, segui le regole.",breakdown:"Purpose clause with infinitive."},
+  {label:"Per questo motivo",sentence:"Per questo motivo, propongo un cambiamento.",breakdown:"Linking adverb for cause and effect."},
+  {label:"Per esempio",sentence:"Per esempio, molte scuole offrono corsi online.",breakdown:"Example connector for coherence."},
+  {label:"Per dire la verità",sentence:"Per dire la verità, non mi aspettavo questo risultato.",breakdown:"Introductory phrase for opinions."},
+  {label:"Si dice che",sentence:"Si dice che la nuova legge avrà successo.",breakdown:"Impersonal passive with 'si' + che."},
+  {label:"Si pensa che",sentence:"Si pensa che la tecnologia migliori l'istruzione.",breakdown:"General opinion in passive form."},
+  {label:"Si può dire che",sentence:"Si può dire che il problema è complesso.",breakdown:"Neutral generalisation in academic style."},
+  {label:"Si deve fare",sentence:"Si deve fare attenzione all'ambiente.",breakdown:"General obligation in impersonal form."},
+  {label:"Si può vedere",sentence:"Si può vedere un cambiamento nella società.",breakdown:"Observation using impersonal si."},
+  {label:"Si trovano molti",sentence:"Si trovano molti esempi nella letteratura.",breakdown:"Impersonal passive + ci sono equivalent."},
+  {label:"Si usa spesso",sentence:"Si usa spesso il congiuntivo in italiano scritto.",breakdown:"Frequency expression with impersonal pattern."},
+  {label:"Si mangia bene",sentence:"In Italia si mangia bene tutto l'anno.",breakdown:"Cultural generalisation with si impersonal."},
+  {label:"Si parla italiano",sentence:"Nelle regioni del nord si parla italiano e dialetto.",breakdown:"Language usage statement with si impersonal."},
+  {label:"Si vive meglio",sentence:"In città si vive meglio in alcuni aspetti.",breakdown:"Subjective generalisation in impersonal."},
+  {label:"La città che visito",sentence:"La città che visito ogni anno è molto affascinante.",breakdown:"Relative clause with che for description."},
+  {label:"Il libro che leggo",sentence:"Il libro che leggo parla di cambiamenti sociali.",breakdown:"Relative clause; shows detailed narrative."},
+  {label:"Le persone che lavorano",sentence:"Le persone che lavorano duro ottengono risultati.",breakdown:"Pro relative clause with plural subject."},
+  {label:"Il film che ho visto",sentence:"Il film che ho visto ieri era molto interessante.",breakdown:"Past participle in relative clause."},
+  {label:"Il posto dove vado",sentence:"Il posto dove vado ogni estate è al mare.",breakdown:"Locale relative clause with dove."},
+  {label:"La scuola dove studio",sentence:"La scuola dove studio è vicina a casa mia.",breakdown:"Relative clause for location."},
+  {label:"Il motivo per cui",sentence:"Il motivo per cui studio è migliorare il futuro.",breakdown:"Causal relative clause."},
+  {label:"Ciò che mi piace",sentence:"Ciò che mi piace dell'Italia è la cultura.",breakdown:"Neutral relative expression with ciò che."},
+  {label:"Quello che penso",sentence:"Quello che penso è che dobbiamo agire subito.",breakdown:"Opinion assertive relative clause."},
+  {label:"Una cosa che adoro",sentence:"Una cosa che adoro è il cibo italiano.",breakdown:"Emphatic relative clause with positive eval."},
+  {label:"Più… di",sentence:"Lo sport è più importante di quanto pensassi.",breakdown:"Comparison structure for emphasis."},
+  {label:"Meno… di",sentence:"Il tempo è meno stabile di quanto si dica.",breakdown:"Comparison of quantity."},
+  {label:"Così… come",sentence:"È così importante come dicono gli esperti.",breakdown:"Equivalence comparison."},
+  {label:"Sempre più",sentence:"Sempre più persone usano i trasporti pubblici.",breakdown:"Progressive change expression."},
+  {label:"Sempre meno",sentence:"Sempre meno giovani fumano oggi.",breakdown:"Diminishing trend expression."},
+  {label:"Tanto… quanto",sentence:"Studiare tanto quanto lavorare è necessario.",breakdown:"Equality in quantity."},
+  {label:"Meglio di",sentence:"Questo esercizio è meglio di quello precedente.",breakdown:"Preference comparison."},
+  {label:"Peggio di",sentence:"Il tempo oggi è peggio di ieri.",breakdown:"Negative comparison."},
+  {label:"Il più importante",sentence:"Il più importante è mantenere un equilibrio.",breakdown:"Superlative for main idea."},
+  {label:"Il meno interessante",sentence:"Il meno interessante è il traffico cittadino.",breakdown:"Superlative grade with negative."},
+  {label:"Se avessi tempo, farei…",sentence:"Se avessi tempo, farei più pratica di conversazione.",breakdown:"Second conditional with imperfect + conditional."},
+  {label:"Se posso, vado",sentence:"Se posso, vado alla riunione.",breakdown:"Real condition in present tense."},
+  {label:"Se voglio, studio",sentence:"Se voglio, studio già la sera.",breakdown:"Simple present condition."},
+  {label:"Quando avrò tempo",sentence:"Quando avrò tempo, visiterò altri musei.",breakdown:"Future time clause with future tense."},
+  {label:"In futuro, farò…",sentence:"In futuro, farò un corso di scrittura avanzata.",breakdown:"Future plan statement."},
+  {label:"Mi piacerebbe",sentence:"Mi piacerebbe vivere in un altro paese per un anno.",breakdown:"Conditional for wish."},
+  {label:"Vorrei visitare…",sentence:"Vorrei visitare Firenze e vedere le opere d'arte.",breakdown:"Polite desire with conditional."},
+  {label:"Sarebbe meglio…",sentence:"Sarebbe meglio se studiassi un po' ogni giorno.",breakdown:"Conditional recommendation."},
+  {label:"Potrei dire che…",sentence:"Potrei dire che la tecnologia ha pro e contro.",breakdown:"Conditional hedging phrase."},
+  {label:"Dovrei studiare di più",sentence:"Dovrei studiare di più per i miei esami.",breakdown:"Conditional self-evaluation."}
 ];
 
 const HIGHER_VOCAB = [
-  {basic:"bello",high:"magnifico / straordinario / eccezionale",en:"beautiful → magnificent/extraordinary"},
-  {basic:"brutto",high:"pessimo / deplorevole / deludente",en:"bad → terrible/deplorable/disappointing"},
-  {basic:"buono",high:"eccellente / soddisfacente / notevole",en:"good → excellent/satisfying/notable"},
-  {basic:"importante",high:"fondamentale / cruciale / determinante",en:"important → fundamental/crucial/decisive"},
-  {basic:"problema",high:"problematica / questione / sfida",en:"problem → issue/matter/challenge"},
-  {basic:"penso che",high:"sono convinto/a che / a mio avviso",en:"I think → I am convinced / in my view"},
-  {basic:"perché",high:"poiché / siccome / in quanto",en:"because → since/as/inasmuch as"},
-  {basic:"ma",high:"tuttavia / nonostante ciò / ciononostante",en:"but → however / despite this / nevertheless"},
-  {basic:"molto",high:"notevolmente / considerevolmente / decisamente",en:"very → notably/considerably/decidedly"},
-  {basic:"cambiare",high:"trasformare / modificare / alterare",en:"to change → to transform/modify/alter"},
-  {basic:"dire",high:"affermare / sostenere / dichiarare",en:"to say → to affirm/maintain/declare"},
-  {basic:"fare",high:"realizzare / attuare / svolgere",en:"to do → to realize/implement/carry out"},
+  {basic:"interessante",high:"affascinante",en:"interesting → fascinating"},
+  {basic:"buono",high:"eccellente",en:"good → excellent"},
+  {basic:"brutto",high:"terribile",en:"bad → terrible"},
+  {basic:"grande",high:"enorme",en:"big → enormous"},
+  {basic:"piccolo",high:"minuscolo",en:"small → tiny"},
+  {basic:"importante",high:"fondamentale",en:"important → essential"},
+  {basic:"facile",high:"semplice",en:"easy → simple"},
+  {basic:"difficile",high:"complicato",en:"difficult → complicated"},
+  {basic:"veloce",high:"rapido",en:"fast → rapid"},
+  {basic:"lento",high:"molto lento",en:"slow → very slow"},
+  {basic:"utile",high:"utile",en:"useful"},
+  {basic:"inutile",high:"inutile",en:"useless"},
+  {basic:"efficace",high:"efficace",en:"effective"},
+  {basic:"dannoso",high:"dannoso",en:"harmful"},
+  {basic:"positivo",high:"positivo",en:"positive"},
+  {basic:"negativo",high:"negativo",en:"negative"},
+  {basic:"vantaggioso",high:"vantaggioso",en:"advantageous"},
+  {basic:"svantaggioso",high:"svantaggioso",en:"disadvantageous"},
+  {basic:"significativo",high:"significativo",en:"significant"},
+  {basic:"rilevante",high:"rilevante",en:"relevant"},
+  {basic:"soddisfatto",high:"soddisfatto",en:"satisfied"},
+  {basic:"deluso",high:"deluso",en:"disappointed"},
+  {basic:"preoccupato",high:"preoccupato",en:"worried"},
+  {basic:"entusiasta",high:"entusiasta",en:"enthusiastic"},
+  {basic:"sorpreso",high:"sorpreso",en:"surprised"},
+  {basic:"annoiato",high:"annoiato",en:"bored"},
+  {basic:"stressato",high:"stressato",en:"stressed"},
+  {basic:"rilassato",high:"rilassato",en:"relaxed"},
+  {basic:"felice",high:"felice",en:"happy"},
+  {basic:"infelice",high:"infelice",en:"unhappy"},
+  {basic:"fare",high:"svolgere",en:"to do → to carry out"},
+  {basic:"fare",high:"realizzare",en:"to do → to achieve"},
+  {basic:"dire",high:"affermare",en:"to say → to state"},
+  {basic:"pensare",high:"ritenere",en:"to think → to consider"},
+  {basic:"volere",high:"desiderare",en:"to want → to desire"},
+  {basic:"andare",high:"recarsi",en:"to go → to go (formal)"},
+  {basic:"vedere",high:"osservare",en:"to see → to observe"},
+  {basic:"prendere",high:"ottenere",en:"to take → to obtain"},
+  {basic:"usare",high:"utilizzare",en:"to use → to utilize"},
+  {basic:"aiutare",high:"sostenere",en:"to help → to support"},
+  {basic:"problema",high:"difficoltà",en:"problem → difficulty"},
+  {basic:"lavoro",high:"impiego",en:"work → employment"},
+  {basic:"soldi",high:"denaro",en:"money → money (formal)"},
+  {basic:"casa",high:"abitazione",en:"house → dwelling"},
+  {basic:"città",high:"metropoli",en:"city → metropolis"},
+  {basic:"negozio",high:"punto vendita",en:"shop → retail point"},
+  {basic:"scuola",high:"istituto",en:"school → institution"},
+  {basic:"tecnologia",high:"innovazione",en:"technology → innovation"},
+  {basic:"cambiamento",high:"trasformazione",en:"change → transformation"},
+  {basic:"ambiente",high:"ecosistema",en:"environment → ecosystem"},
+  {basic:"molto",high:"estremamente",en:"very → extremely"},
+  {basic:"abbastanza",high:"piuttosto",en:"quite → quite"},
+  {basic:"sempre",high:"costantemente",en:"always → constantly"},
+  {basic:"spesso",high:"frequentemente",en:"often → frequently"},
+  {basic:"a volte",high:"occasionalmente",en:"sometimes → occasionally"},
+  {basic:"subito",high:"immediatamente",en:"immediately → immediately"},
+  {basic:"lentamente",high:"lentamente",en:"slowly → slowly"},
+  {basic:"rapidamente",high:"rapidamente",en:"quickly → quickly"},
+  {basic:"principalmente",high:"principalmente",en:"mainly → mainly"},
+  {basic:"generalmente",high:"generalmente",en:"generally → generally"}
 ];
 
 const HIGHER_OPINIONS = [
-  {phrase:"A mio parere, questa e una delle questioni più urgenti del nostro tempo.",en:"In my view, this is one of the most urgent issues of our time."},
-  {phrase:"Non si può negare che la situazione sia preoccupante.",en:"One cannot deny that the situation is worrying."},
-  {phrase:"Sono fermamente convinto/a che l'educazione sia la chiave del cambiamento.",en:"I am firmly convinced that education is the key to change."},
-  {phrase:"Da un lato... dall'altro lato, bisogna considerare...",en:"On the one hand... on the other, one must consider..."},
-  {phrase:"Vale la pena di riflettere sulle conseguenze a lungo termine.",en:"It is worth reflecting on the long-term consequences."},
-  {phrase:"È indubbio che la tecnologia abbia trasformato il nostro modo di vivere.",en:"It is undeniable that technology has transformed our way of living."},
-  {phrase:"Sebbene sia difficile trovare una soluzione immediata, è fondamentale agire ora.",en:"Although it is difficult to find an immediate solution, it is fundamental to act now."},
-  {phrase:"Per quanto mi riguarda, preferisco...",en:"As far as I am concerned, I prefer..."},
-  {phrase:"In conclusione, ritengo che sia necessario un approccio più responsabile.",en:"In conclusion, I believe that a more responsible approach is necessary."},
-  {phrase:"Non bisogna dimenticare che...",en:"One must not forget that..."},
+  {phrase:"Secondo me",en:"In my opinion"},
+  {phrase:"A mio parere",en:"In my opinion"},
+  {phrase:"Dal mio punto di vista",en:"From my point of view"},
+  {phrase:"Personalmente",en:"Personally"},
+  {phrase:"Per quanto mi riguarda",en:"As far as I’m concerned"},
+  {phrase:"Ritengo che",en:"I believe that"},
+  {phrase:"Credo fermamente che",en:"I strongly believe that"},
+  {phrase:"Penso sinceramente che",en:"I honestly think"},
+  {phrase:"Sono convinto che",en:"I am convinced that"},
+  {phrase:"Ho l’impressione che",en:"I have the impression that"},
+  {phrase:"È chiaro che",en:"It is clear that"},
+  {phrase:"È evidente che",en:"It is evident that"},
+  {phrase:"Non c’è dubbio che",en:"There is no doubt that"},
+  {phrase:"È innegabile che",en:"It is undeniable that"},
+  {phrase:"Si può dire che",en:"One can say that"},
+  {phrase:"Si può sostenere che",en:"One may argue that"},
+  {phrase:"È importante sottolineare che",en:"It is important to underline that"},
+  {phrase:"Vale la pena dire che",en:"It is worth saying that"},
+  {phrase:"Bisogna considerare che",en:"One must consider that"},
+  {phrase:"Non bisogna dimenticare che",en:"One must not forget that"},
+  {phrase:"Da un lato",en:"On one hand"},
+  {phrase:"Dall’altro lato",en:"On the other hand"},
+  {phrase:"Tuttavia",en:"However"},
+  {phrase:"Nonostante ciò",en:"Despite this"},
+  {phrase:"Anche se",en:"Even if"},
+  {phrase:"Sebbene",en:"Although"},
+  {phrase:"Invece",en:"Instead"},
+  {phrase:"Al contrario",en:"On the contrary"},
+  {phrase:"Mentre",en:"Whereas"},
+  {phrase:"Pur essendo",en:"Although being"},
+  {phrase:"Questo perché",en:"This is because"},
+  {phrase:"Il motivo è che",en:"The reason is that"},
+  {phrase:"Per questa ragione",en:"For this reason"},
+  {phrase:"Di conseguenza",en:"Consequently"},
+  {phrase:"Quindi",en:"Therefore"},
+  {phrase:"Perciò",en:"Therefore"},
+  {phrase:"Così",en:"So"},
+  {phrase:"Ecco perché",en:"That’s why"},
+  {phrase:"Grazie a questo",en:"Thanks to this"},
+  {phrase:"A causa di ciò",en:"Because of this"},
+  {phrase:"È fondamentale",en:"It is essential"},
+  {phrase:"È necessario",en:"It is necessary"},
+  {phrase:"È utile",en:"It is useful"},
+  {phrase:"È interessante notare che",en:"It is interesting to note that"},
+  {phrase:"È sorprendente che",en:"It is surprising that"},
+  {phrase:"È difficile dire se",en:"It is difficult to say if"},
+  {phrase:"Dipende da",en:"It depends on"},
+  {phrase:"In generale",en:"In general"},
+  {phrase:"In particolare",en:"In particular"},
+  {phrase:"Soprattutto",en:"Above all"},
+  {phrase:"In conclusione",en:"In conclusion"},
+  {phrase:"Per concludere",en:"To conclude"},
+  {phrase:"In sintesi",en:"In summary"},
+  {phrase:"Tutto sommato",en:"All things considered"},
+  {phrase:"Alla fine",en:"In the end"},
+  {phrase:"Complessivamente",en:"Overall"},
+  {phrase:"In definitiva",en:"Ultimately"},
+  {phrase:"Possiamo concludere che",en:"We can conclude that"},
+  {phrase:"Per riassumere",en:"To summarise"},
+  {phrase:"Questo dimostra che",en:"This shows that"}
 ];
+
 
 const THEMES = [
   {num:1,name:"Identità",topics:[
-    {name:"Caratteristiche personali",vocab:[["Mi chiamo","My name is"],["Ho [X] anni","I am [X] years old"],["Sono alto/a","I am tall"],["Ho i capelli castani","I have brown hair"],["Sono simpatico/a","I am likeable"],["gentile","kind"],["timido/a","shy"],["intelligente","intelligent"],["divertente","funny"],["coraggioso/a","brave"],["sensibile","sensitive"],["estroverso/a","extroverted"]]},
-    {name:"Relazioni personali",vocab:[["la famiglia","family"],["il padre","father"],["la madre","mother"],["il fratello","brother"],["la sorella","sister"],["i nonni","grandparents"],["il fidanzato/a","boyfriend/girlfriend"],["amare","to love"],["litigare","to argue"],["aiutare","to help"],["sposarsi","to get married"],["andare d'accordo","to get on well"]]},
-    {name:"Mangiare e bere",vocab:[["la colazione","breakfast"],["il pranzo","lunch"],["la cena","dinner"],["la pasta","pasta"],["il pesce","fish"],["il caffè","coffee"],["delizioso/a","delicious"],["vegetariano/a","vegetarian"],["biologico/a","organic"],["sano/a","healthy"]]},
-    {name:"Benessere fisico",vocab:[["stare bene","to be well"],["ho mal di testa","I have a headache"],["ho la febbre","I have a fever"],["il medico","doctor"],["la medicina","medicine"],["fare sport","to do sport"],["mangiare sano","to eat healthily"],["riposarsi","to rest"],["allenarsi","to train"],["dormire","to sleep"]]},
+    {name:"Caratteristiche personali",vocab:[["alto/a","tall"],["basso/a","short"],["grasso/a","fat"],["magro/a","thin"],["bello/a","beautiful"],["brutto/a","ugly"],["atletico/a","athletic"],["muscoloso/a","muscular"],["gracile","frail"],["giovane","young"],["anziano/a","old"],["i capelli","hair"],["lunghi","long"],["corti","short"],["lisci","straight"],["ricci","curly"],["mossi","wavy"],["biondi","blond"],["castani","brown"],["scuri","dark"],["calvo/a","bald"],["la barba","beard"],["i baffi","moustache"],["gli occhi","eyes"],["il naso","nose"],["la faccia","face"],["il viso","face"],["la bocca","mouth"],["gentile","kind"],["scortese","rude"],["simpatico/a","nice, likeable"],["antipatico/a","unpleasant"],["generoso/a","generous"],["avaro/a","stingy"],["calmo/a","calm"],["nervoso/a","nervous"],["divertente","funny"],["serio/a","serious"],["spiritoso/a","witty"],["interessante","interesting"],["noioso/a","boring"],["timido/a","shy"],["chiacchierone/a","talkative"],["affettuoso/a","affectionate"],["curioso/a","curious"],["intelligente","intelligent"],["stupido/a","stupid"],["allegro/a","cheerful"],["triste","sad"],["forte","strong"],["debole","weak"],["tranquillo/a","peaceful"],["strano/a","strange"],["onesto/a","honest"],["coraggioso/a","brave"],["i pantaloni","trousers"],["i pantaloncini","shorts"],["il vestito","dress"],["la gonna","skirt"],["il maglione","sweater"],["la maglietta","t-shirt"],["la camicia","shirt"],["la camicetta","blouse"],["il cappotto","coat"],["la giacca","jacket"],["la cravatta","tie"],["la sciarpa","scarf"],["il cappello","hat"],["i guanti","gloves"],["le scarpe","shoes"],["gli stivali","boots"],["i calzini","socks"],["i sandali","sandals"],["gli occhiali","glasses"],["la cintura","belt"],["il costume da bagno","swimsuit"],["italiano/a","Italian"],["inglese","English"],["francese","French"],["spagnolo/a","Spanish"],["tedesco/a","German"],["americano/a","American"],["cinese","Chinese"],["la nazionalità","nationality"],["la lingua","language"]]},
+    {name:"Relazioni personali",vocab:[["la famiglia","family"],["il padre","father"],["papà","dad"],["la madre","mother"],["mamma","mum"],["il fratello","brother"],["la sorella","sister"],["il figlio","son"],["la figlia","daughter"],["i genitori","parents"],["il nonno","grandfather"],["la nonna","grandmother"],["lo zio","uncle"],["la zia","aunt"],["il cugino","cousin (m)"],["la cugina","cousin (f)"],["il marito","husband"],["la moglie","wife"],["il fidanzato","boyfriend"],["la fidanzata","girlfriend"],["l'amico","friend (m)"],["l'amica","friend (f)"],["il compagno","partner"],["la compagna","partner"],["sposato/a","married"],["single","single"],["celibe","single (m)"],["nubile","single (f)"],["divorziato/a","divorced"],["amare","to love"],["voler bene","to care for"],["fidanzarsi","to get engaged"],["sposarsi","to get married"],["litigare","to argue"],["aiutare","to help"],["incontrare","to meet"],["conoscersi","to know each other"],["innamorarsi","to fall in love"],["il vicino","neighbour (m)"],["la vicina","neighbour (f)"],["il collega","colleague"]]},
+    {name:"Mangiare e bere",vocab:[["la carne","meat"],["il pollo","chicken"],["il pesce","fish"],["la bistecca","steak"],["il maiale","pork"],["il prosciutto","ham"],["la salsiccia","sausage"],["la mela","apple"],["l'arancia","orange"],["la fragola","strawberry"],["l'uva","grapes"],["il limone","lemon"],["la pera","pear"],["il pomodoro","tomato"],["la carota","carrot"],["la patata","potato"],["la cipolla","onion"],["l'insalata","salad"],["il fungo","mushroom"],["la melanzana","aubergine"],["il peperone","pepper (vegetable)"],["il pane","bread"],["il riso","rice"],["la pasta","pasta"],["l'uovo","egg"],["le uova","eggs"],["il formaggio","cheese"],["il burro","butter"],["la marmellata","jam"],["lo zucchero","sugar"],["il sale","salt"],["il pepe","pepper (black)"],["l'olio","oil"],["il miele","honey"],["la farina","flour"],["il dolce","dessert"],["la zuppa","soup"],["la pizza","pizza"],["l'acqua","water"],["il latte","milk"],["il succo","juice"],["il caffè","coffee"],["il tè","tea"],["la birra","beer"],["il vino","wine"],["la bibita","soft drink"],["bere","to drink"],["mangiare","to eat"],["la forchetta","fork"],["il coltello","knife"],["il cucchiaio","spoon"],["il piatto","plate"],["il bicchiere","glass"],["la tazza","cup"],["la tovaglia","tablecloth"],["il tovagliolo","napkin"],["il ristorante","restaurant"],["il menu","menu"],["il cameriere","waiter"],["ordinare","to order"],["la colazione","breakfast"],["il pranzo","lunch"],["la cena","dinner"],["uno spuntino","snack"],["delizioso/a","delicious"],["salato/a","salty"],["dolce","sweet"],["amaro/a","bitter"],["piccante","spicy"]]},
+    {name:"Benessere fisico",vocab:[["la testa","head"],["il collo","neck"],["la schiena","back"],["il petto","chest"],["lo stomaco","stomach"],["il braccio","arm"],["la mano","hand"],["il dito","finger"],["la gamba","leg"],["il piede","foot"],["il ginocchio","knee"],["la gola","throat"],["i denti","teeth"],["le orecchie","ears"],["stare bene","to be well"],["stare male","to be unwell"],["Mi fa male","My … hurts"],["Ho mal di testa","I have a headache"],["Ho mal di stomaco","I have a stomachache"],["Ho mal di gola","I have a sore throat"],["Ho mal di denti","I have toothache"],["Ho la febbre","I have a fever"],["Ho un raffreddore","I have a cold"],["Ho la tosse","I have a cough"],["Ho l'influenza","I have the flu"],["Ho la nausea","I feel nauseous"],["il capogiro","dizziness"],["i brividi","chills"],["sono stanco/a","I am tired"],["sono malato/a","I am sick"],["il medico","doctor"],["il dottore","doctor"],["l'infermiere/a","nurse"],["l'ospedale","hospital"],["la farmacia","pharmacy"],["la medicina","medicine"],["la ricetta","prescription"],["fare sport","to do sport"],["fare una passeggiata","to go for a walk"],["dormire","to sleep"],["riposarsi","to rest"],["allenarsi","to train"],["mangiare sano","to eat healthily"],["il calcio","football"],["il nuoto","swimming"],["la pallacanestro","basketball"],["la pallavolo","volleyball"],["il tennis","tennis"],["la corsa","running"],["il ciclismo","cycling"],["la ginnastica","gymnastics"],["lo sci","skiing"],["l'equitazione","horse riding"],["giocare a","to play (sport)"],["nuotare","to swim"],["correre","to run"],["vincere","to win"],["perdere","to lose"]]},
   ]},
   {num:2,name:"Esperienze",topics:[
-    {name:"La routine quotidiana",vocab:[["svegliarsi","to wake up"],["alzarsi","to get up"],["fare colazione","to have breakfast"],["andare a scuola","to go to school"],["fare i compiti","to do homework"],["addormentarsi","to fall asleep"],["di solito","usually"],["ogni giorno","every day"],["la mattina","in the morning"],["la sera","in the evening"]]},
-    {name:"Il tempo libero",vocab:[["il cinema","cinema"],["lo sport","sport"],["la musica","music"],["leggere","to read"],["giocare","to play"],["uscire con gli amici","to go out with friends"],["navigare in internet","to browse the internet"],["mi piace","I like"],["preferisco","I prefer"],["adoro","I love"]]},
-    {name:"Le vacanze",vocab:[["andare in vacanza","to go on holiday"],["l'albergo","hotel"],["la spiaggia","beach"],["la montagna","mountain"],["visitare","to visit"],["il passaporto","passport"],["il volo","flight"],["prenotare","to book"],["il turista","tourist"],["la valigia","suitcase"]]},
-    {name:"Le feste e le tradizioni",vocab:[["Natale","Christmas"],["Pasqua","Easter"],["il Capodanno","New Year"],["la Befana","Epiphany (6 Jan)"],["il Carnevale","Carnival"],["festeggiare","to celebrate"],["il regalo","gift"],["il panettone","Christmas cake"],["i fuochi d'artificio","fireworks"],["tradizionale","traditional"]]},
+    {name:"La routine quotidiana",vocab:[["svegliarsi","to wake up"],["alzarsi","to get up"],["lavarsi","to wash"],["fare la doccia","to have a shower"],["vestirsi","to get dressed"],["fare colazione","to have breakfast"],["andare a scuola","to go to school"],["studiare","to study"],["lavorare","to work"],["pranzare","to have lunch"],["tornare a casa","to come home"],["cenare","to have dinner"],["guardare la TV","to watch TV"],["leggere","to read"],["addormentarsi","to fall asleep"],["andare a letto","to go to bed"],["la mattina","morning"],["il pomeriggio","afternoon"],["la sera","evening"],["la notte","night"],["di solito","usually"],["sempre","always"],["spesso","often"],["a volte","sometimes"],["raramente","rarely"],["mai","never"],["ogni giorno","every day"],["il lunedì","Monday"],["il martedì","Tuesday"],["il mercoledì","Wednesday"],["il giovedì","Thursday"],["il venerdì","Friday"],["il sabato","Saturday"],["la domenica","Sunday"],["ieri","yesterday"],["oggi","today"],["domani","tomorrow"],["la settimana scorsa","last week"],["la settimana prossima","next week"],["l'anno scorso","last year"],["alle otto","at eight o'clock"],["di mattina","in the morning"]]},
+    {name:"Il tempo libero",vocab:[["il tempo libero","free time"],["gli hobby","hobbies"],["ascoltare la musica","to listen to music"],["guardare un film","to watch a film"],["leggere un libro","to read a book"],["giocare ai videogiochi","to play video games"],["suonare uno strumento","to play an instrument"],["dipingere","to paint"],["disegnare","to draw"],["cucinare","to cook"],["fare shopping","to go shopping"],["uscire con gli amici","to go out with friends"],["andare al cinema","to go to the cinema"],["andare in palestra","to go to the gym"],["fare una passeggiata","to go for a walk"],["il cinema","cinema"],["il teatro","theatre"],["il parco","park"],["la biblioteca","library"],["il negozio","shop"],["mi piace","I like (sg)"],["mi piacciono","I like (pl)"],["non mi piace","I don't like"],["preferire","to prefer"],["adoro","I love"],["detesto","I hate"]]},
+    {name:"Le vacanze",vocab:[["le vacanze","holidays"],["il viaggio","trip"],["andare in vacanza","to go on holiday"],["viaggiare","to travel"],["prenotare","to book"],["l'albergo","hotel"],["l'hotel","hotel"],["la camera","room"],["l'aeroporto","airport"],["la stazione","station"],["il passaporto","passport"],["la valigia","suitcase"],["il biglietto","ticket"],["il turista","tourist"],["la spiaggia","beach"],["la montagna","mountain"],["la città","city"],["il paese","village"],["il mare","sea"],["visitare","to visit"],["esplorare","to explore"],["il museo","museum"],["il monumento","monument"],["la guida turistica","guide book"],["fare le valigie","to pack"],["tornare","to return"],["rilassarsi","to relax"],["divertirsi","to have fun"]]},
+    {name:"Le feste e le tradizioni",vocab:[["la festa","party"],["Natale","Christmas"],["Pasqua","Easter"],["Capodanno","New Year's Day"],["il Carnevale","Carnival"],["il compleanno","birthday"],["l'anniversario","anniversary"],["festeggiare","to celebrate"],["invitare","to invite"],["il regalo","gift"],["la torta","cake"],["le candele","candles"],["il fuoco d'artificio","fireworks"],["la tradizione","tradition"],["la cultura","culture"],["ballare","to dance"],["cantare","to sing"],["mangiare insieme","to eat together"],["Buon Natale","Merry Christmas"],["Buon compleanno","Happy birthday"],["Auguri","Best wishes"],["Buon anno","Happy New Year"],["Ferragosto","15 August"],["la Vigilia","Christmas Eve"]]},
   ]},
   {num:3,name:"Ingegno Umano",topics:[
-    {name:"I trasporti",vocab:[["l'autobus","bus"],["il treno","train"],["l'aereo","plane"],["la bicicletta","bicycle"],["la macchina","car"],["la metropolitana","underground"],["il traffico","traffic"],["l'inquinamento","pollution"],["viaggiare","to travel"],["il binario","platform/track"]]},
-    {name:"L'intrattenimento",vocab:[["il film","film"],["la serie TV","TV series"],["il concerto","concert"],["il teatro","theatre"],["il videogioco","video game"],["lo spettacolo","show/performance"],["divertente","entertaining"],["emozionante","exciting"],["noioso/a","boring"],["lo streaming","streaming"]]},
-    {name:"I media",vocab:[["il giornale","newspaper"],["la televisione","television"],["la radio","radio"],["il sito web","website"],["i social media","social media"],["il podcast","podcast"],["informarsi","to get information"],["pubblicare","to publish"],["condividere","to share"],["la notizia","news"]]},
-    {name:"La tecnologia",vocab:[["il computer","computer"],["lo smartphone","smartphone"],["l'intelligenza artificiale","AI"],["l'applicazione","app"],["internet","internet"],["il robot","robot"],["digitale","digital"],["innovazione","innovation"],["programmare","to programme"],["il dato","data"]]},
+    {name:"I trasporti",vocab:[["la macchina","car"],["l'auto","car"],["l'autobus","bus"],["il treno","train"],["la metropolitana","underground"],["la bicicletta","bicycle"],["il motorino","moped"],["la motocicletta","motorcycle"],["l'aereo","plane"],["la nave","ship"],["il traghetto","ferry"],["la barca","boat"],["il tram","tram"],["il taxi","taxi"],["prendere l'autobus","to take the bus"],["andare in macchina","to go by car"],["andare a piedi","to go on foot"],["la stazione","station"],["l'aeroporto","airport"],["il porto","port"],["il semaforo","traffic light"],["la strada","road"],["l'autostrada","motorway"],["il traffico","traffic"],["il biglietto","ticket"],["lontano","far"],["vicino","near"],["a sinistra","left"],["a destra","right"],["dritto","straight ahead"],["girare","to turn"],["fermarsi","to stop"]]},
+    {name:"L'intrattenimento",vocab:[["il cinema","cinema"],["il teatro","theatre"],["il concerto","concert"],["il festival","festival"],["il museo","museum"],["la mostra","exhibition"],["il film","film"],["la serie TV","TV series"],["la musica","music"],["il libro","book"],["il fumetto","comic"],["il videogioco","video game"],["la canzone","song"],["il cantante","singer (m)"],["la cantante","singer (f)"],["l'attore","actor"],["l'attrice","actress"],["il regista","director"],["lo spettacolo","show"],["divertente","fun"],["noioso/a","boring"],["emozionante","exciting"],["interessante","interesting"],["guardare","to watch"],["ascoltare","to listen"],["giocare","to play"],["comprare un biglietto","to buy a ticket"]]},
+    {name:"I media",vocab:[["internet","internet"],["il sito web","website"],["i social media","social media"],["il telefonino","mobile phone"],["lo smartphone","smartphone"],["il computer","computer"],["il tablet","tablet"],["la televisione","television"],["la TV","TV"],["la radio","radio"],["il giornale","newspaper"],["la rivista","magazine"],["il podcast","podcast"],["la notizia","news item"],["le notizie","news"],["pubblicare","to post"],["condividere","to share"],["scaricare","to download"],["cercare","to search"],["navigare in internet","to browse the internet"],["mandare un messaggio","to send a message"],["la pubblicità","advertisement"],["il blog","blog"],["il vlog","vlog"],["online","online"],["digitale","digital"]]},
+    {name:"La tecnologia",vocab:[["la tecnologia","technology"],["il computer","computer"],["lo smartphone","smartphone"],["l'applicazione","app"],["l'app","app"],["il robot","robot"],["l'intelligenza artificiale","artificial intelligence"],["la macchina","machine"],["l'invenzione","invention"],["il progresso","progress"],["usare","to use"],["inventare","to invent"],["sviluppare","to develop"],["utile","useful"],["inutile","useless"],["moderno/a","modern"],["antico/a","ancient"],["nuovo/a","new"],["avanzato/a","advanced"],["il futuro","the future"],["il cambiamento","change"]]},
   ]},
   {num:4,name:"Organizzazione Sociale",topics:[
-    {name:"Il quartiere",vocab:[["il negozio","shop"],["la biblioteca","library"],["il parco","park"],["il mercato","market"],["il comune","town hall"],["tranquillo/a","quiet"],["vivace","lively"],["sicuro/a","safe"],["inquinato/a","polluted"],["il centro commerciale","shopping centre"]]},
-    {name:"L'educazione",vocab:[["la scuola","school"],["l'università","university"],["l'esame","exam"],["il voto","grade"],["il professore","teacher"],["il compagno","classmate"],["studiare","to study"],["imparare","to learn"],["superare","to pass"],["bocciare","to fail"]]},
-    {name:"Il lavoro",vocab:[["il lavoro","work/job"],["l'ufficio","office"],["lo stipendio","salary"],["il collega","colleague"],["assumere","to hire"],["il curriculum","CV"],["il tirocinio","internship"],["fare domanda","to apply"],["la riunione","meeting"],["lo smart working","remote working"]]},
-    {name:"I problemi sociali",vocab:[["la disoccupazione","unemployment"],["la povertà","poverty"],["la discriminazione","discrimination"],["il razzismo","racism"],["l'uguaglianza","equality"],["la diversità","diversity"],["affrontare","to face/deal with"],["risolvere","to solve"],["il governo","government"],["la legge","law"]]},
+    {name:"Il quartiere",vocab:[["il quartiere","neighbourhood"],["la città","city"],["il paese","village"],["la campagna","countryside"],["la strada","street"],["la via","street"],["il negozio","shop"],["il supermercato","supermarket"],["la farmacia","pharmacy"],["l'ospedale","hospital"],["la banca","bank"],["l'ufficio postale","post office"],["la chiesa","church"],["il municipio","town hall"],["la biblioteca","library"],["il parco","park"],["la piazza","square"],["il mercato","market"],["il centro storico","historic centre"],["il ponte","bridge"],["il palazzo","building"],["la statua","statue"],["la fontana","fountain"],["gli abitanti","inhabitants"],["vivere","to live"],["abitare","to live"],["vicino a","near"],["lontano da","far from"],["in centro","in the centre"],["in periferia","in the suburbs"]]},
+    {name:"L'educazione",vocab:[["la scuola","school"],["l'università","university"],["la classe","class"],["la lezione","lesson"],["il professore","teacher (m)"],["la professoressa","teacher (f)"],["lo studente","student (m)"],["la studentessa","student (f)"],["il compito","homework"],["l'esame","exam"],["il voto","grade"],["la materia","subject"],["la matematica","maths"],["la storia","history"],["la biologia","biology"],["la chimica","chemistry"],["la fisica","physics"],["l'italiano","Italian"],["l'inglese","English"],["la geografia","geography"],["l'arte","art"],["la musica","music"],["la palestra","gym"],["la mensa","canteen"],["la biblioteca","library"],["studiare","to study"],["imparare","to learn"],["insegnare","to teach"],["scrivere","to write"],["leggere","to read"],["rispondere","to answer"],["fare una domanda","to ask a question"],["superare un esame","to pass an exam"],["bocciare un esame","to fail an exam"],["promosso/a","passed"],["bocciato/a","failed"],["difficile","difficult"],["facile","easy"],["interessante","interesting"],["noioso","boring"]]},
+    {name:"Il lavoro",vocab:[["il lavoro","work"],["l'ufficio","office"],["la fabbrica","factory"],["lavorare","to work"],["guadagnare","to earn"],["assumere","to hire"],["licenziare","to fire"],["il capo","boss"],["il collega","colleague"],["il dipendente","employee"],["il contratto","contract"],["lo stipendio","salary"],["il CV","CV"],["il colloquio","interview"],["il medico","doctor"],["il dottore","doctor"],["l'infermiere/a","nurse"],["l'avvocato","lawyer"],["l'ingegnere","engineer"],["l'architetto","architect"],["il giornalista","journalist"],["la giornalista","journalist"],["il cuoco","cook"],["la cuoca","cook"],["il cameriere","waiter"],["il poliziotto","police officer"],["il pompiere","firefighter"],["il commerciante","shopkeeper"],["il programmatore","programmer"],["l'insegnante","teacher"],["il contabile","accountant"],["fare carriera","to advance in a career"],["il part-time","part-time"],["il full-time","full-time"],["il volontariato","volunteering"]]},
+    {name:"I problemi sociali",vocab:[["la società","society"],["la legge","law"],["il governo","government"],["la polizia","police"],["il problema","problem"],["la povertà","poverty"],["la disoccupazione","unemployment"],["la discriminazione","discrimination"],["la parità","equality"],["i diritti","rights"],["la violenza","violence"],["la criminalità","crime"],["il volontariato","volunteering"],["aiutare","to help"],["proteggere","to protect"],["rispettare","to respect"],["importante","important"],["necessario/a","necessary"],["secondo me","in my opinion"],["penso che","I think that"],["sono d'accordo","I agree"],["non sono d'accordo","I disagree"]]},
   ]},
   {num:5,name:"Condivisione del Pianeta",topics:[
-    {name:"Il clima",vocab:[["il clima","climate"],["il cambiamento climatico","climate change"],["il meteo","weather"],["la temperatura","temperature"],["le inondazioni","floods"],["la siccità","drought"],["il riscaldamento globale","global warming"],["le energie rinnovabili","renewable energies"],["il ghiacciaio","glacier"],["l'uragano","hurricane"]]},
-    {name:"La geografia fisica",vocab:[["la montagna","mountain"],["il fiume","river"],["il mare","sea"],["il lago","lake"],["la foresta","forest"],["il deserto","desert"],["la pianura","plain"],["la costa","coast"],["il terremoto","earthquake"],["il vulcano","volcano"]]},
-    {name:"L'ambiente",vocab:[["riciclare","to recycle"],["inquinare","to pollute"],["proteggere","to protect"],["la natura","nature"],["l'ecosistema","ecosystem"],["le specie in via di estinzione","endangered species"],["la plastica","plastic"],["le emissioni","emissions"],["sostenibile","sustainable"],["la biodiversità","biodiversity"]]},
-    {name:"I problemi globali",vocab:[["la fame","hunger"],["la guerra","war"],["i rifugiati","refugees"],["i diritti umani","human rights"],["la migrazione","migration"],["la cooperazione","cooperation"],["la solidarietà","solidarity"],["la pace","peace"],["il debito","debt"],["lo sviluppo sostenibile","sustainable development"]]},
+    {name:"Il clima",vocab:[["il clima","climate"],["il tempo","weather"],["Che tempo fa?","What's the weather like?"],["Fa caldo","It's hot"],["Fa freddo","It's cold"],["Fa bello","It's nice"],["Fa brutto tempo","It's bad weather"],["C'è il sole","It's sunny"],["È soleggiato","It's sunny"],["Piove","It's raining"],["Nevica","It's snowing"],["C'è il vento","It's windy"],["È nuvoloso","It's cloudy"],["C'è la nebbia","It's foggy"],["È umido","It's humid"],["È afoso","It's muggy"],["C'è il temporale","There's a storm"],["la pioggia","rain"],["la neve","snow"],["il vento","wind"],["il sole","sun"],["la nuvola","cloud"],["il tuono","thunder"],["il fulmine","lightning"],["la stagione","season"],["la primavera","spring"],["l'estate","summer"],["l'autunno","autumn"],["l'inverno","winter"],["il cambiamento climatico","climate change"],["il riscaldamento globale","global warming"]]},
+    {name:"La geografia fisica",vocab:[["la montagna","mountain"],["la collina","hill"],["la pianura","plain"],["il mare","sea"],["l'oceano","ocean"],["il fiume","river"],["il lago","lake"],["la costa","coast"],["la spiaggia","beach"],["il bosco","wood"],["la foresta","forest"],["il deserto","desert"],["l'isola","island"],["la penisola","peninsula"],["il vulcano","volcano"],["la cascata","waterfall"],["il nord","north"],["il sud","south"],["l'est","east"],["l'ovest","west"],["il paese","country"],["il continente","continent"],["il mondo","world"],["la Terra","the Earth"],["la regione","region"],["l'Italia","Italy"],["la capitale","capital"],["Roma","Rome"],["il paesaggio","landscape"]]},
+    {name:"L'ambiente",vocab:[["l'ambiente","environment"],["la natura","nature"],["l'albero","tree"],["il fiore","flower"],["l'animale","animal"],["inquinare","to pollute"],["l'inquinamento","pollution"],["riciclare","to recycle"],["il riciclo","recycling"],["i rifiuti","waste"],["la spazzatura","rubbish"],["l'energia rinnovabile","renewable energy"],["il pannello solare","solar panel"],["proteggere","to protect"],["salvare","to save"],["distruggere","to destroy"],["il verde","green spaces"],["sostenibile","sustainable"],["ecologico/a","ecological"],["la deforestazione","deforestation"],["spegnere le luci","to turn off the lights"],["risparmiare","to save"],["l'acqua potabile","drinking water"]]},
+    {name:"I problemi globali",vocab:[["il problema globale","global problem"],["la guerra","war"],["la pace","peace"],["la povertà","poverty"],["la fame","hunger"],["i rifugiati","refugees"],["l'immigrazione","immigration"],["la salute","health"],["la pandemia","pandemic"],["i diritti umani","human rights"],["l'uguaglianza","equality"],["lo sviluppo sostenibile","sustainable development"],["il futuro","the future"],["aiutare","to help"],["cambiare","to change"],["sperare","to hope"],["agire","to act"],["secondo me","in my opinion"],["è importante","it is important"],["bisogna","it is necessary to"],["dobbiamo","we must"]]},
   ]},
 ];
 
-const VOCAB_GAME_DATA=[{it:"la casa",en:"house"},{it:"il libro",en:"book"},{it:"mangiare",en:"to eat"},{it:"bello",en:"beautiful"},{it:"andare",en:"to go"},{it:"la scuola",en:"school"},{it:"il cane",en:"dog"},{it:"parlare",en:"to speak"},{it:"grande",en:"big/great"},{it:"piccolo",en:"small"},{it:"il treno",en:"train"},{it:"la città",en:"city"},{it:"studiare",en:"to study"},{it:"la famiglia",en:"family"},{it:"il lavoro",en:"work"},{it:"capire",en:"to understand"},{it:"veloce",en:"fast"},{it:"lento",en:"slow"},{it:"la strada",en:"street/road"},{it:"il negozio",en:"shop"},{it:"comprare",en:"to buy"},{it:"vendere",en:"to sell"},{it:"il sole",en:"sun"},{it:"la pioggia",en:"rain"},{it:"caldo",en:"hot"},{it:"freddo",en:"cold"},{it:"la finestra",en:"window"},{it:"aprire",en:"to open"},{it:"chiudere",en:"to close"},{it:"il mare",en:"sea"},{it:"l'estate",en:"summer"},{it:"l'inverno",en:"winter"},{it:"trovare",en:"to find"},{it:"perdere",en:"to lose"},{it:"sapere",en:"to know (facts)"},{it:"potere",en:"to be able to"},{it:"volere",en:"to want"},{it:"dovere",en:"must / to have to"},{it:"la sera",en:"evening"},{it:"il mattino",en:"morning"},{it:"ieri",en:"yesterday"},{it:"oggi",en:"today"},{it:"domani",en:"tomorrow"},{it:"spesso",en:"often"},{it:"sempre",en:"always"},{it:"mai",en:"never"},{it:"ancora",en:"still / yet"},{it:"già",en:"already"},{it:"insieme",en:"together"},{it:"il cibo",en:"food"},{it:"bere",en:"to drink"},{it:"l'acqua",en:"water"},{it:"il pane",en:"bread"},{it:"la scelta",en:"the choice"}];
+const VOCAB_GAME_DATA=[{it:"alto/a",en:"tall"},{it:"basso/a",en:"short"},{it:"grasso/a",en:"fat"},{it:"magro/a",en:"thin"},{it:"bello/a",en:"beautiful"},{it:"brutto/a",en:"ugly"},{it:"atletico/a",en:"athletic"},{it:"muscoloso/a",en:"muscular"},{it:"giovane",en:"young"},{it:"anziano/a",en:"old"},{it:"i capelli",en:"hair"},{it:"gentile",en:"kind"},{it:"scortese",en:"rude"},{it:"simpatico/a",en:"nice"},{it:"antipatico/a",en:"unpleasant"},{it:"generoso/a",en:"generous"},{it:"avaro/a",en:"stingy"},{it:"calmo/a",en:"calm"},{it:"nervoso/a",en:"nervous"},{it:"divertente",en:"funny"},{it:"serio/a",en:"serious"},{it:"interessante",en:"interesting"},{it:"noioso/a",en:"boring"},{it:"timido/a",en:"shy"},{it:"chiacchierone/a",en:"talkative"},{it:"affettuoso/a",en:"affectionate"},{it:"curioso/a",en:"curious"},{it:"intelligente",en:"intelligent"},{it:"allegro/a",en:"cheerful"},{it:"forte",en:"strong"},{it:"debole",en:"weak"},{it:"tranquillo/a",en:"peaceful"},{it:"strano/a",en:"strange"},{it:"onesto/a",en:"honest"},{it:"coraggioso/a",en:"brave"},{it:"i pantaloni",en:"trousers"},{it:"il vestito",en:"dress"},{it:"la gonna",en:"skirt"},{it:"il maglione",en:"sweater"},{it:"la maglietta",en:"t-shirt"},{it:"la camicia",en:"shirt"},{it:"il cappotto",en:"coat"},{it:"la giacca",en:"jacket"},{it:"la sciarpa",en:"scarf"},{it:"il cappello",en:"hat"},{it:"i guanti",en:"gloves"},{it:"le scarpe",en:"shoes"},{it:"gli stivali",en:"boots"},{it:"i calzini",en:"socks"},{it:"i sandali",en:"sandals"},{it:"la cintura",en:"belt"},{it:"la famiglia",en:"family"},{it:"il padre",en:"father"},{it:"papà",en:"dad"},{it:"la madre",en:"mother"},{it:"mamma",en:"mum"},{it:"il fratello",en:"brother"},{it:"la sorella",en:"sister"},{it:"il figlio",en:"son"},{it:"la figlia",en:"daughter"},{it:"i genitori",en:"parents"},{it:"il nonno",en:"grandfather"},{it:"la nonna",en:"grandmother"},{it:"lo zio",en:"uncle"},{it:"la zia",en:"aunt"},{it:"il cugino",en:"cousin (m)"},{it:"la cugina",en:"cousin (f)"},{it:"il marito",en:"husband"},{it:"la moglie",en:"wife"},{it:"il fidanzato",en:"boyfriend"},{it:"la fidanzata",en:"girlfriend"},{it:"l'amico",en:"friend (m)"},{it:"l'amica",en:"friend (f)"},{it:"amare",en:"to love"},{it:"sposarsi",en:"to get married"},{it:"litigare",en:"to argue"},{it:"la carne",en:"meat"},{it:"il pollo",en:"chicken"},{it:"il pesce",en:"fish"},{it:"la mela",en:"apple"},{it:"l'arancia",en:"orange"},{it:"la fragola",en:"strawberry"},{it:"l'uva",en:"grapes"},{it:"il limone",en:"lemon"},{it:"la pera",en:"pear"},{it:"il pomodoro",en:"tomato"},{it:"la carota",en:"carrot"},{it:"la patata",en:"potato"},{it:"la cipolla",en:"onion"},{it:"l'insalata",en:"salad"},{it:"il pane",en:"bread"},{it:"il riso",en:"rice"},{it:"la pasta",en:"pasta"},{it:"l'uovo",en:"egg"},{it:"il formaggio",en:"cheese"},{it:"il burro",en:"butter"},{it:"lo zucchero",en:"sugar"},{it:"il sale",en:"salt"},{it:"l'olio",en:"oil"},{it:"il miele",en:"honey"},{it:"la pizza",en:"pizza"},{it:"l'acqua",en:"water"},{it:"il latte",en:"milk"},{it:"il caffè",en:"coffee"},{it:"il tè",en:"tea"},{it:"la birra",en:"beer"},{it:"il vino",en:"wine"},{it:"delizioso/a",en:"delicious"},{it:"salato/a",en:"salty"},{it:"dolce",en:"sweet"},{it:"piccante",en:"spicy"},{it:"la testa",en:"head"},{it:"il collo",en:"neck"},{it:"la schiena",en:"back"},{it:"il petto",en:"chest"},{it:"lo stomaco",en:"stomach"},{it:"il braccio",en:"arm"},{it:"la mano",en:"hand"},{it:"il dito",en:"finger"},{it:"la gamba",en:"leg"},{it:"il piede",en:"foot"},{it:"il ginocchio",en:"knee"},{it:"la gola",en:"throat"},{it:"i denti",en:"teeth"},{it:"le orecchie",en:"ears"},{it:"stare bene",en:"to be well"},{it:"Ho la febbre",en:"I have a fever"},{it:"Ho la tosse",en:"I have a cough"},{it:"Ho l'influenza",en:"I have the flu"},{it:"il medico",en:"doctor"},{it:"l'infermiere/a",en:"nurse"},{it:"l'ospedale",en:"hospital"},{it:"la farmacia",en:"pharmacy"},{it:"la medicina",en:"medicine"},{it:"fare sport",en:"to do sport"},{it:"dormire",en:"to sleep"},{it:"il calcio",en:"football"},{it:"il nuoto",en:"swimming"},{it:"il tennis",en:"tennis"},{it:"correre",en:"to run"},{it:"svegliarsi",en:"to wake up"},{it:"alzarsi",en:"to get up"},{it:"fare colazione",en:"to have breakfast"},{it:"andare a scuola",en:"to go to school"},{it:"studiare",en:"to study"},{it:"lavorare",en:"to work"},{it:"andare a letto",en:"to go to bed"},{it:"la mattina",en:"morning"},{it:"il pomeriggio",en:"afternoon"},{it:"la sera",en:"evening"},{it:"la notte",en:"night"},{it:"sempre",en:"always"},{it:"spesso",en:"often"},{it:"a volte",en:"sometimes"},{it:"mai",en:"never"},{it:"ogni giorno",en:"every day"},{it:"ieri",en:"yesterday"},{it:"oggi",en:"today"},{it:"domani",en:"tomorrow"},{it:"il tempo libero",en:"free time"},{it:"ascoltare la musica",en:"to listen to music"},{it:"guardare un film",en:"to watch a film"},{it:"leggere un libro",en:"to read a book"},{it:"giocare",en:"to play"},{it:"il cinema",en:"cinema"},{it:"il teatro",en:"theatre"},{it:"il parco",en:"park"},{it:"la biblioteca",en:"library"},{it:"mi piace",en:"I like (sg)"},{it:"preferire",en:"to prefer"},{it:"adoro",en:"I love"},{it:"le vacanze",en:"holidays"},{it:"il viaggio",en:"trip"},{it:"l'albergo",en:"hotel"},{it:"la spiaggia",en:"beach"},{it:"la montagna",en:"mountain"},{it:"visitare",en:"to visit"},{it:"il passaporto",en:"passport"},{it:"il biglietto",en:"ticket"},{it:"la valigia",en:"suitcase"},{it:"Natale",en:"Christmas"},{it:"Pasqua",en:"Easter"},{it:"Capodanno",en:"New Year's Day"},{it:"il Carnevale",en:"Carnival"},{it:"il compleanno",en:"birthday"},{it:"festeggiare",en:"to celebrate"},{it:"il regalo",en:"gift"},{it:"la torta",en:"cake"},{it:"ballare",en:"to dance"},{it:"cantare",en:"to sing"},{it:"l'autobus",en:"bus"},{it:"il treno",en:"train"},{it:"l'aereo",en:"plane"},{it:"la bicicletta",en:"bicycle"},{it:"la macchina",en:"car"},{it:"la nave",en:"ship"},{it:"la strada",en:"street"},{it:"l'autostrada",en:"motorway"},{it:"il traffico",en:"traffic"},{it:"il film",en:"film"},{it:"la serie TV",en:"TV series"},{it:"il concerto",en:"concert"},{it:"il museo",en:"museum"},{it:"il videogioco",en:"video game"},{it:"lo spettacolo",en:"show"},{it:"emozionante",en:"exciting"},{it:"internet",en:"internet"},{it:"il sito web",en:"website"},{it:"i social media",en:"social media"},{it:"il telefonino",en:"mobile phone"},{it:"lo smartphone",en:"smartphone"},{it:"il computer",en:"computer"},{it:"la televisione",en:"television"},{it:"il giornale",en:"newspaper"},{it:"la rivista",en:"magazine"},{it:"il podcast",en:"podcast"},{it:"pubblicare",en:"to post"},{it:"condividere",en:"to share"},{it:"la tecnologia",en:"technology"},{it:"l'app",en:"app"},{it:"il robot",en:"robot"},{it:"nuovo/a",en:"new"},{it:"il quartiere",en:"neighbourhood"},{it:"la città",en:"city"},{it:"il paese",en:"village"},{it:"il negozio",en:"shop"},{it:"il supermercato",en:"supermarket"},{it:"la banca",en:"bank"},{it:"la chiesa",en:"church"},{it:"il mercato",en:"market"},{it:"la piazza",en:"square"},{it:"la scuola",en:"school"},{it:"l'università",en:"university"},{it:"la classe",en:"class"},{it:"la lezione",en:"lesson"},{it:"il professore",en:"teacher (m)"},{it:"la professoressa",en:"teacher (f)"},{it:"lo studente",en:"student (m)"},{it:"la studentessa",en:"student (f)"},{it:"l'esame",en:"exam"},{it:"il voto",en:"grade"},{it:"la matematica",en:"maths"},{it:"la storia",en:"history"},{it:"la biologia",en:"biology"},{it:"l'arte",en:"art"},{it:"la musica",en:"music"},{it:"imparare",en:"to learn"},{it:"il lavoro",en:"work"},{it:"l'ufficio",en:"office"},{it:"la fabbrica",en:"factory"},{it:"lo stipendio",en:"salary"},{it:"il collega",en:"colleague"},{it:"il capo",en:"boss"},{it:"il contratto",en:"contract"},{it:"l'avvocato",en:"lawyer"},{it:"l'ingegnere",en:"engineer"},{it:"il poliziotto",en:"police officer"},{it:"la società",en:"society"},{it:"la legge",en:"law"},{it:"il governo",en:"government"},{it:"il problema",en:"problem"},{it:"la povertà",en:"poverty"},{it:"la disoccupazione",en:"unemployment"},{it:"la discriminazione",en:"discrimination"},{it:"la parità",en:"equality"},{it:"i diritti",en:"rights"},{it:"la violenza",en:"violence"},{it:"il clima",en:"climate"},{it:"il tempo",en:"weather"},{it:"Fa caldo",en:"It's hot"},{it:"Fa freddo",en:"It's cold"},{it:"È soleggiato",en:"It's sunny"},{it:"Piove",en:"It's raining"},{it:"Nevica",en:"It's snowing"},{it:"È nuvoloso",en:"It's cloudy"},{it:"la pioggia",en:"rain"},{it:"la neve",en:"snow"},{it:"il vento",en:"wind"},{it:"il sole",en:"sun"},{it:"la nuvola",en:"cloud"},{it:"la stagione",en:"season"},{it:"la primavera",en:"spring"},{it:"l'estate",en:"summer"},{it:"l'autunno",en:"autumn"},{it:"l'inverno",en:"winter"},{it:"il fiume",en:"river"},{it:"il lago",en:"lake"},{it:"la costa",en:"coast"},{it:"il bosco",en:"wood"},{it:"la foresta",en:"forest"},{it:"il deserto",en:"desert"},{it:"l'isola",en:"island"},{it:"la penisola",en:"peninsula"},{it:"il vulcano",en:"volcano"},{it:"l'albero",en:"tree"},{it:"il fiore",en:"flower"},{it:"l'animale",en:"animal"},{it:"inquinare",en:"to pollute"},{it:"riciclare",en:"to recycle"},{it:"l'inquinamento",en:"pollution"},{it:"i rifiuti",en:"waste"},{it:"proteggere",en:"to protect"},{it:"la natura",en:"nature"},{it:"sostenibile",en:"sustainable"},{it:"la guerra",en:"war"},{it:"la pace",en:"peace"},{it:"la fame",en:"hunger"},{it:"i rifugiati",en:"refugees"},{it:"aiutare",en:"to help"}];
 
 const CONJ_GAME_DATA=[{verb:"parlare",pronoun:"io",tense:"presente",answer:"parlo"},{verb:"mangiare",pronoun:"tu",tense:"presente",answer:"mangi"},{verb:"avere",pronoun:"lui",tense:"presente",answer:"ha"},{verb:"essere",pronoun:"noi",tense:"presente",answer:"siamo"},{verb:"andare",pronoun:"voi",tense:"presente",answer:"andate"},{verb:"fare",pronoun:"loro",tense:"presente",answer:"fanno"},{verb:"venire",pronoun:"io",tense:"presente",answer:"vengo"},{verb:"potere",pronoun:"tu",tense:"presente",answer:"puoi"},{verb:"volere",pronoun:"lui",tense:"presente",answer:"vuole"},{verb:"dovere",pronoun:"noi",tense:"presente",answer:"dobbiamo"},{verb:"parlare",pronoun:"io",tense:"passato prossimo",answer:"ho parlato"},{verb:"andare",pronoun:"lei",tense:"passato prossimo",answer:"è andata"},{verb:"fare",pronoun:"noi",tense:"passato prossimo",answer:"abbiamo fatto"},{verb:"venire",pronoun:"tu",tense:"passato prossimo",answer:"sei venuto/a"},{verb:"essere",pronoun:"loro",tense:"passato prossimo",answer:"sono stati/e"},{verb:"mangiare",pronoun:"tu",tense:"imperfetto",answer:"mangiavi"},{verb:"essere",pronoun:"loro",tense:"imperfetto",answer:"erano"},{verb:"fare",pronoun:"lui",tense:"imperfetto",answer:"faceva"},{verb:"parlare",pronoun:"io",tense:"futuro",answer:"parlerò"},{verb:"andare",pronoun:"noi",tense:"futuro",answer:"andremo"},{verb:"essere",pronoun:"tu",tense:"futuro",answer:"sarai"},{verb:"volere",pronoun:"io",tense:"condizionale",answer:"vorrei"},{verb:"dovere",pronoun:"tu",tense:"condizionale",answer:"dovresti"},{verb:"potere",pronoun:"lui",tense:"condizionale",answer:"potrebbe"}];
 
-const GENDER_GAME_DATA=[{word:"libro",article:"il"},{word:"casa",article:"la"},{word:"studente",article:"lo"},{word:"amica",article:"l'"},{word:"amico",article:"l'"},{word:"ragazza",article:"la"},{word:"ragazzo",article:"il"},{word:"zaino",article:"lo"},{word:"pizza",article:"la"},{word:"pasta",article:"la"},{word:"caffè",article:"il"},{word:"acqua",article:"l'"},{word:"ristorante",article:"il"},{word:"università",article:"l'"},{word:"psicologo",article:"lo"},{word:"sport",article:"lo"},{word:"scuola",article:"la"},{word:"museo",article:"il"},{word:"aereo",article:"l'"},{word:"autobus",article:"l'"},{word:"problema",article:"il"},{word:"giornale",article:"il"},{word:"borsa",article:"la"},{word:"albero",article:"l'"},{word:"sole",article:"il"},{word:"luna",article:"la"},{word:"notte",article:"la"},{word:"giorno",article:"il"}];
+const GENDER_GAME_DATA=[{word:"cappelli",article:"i"},{word:"pantaloni",article:"i"},{word:"pantaloncini",article:"i"},{word:"vestito",article:"il"},{word:"gonna",article:"la"},{word:"maglione",article:"il"},{word:"maglietta",article:"la"},{word:"camicia",article:"la"},{word:"camicetta",article:"la"},{word:"cappotto",article:"il"},{word:"giacca",article:"la"},{word:"cravatta",article:"la"},{word:"sciarpa",article:"la"},{word:"cappello",article:"il"},{word:"guanti",article:"i"},{word:"scarpe",article:"le"},{word:"stivali",article:"gli"},{word:"calzini",article:"i"},{word:"sandali",article:"i"},{word:"occhiali",article:"gli"},{word:"cintura",article:"la"},{word:"costume da bagno",article:"il"},{word:"famiglia",article:"la"},{word:"padre",article:"il"},{word:"papà",article:"il"},{word:"madre",article:"la"},{word:"mamma",article:"la"},{word:"fratello",article:"il"},{word:"sorella",article:"la"},{word:"figlio",article:"il"},{word:"figlia",article:"la"},{word:"genitori",article:"i"},{word:"nonno",article:"il"},{word:"nonna",article:"la"},{word:"zio",article:"lo"},{word:"zia",article:"la"},{word:"cugino",article:"il"},{word:"cugina",article:"la"},{word:"marito",article:"il"},{word:"moglie",article:"la"},{word:"fidanzato",article:"il"},{word:"fidanzata",article:"la"},{word:"amico",article:"l'"},{word:"amica",article:"l'"},{word:"compagno",article:"il"},{word:"compagna",article:"la"},{word:"vicino",article:"il"},{word:"vicina",article:"la"},{word:"carne",article:"la"},{word:"pollo",article:"il"},{word:"pesce",article:"il"},{word:"bistecca",article:"la"},{word:"maiale",article:"il"},{word:"prosciutto",article:"il"},{word:"salsiccia",article:"la"},{word:"mela",article:"la"},{word:"arancia",article:"l'"},{word:"fragola",article:"la"},{word:"uva",article:"l'"},{word:"limone",article:"il"},{word:"pera",article:"la"},{word:"pomodoro",article:"il"},{word:"carota",article:"la"},{word:"patata",article:"la"},{word:"cipolla",article:"la"},{word:"insalata",article:"l'"},{word:"fungo",article:"il"},{word:"melanzana",article:"la"},{word:"peperone",article:"il"},{word:"pane",article:"il"},{word:"riso",article:"il"},{word:"pasta",article:"la"},{word:"uovo",article:"l'"},{word:"formaggio",article:"il"},{word:"burro",article:"il"},{word:"marmellata",article:"la"},{word:"zucchero",article:"lo"},{word:"sale",article:"il"},{word:"pepe",article:"il"},{word:"olio",article:"l'"},{word:"miele",article:"il"},{word:"farina",article:"la"},{word:"dolce",article:"il"},{word:"zuppa",article:"la"},{word:"pizza",article:"la"},{word:"acqua",article:"l'"},{word:"latte",article:"il"},{word:"succo",article:"il"},{word:"caffè",article:"il"},{word:"tè",article:"il"},{word:"birra",article:"la"},{word:"vino",article:"il"},{word:"bibita",article:"la"},{word:"forchetta",article:"la"},{word:"coltello",article:"il"},{word:"cucchiaio",article:"il"},{word:"piatto",article:"il"},{word:"bicchiere",article:"il"},{word:"tazza",article:"la"},{word:"tovaglia",article:"la"},{word:"tovagliolo",article:"il"},{word:"ristorante",article:"il"},{word:"menu",article:"il"},{word:"cameriere",article:"il"},{word:"colazione",article:"la"},{word:"pranzo",article:"il"},{word:"cena",article:"la"},{word:"spuntino",article:"uno"},{word:"testa",article:"la"},{word:"collo",article:"il"},{word:"schiena",article:"la"},{word:"petto",article:"il"},{word:"stomaco",article:"lo"},{word:"braccio",article:"il"},{word:"mano",article:"la"},{word:"dito",article:"il"},{word:"gamba",article:"la"},{word:"piede",article:"il"},{word:"ginocchio",article:"il"},{word:"gola",article:"la"},{word:"denti",article:"i"},{word:"orecchie",article:"le"},{word:"occhi",article:"gli"},{word:"naso",article:"il"},{word:"faccia",article:"la"},{word:"viso",article:"il"},{word:"bocca",article:"la"},{word:"barba",article:"la"},{word:"baffi",article:"i"},{word:"capelli",article:"i"},{word:"medico",article:"il"},{word:"dottore",article:"il"},{word:"infermiere",article:"l'"},{word:"ospedale",article:"l'"},{word:"farmacia",article:"la"},{word:"medicina",article:"la"},{word:"ricetta",article:"la"},{word:"calcio",article:"il"},{word:"nuoto",article:"il"},{word:"pallacanestro",article:"la"},{word:"pallavolo",article:"la"},{word:"tennis",article:"il"},{word:"corsa",article:"la"},{word:"ciclismo",article:"il"},{word:"ginnastica",article:"la"},{word:"sci",article:"lo"},{word:"equitazione",article:"l'"},{word:"autobus",article:"l'"},{word:"treno",article:"il"},{word:"metropolitana",article:"la"},{word:"bicicletta",article:"la"},{word:"motorino",article:"il"},{word:"motocicletta",article:"la"},{word:"aereo",article:"l'"},{word:"nave",article:"la"},{word:"traghetto",article:"il"},{word:"barca",article:"la"},{word:"tram",article:"il"},{word:"taxi",article:"il"},{word:"stazione",article:"la"},{word:"aeroporto",article:"l'"},{word:"porto",article:"il"},{word:"semaforo",article:"il"},{word:"strada",article:"la"},{word:"via",article:"la"},{word:"autostrada",article:"l'"},{word:"traffico",article:"il"},{word:"biglietto",article:"il"},{word:"cinema",article:"il"},{word:"teatro",article:"il"},{word:"concerto",article:"il"},{word:"festival",article:"il"},{word:"museo",article:"il"},{word:"mostra",article:"la"},{word:"film",article:"il"},{word:"serie TV",article:"la"},{word:"musica",article:"la"},{word:"libro",article:"il"},{word:"fumetto",article:"il"},{word:"videogioco",article:"il"},{word:"canzone",article:"la"},{word:"cantante",article:"il"},{word:"attore",article:"l'"},{word:"attrice",article:"l'"},{word:"regista",article:"il"},{word:"spettacolo",article:"lo"},{word:"internet",article:"internet"},{word:"sito web",article:"il"},{word:"social media",article:"i"},{word:"telefonino",article:"il"},{word:"smartphone",article:"lo"},{word:"computer",article:"il"},{word:"tablet",article:"il"},{word:"televisione",article:"la"},{word:"TV",article:"la"},{word:"radio",article:"la"},{word:"giornale",article:"il"},{word:"rivista",article:"la"},{word:"podcast",article:"il"},{word:"notizia",article:"la"},{word:"blog",article:"il"},{word:"vlog",article:"il"},{word:"pubblicità",article:"la"},{word:"tecnologia",article:"la"},{word:"app",article:"l'"},{word:"robot",article:"il"},{word:"intelligenza artificiale",article:"l'"},{word:"macchina",article:"la"},{word:"invenzione",article:"l'"},{word:"progresso",article:"il"},{word:"futuro",article:"il"},{word:"cambiamento",article:"il"},{word:"quartiere",article:"il"},{word:"città",article:"la"},{word:"paese",article:"il"},{word:"campagna",article:"la"},{word:"negozio",article:"il"},{word:"supermercato",article:"il"},{word:"banca",article:"la"},{word:"ufficio postale",article:"l'"},{word:"chiesa",article:"la"},{word:"municipio",article:"il"},{word:"biblioteca",article:"la"},{word:"parco",article:"il"},{word:"piazza",article:"la"},{word:"mercato",article:"il"},{word:"centro storico",article:"il"},{word:"ponte",article:"il"},{word:"palazzo",article:"il"},{word:"statua",article:"la"},{word:"fontana",article:"la"},{word:"abitanti",article:"gli"},{word:"scuola",article:"la"},{word:"università",article:"l'"},{word:"classe",article:"la"},{word:"lezione",article:"la"},{word:"professore",article:"il"},{word:"professoressa",article:"la"},{word:"studente",article:"lo"},{word:"studentessa",article:"la"},{word:"compito",article:"il"},{word:"esame",article:"l'"},{word:"voto",article:"il"},{word:"materia",article:"la"},{word:"matematica",article:"la"},{word:"storia",article:"la"},{word:"biologia",article:"la"},{word:"chimica",article:"la"},{word:"fisica",article:"la"},{word:"italiano",article:"l'"},{word:"inglese",article:"l'"},{word:"geografia",article:"la"},{word:"arte",article:"l'"},{word:"palestra",article:"la"},{word:"mensa",article:"la"},{word:"lavoro",article:"il"},{word:"ufficio",article:"l'"},{word:"fabbrica",article:"la"},{word:"capo",article:"il"},{word:"dipendente",article:"il"},{word:"contratto",article:"il"},{word:"stipendio",article:"lo"},{word:"CV",article:"il"},{word:"colloquio",article:"il"},{word:"avvocato",article:"l'"},{word:"ingegnere",article:"l'"},{word:"architetto",article:"l'"},{word:"giornalista",article:"il"},{word:"cuoco",article:"il"},{word:"poliziotto",article:"il"},{word:"pompiere",article:"il"},{word:"commerciante",article:"il"},{word:"programmatore",article:"il"},{word:"insegnante",article:"l'"},{word:"contabile",article:"il"},{word:"società",article:"la"},{word:"legge",article:"la"},{word:"governo",article:"il"},{word:"polizia",article:"la"},{word:"problema",article:"il"},{word:"povertà",article:"la"},{word:"disoccupazione",article:"la"},{word:"discriminazione",article:"la"},{word:"parità",article:"la"},{word:"diritti",article:"i"},{word:"violenza",article:"la"},{word:"criminalità",article:"la"},{word:"volontariato",article:"il"},{word:"clima",article:"il"},{word:"tempo",article:"il"},{word:"pioggia",article:"la"},{word:"neve",article:"la"},{word:"vento",article:"il"},{word:"sole",article:"il"},{word:"nuvola",article:"la"},{word:"tuono",article:"il"},{word:"fulmine",article:"il"},{word:"stagione",article:"la"},{word:"primavera",article:"la"},{word:"estate",article:"l'"},{word:"autunno",article:"l'"},{word:"inverno",article:"l'"},{word:"montagna",article:"la"},{word:"collina",article:"la"},{word:"pianura",article:"la"},{word:"mare",article:"il"},{word:"oceano",article:"l'"},{word:"fiume",article:"il"},{word:"lago",article:"il"},{word:"costa",article:"la"},{word:"spiaggia",article:"la"},{word:"bosco",article:"il"},{word:"foresta",article:"la"},{word:"deserto",article:"il"},{word:"isola",article:"l'"},{word:"penisola",article:"la"},{word:"vulcano",article:"il"},{word:"cascata",article:"la"},{word:"continente",article:"il"},{word:"mondo",article:"il"},{word:"Terra",article:"la"},{word:"regione",article:"la"},{word:"Italia",article:"l'"},{word:"capitale",article:"la"},{word:"Roma",article:"Roma"},{word:"paesaggio",article:"il"},{word:"ambiente",article:"l'"},{word:"natura",article:"la"},{word:"albero",article:"l'"},{word:"fiore",article:"il"},{word:"animale",article:"l'"},{word:"inquinamento",article:"l'"},{word:"riciclo",article:"il"},{word:"rifiuti",article:"i"},{word:"spazzatura",article:"la"},{word:"energia rinnovabile",article:"l'"},{word:"pannello solare",article:"il"},{word:"verde",article:"il"},{word:"deforestazione",article:"la"},{word:"acqua potabile",article:"l'"},{word:"guerra",article:"la"},{word:"pace",article:"la"},{word:"fame",article:"la"},{word:"rifugiati",article:"i"},{word:"immigrazione",article:"l'"},{word:"salute",article:"la"},{word:"pandemia",article:"la"},{word:"diritti umani",article:"i"},{word:"uguaglianza",article:"l'"},{word:"sviluppo sostenibile",article:"lo"}];
 
 const GAP_FILL_DATA=[{sentence:"Ieri ____ (andare, io, passato prossimo) al cinema con Maria.",answer:"sono andato/a",hint:"essere + past participle of andare, agrees with gender"},{sentence:"Mi ____ (piacere) molto la musica classica.",answer:"piace",hint:"singular thing → piace"},{sentence:"Quando ____ (essere, io, imperfetto) piccolo, giocavo sempre fuori.",answer:"ero",hint:"essere imperfetto io → ero"},{sentence:"L'anno prossimo ____ (andare, noi, futuro) in Italia.",answer:"andremo",hint:"irregular future stem: andr-"},{sentence:"Non ho ____ (mangiare, participio) la carne da due anni.",answer:"mangiato",hint:"past participle of -are verb"},{sentence:"Da bambina, mia sorella ____ (leggere, imperfetto) molto.",answer:"leggeva",hint:"-ere verb imperfetto lei/lui"},{sentence:"____ (volere, io, condizionale) un caffè, per favore.",answer:"vorrei",hint:"volere condizionale → vorrei"},{sentence:"Loro si ____ (alzarsi, presente) sempre alle sette.",answer:"alzano",hint:"reflexive verb — si alzano (loro)"},{sentence:"La pizza è ____ (buono, fem. sing.) in quel ristorante.",answer:"buona",hint:"buono agrees with pizza (f. sg.)"},{sentence:"Non ____ (venire, tu, presente) alla festa stasera?",answer:"vieni",hint:"venire presente tu → vieni"},{sentence:"Abbiamo ____ (vedere, participio) un film bellissimo.",answer:"visto",hint:"irregular: vedere → visto"},{sentence:"Mi ____ (piacere) tantissimo i film italiani.",answer:"piacciono",hint:"plural things → piacciono"}];
 
@@ -1173,8 +1483,8 @@ function renderConnectors(){
   const content=document.getElementById('connectors-content');
   if(!content||content.innerHTML)return;
   content.innerHTML=CONNECTORS.map(group=>`<div class="connector-group">
-    <h3>${group.group}</h3>
-    <div class="connector-list">${group.items.map(item=>`<div class="connector-item" onclick="copyConnector(this,'${item.it}')"><strong>${item.it}</strong><br><span>${item.en}</span></div>`).join('')}</div>
+    <h3 data-translate="${group.group}">${group.group}</h3>
+    <div class="connector-list">${group.items.map(item=>`<div class="connector-item" onclick="copyConnector(this,'${item.it}')" data-translate="${item.en}"><strong>${item.it}</strong><br><span>${item.en}</span></div>`).join('')}</div>
     </div><div class="divider"></div>`).join('');
 }
 
@@ -1748,6 +2058,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   try{showRulesTab('writing');}catch(e){console.error('showRulesTab error:',e);}
   try{showGame('vocab');}catch(e){console.error('showGame error:',e);}
   try{renderSB();}catch(e){console.error('renderSB error:',e);}
+  try{initTranslateOnClick();}catch(e){console.error('initTranslateOnClick error:',e);}
 });
 </script>
 </body>
