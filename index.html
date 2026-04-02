@@ -1289,7 +1289,7 @@ function checkWritingBasic(){
   if(words>150)issues.push(`⚠️ Too long (${words} words). Maximum 150 words.`);
   if(!/perché|quindi|però|tuttavia|inoltre|nonostante|mentre|invece/.test(text)) issues.push("💡 Add connectors: perché, quindi, però, tuttavia, inoltre...");
   if(/voglio di |devo di |posso di /.test(text)) issues.push("⚠️ Remove 'di' after modal verbs: voglio andare (NOT voglio di andare).");
-  if(/\b(lunedì|martedì|mercoledì|giovedì|venerdì|sabato|domenica|gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\b/.test(text)&&/[A-Z]/.test(text.match(/\b(Lunedì|Martedì|Mercoledì|Giovedì|Venerdì|Sabato|Domenica|Gennaio|Febbraio|Marzo|Aprile|Maggio|Giugno|Luglio|Agosto|Settembre|Ottobre|Novembre|Dicembre)\b/)||[''])[0])) issues.push("⚠️ Days and months are NOT capitalised in Italian.");
+  if(/\b(Lunedì|Martedì|Mercoledì|Giovedì|Venerdì|Sabato|Domenica|Gennaio|Febbraio|Marzo|Aprile|Maggio|Giugno|Luglio|Agosto|Settembre|Ottobre|Novembre|Dicembre)\b/.test(text)) issues.push("⚠️ Days and months are NOT capitalised in Italian.");
   const fb=document.getElementById('writing-feedback');
   if(issues.length===0){fb.innerHTML='<div class="feedback-box good">✅ Looking good! Basic checks passed. Word count is within range.</div>';}
   else{fb.innerHTML=`<div class="feedback-box bad">${issues.map(i=>`<div>${i}</div>`).join('')}</div>`;}
