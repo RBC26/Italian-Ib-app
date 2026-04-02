@@ -844,20 +844,27 @@ let savedEntries=JSON.parse(localStorage.getItem('italiano_saved')||'[]');
 
 // ==================== NAVIGATION ====================
 function showSection(id){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b=>{if(b.getAttribute('onclick')?.includes(`'${id}'`))b.classList.add('active');});
-  if(id==='sentences')renderSentences();
-  if(id==='texttypes')renderTextTypes();
-  if(id==='topics'){document.getElementById('topics-content').innerHTML='';showTheme(1);}
-  if(id==='connectors')renderConnectors();
-  if(id==='higher')renderHigher();
-  if(id==='games'){showGame('vocab');}
-  if(id==='rules'){renderRules();showRulesTab('writing');}
-  if(id==='grammar'){showGTab('presente');}
-  if(id==='writing'){loadSaved();showWritingTab('tasks');}
-  window.scrollTo(0,0);
+  try {
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    const section=document.getElementById(id);
+    if(section)section.classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach(b=>{if(b.getAttribute('onclick')?.includes(`'${id}'`))b.classList.add('active');});
+    
+    if(id==='sentences'){try{renderSentences();}catch(e){console.error('renderSentences error:',e);}}
+    else if(id==='texttypes'){try{renderTextTypes();}catch(e){console.error('renderTextTypes error:',e);}}
+    else if(id==='topics'){try{document.getElementById('topics-content').innerHTML='';showTheme(1);}catch(e){console.error('topics error:',e);}}
+    else if(id==='connectors'){try{renderConnectors();}catch(e){console.error('renderConnectors error:',e);}}
+    else if(id==='higher'){try{renderHigher();}catch(e){console.error('renderHigher error:',e);}}
+    else if(id==='games'){try{showGame('vocab');}catch(e){console.error('showGame error:',e);}}
+    else if(id==='rules'){try{renderRules();showRulesTab('writing');}catch(e){console.error('rules error:',e);}}
+    else if(id==='grammar'){try{showGTab('presente');}catch(e){console.error('showGTab error:',e);}}
+    else if(id==='writing'){try{loadSaved();showWritingTab('tasks');}catch(e){console.error('writing error:',e);}}
+    
+    window.scrollTo(0,0);
+  } catch(e) {
+    console.error('showSection error:', e);
+  }
 }
 
 // ==================== GRAMMAR ====================
