@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italiano — IB Ab Initio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f7f3ee; --bg2:#ede8e1; --surface:#ffffff; --surface2:#f0ebe4;
+  --border:#d8d0c5; --accent:#c0392b; --accent2:#2c6e49; --accent3:#1a3a5c;
+  --gold:#b8860b; --text:#1a1410; --text-dim:#5a4f45; --text-muted:#9a8f85;
+  --green:#2c6e49; --red:#c0392b; --blue:#1a3a5c;
+  --card-shadow:0 2px 16px rgba(0,0,0,0.08); --hover-shadow:0 8px 32px rgba(0,0,0,0.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* NAV */
+#main-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(247,243,238,0.97);backdrop-filter:blur(10px);border-bottom:2px solid var(--border);height:58px;display:flex;align-items:center;padding:0 20px;gap:2px;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;font-weight:700;color:var(--accent);margin-right:16px;cursor:pointer;white-space:nowrap;letter-spacing:-0.5px;}
+.nav-logo:hover{opacity:0.8;}
+.nav-scroll{display:flex;gap:2px;overflow-x:auto;flex:1;scrollbar-width:none;}
+.nav-scroll::-webkit-scrollbar{display:none;}
+.nav-btn{background:none;border:none;color:var(--text-dim);padding:6px 11px;border-radius:6px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;transition:all 0.18s;white-space:nowrap;}
+.nav-btn:hover{background:var(--bg2);color:var(--text);}
+.nav-btn.active{background:var(--accent);color:#fff;}
+
+/* SECTIONS */
+.section{display:none;padding:74px 20px 60px;max-width:1140px;margin:0 auto;}
+.section.active{display:block;}
+#home{padding-top:0;max-width:100%;}
+
+/* HOME */
+.home-hero{background:linear-gradient(135deg,#1a3a5c 0%,#c0392b 50%,#b8860b 100%);min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 48px;position:relative;overflow:hidden;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,8vw,80px);font-weight:700;font-style:italic;color:#fff;line-height:1;margin-bottom:8px;}
+.hero-sub{font-size:14px;color:rgba(255,255,255,0.75);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:28px;}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;}
+.hero-stat{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px 16px;color:#fff;font-size:12px;font-weight:500;}
+.home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;padding:32px 24px 48px;max-width:1140px;margin:0 auto;}
+.home-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;cursor:pointer;transition:all 0.22s;box-shadow:var(--card-shadow);position:relative;overflow:hidden;}
+.home-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--card-color,var(--accent));border-radius:14px 0 0 14px;}
+.home-card:hover{transform:translateY(-3px);box-shadow:var(--hover-shadow);border-color:var(--card-color,var(--accent));}
+.card-icon{font-size:26px;margin-bottom:10px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;margin-bottom:6px;}
+.card-desc{font-size:13px;color:var(--text-dim);line-height:1.5;}
+.card-badge{display:inline-block;margin-top:8px;background:var(--bg2);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--text-muted);font-weight:500;}
+
+/* TYPOGRAPHY */
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,42px);font-weight:700;line-height:1.15;margin-bottom:6px;}
+h2{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:14px;}
+h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;}
+.page-header{margin-bottom:26px;padding-bottom:18px;border-bottom:2px solid var(--border);}
+.page-header p{color:var(--text-dim);font-size:14px;margin-top:4px;}
+
+/* TABS */
+.tab-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.tab-btn{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:13px;font-family:'Outfit',sans-serif;font-weight:500;color:var(--text-dim);cursor:pointer;transition:all 0.18s;}
+.tab-btn:hover{border-color:var(--accent);color:var(--accent);}
+.tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;box-shadow:var(--card-shadow);}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+/* GRAMMAR */
+.grammar-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:18px;}
+.grammar-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--accent);margin-bottom:14px;}
+.conj-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;}
+.conj-table th{background:var(--bg2);padding:7px 11px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-dim);}
+.conj-table td{padding:7px 11px;border-bottom:1px solid var(--border);}
+.conj-table tr:last-child td{border-bottom:none;}
+.pronoun{color:var(--text-muted);font-family:'Space Mono',monospace;font-size:12px;}
+.verb-form{color:var(--accent3);font-weight:600;font-family:'Space Mono',monospace;}
+.meaning{color:var(--text-dim);font-size:12px;}
+.rule-box{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:13px;line-height:1.6;}
+.rule-box.green{border-color:var(--green);}
+.rule-box.blue{border-color:var(--blue);}
+.rule-box.gold{border-color:var(--gold);}
+.example-it{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--accent3);}
+.example-en{font-size:12px;color:var(--text-muted);margin-top:2px;}
+.tag{display:inline-block;background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:2px 9px;font-size:11px;font-weight:600;color:var(--text-dim);margin:2px;}
+.tag.green{background:#e8f5ee;border-color:#a8d5b8;color:var(--green);}
+.tag.red{background:#fdecea;border-color:#f0b0a8;color:var(--red);}
+.tag.blue{background:#e8eef5;border-color:#a8c0d8;color:var(--blue);}
+.tag.gold{background:#fdf5e0;border-color:#d4b86a;color:var(--gold);}
+
+/* INPUTS */
+.practice-input{width:100%;background:var(--bg2);border:2px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'Outfit',sans-serif;font-size:15px;color:var(--text);outline:none;transition:border-color 0.18s;resize:vertical;}
+.practice-input:focus{border-color:var(--accent);background:#fff;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.18s;border:none;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:#a03025;transform:translateY(-1px);}
+.btn-secondary{background:var(--bg2);border:1px solid var(--border);color:var(--text);}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:#245a3a;}
+.feedback-box{border-radius:10px;padding:13px;margin-top:10px;font-size:14px;line-height:1.6;}
+.feedback-box.good{background:#e8f5ee;border:1px solid #a8d5b8;color:#1a4a28;}
+.feedback-box.bad{background:#fdecea;border:1px solid #f0b0a8;color:#7a1a10;}
+.feedback-box.info{background:#e8eef5;border:1px solid #a8c0d8;color:#1a2a3c;}
+
+/* SENTENCES */
+.sentence-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:9px;display:flex;flex-direction:column;gap:4px;}
+.sentence-it{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text);}
+.sentence-en{font-size:13px;color:var(--text-muted);}
+
+/* TEXT TYPES */
+.text-type-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;}
+.tt-header{background:var(--bg2);padding:13px 17px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.tt-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;}
+.tt-function{font-size:12px;color:var(--text-muted);margin-left:auto;font-style:italic;}
+.tt-body{padding:15px 17px;}
+.tt-struct{list-style:none;margin-bottom:12px;}
+.tt-struct li{padding:5px 0;font-size:13px;color:var(--text-dim);border-bottom:1px dashed var(--border);display:flex;align-items:baseline;gap:8px;}
+.tt-struct li:last-child{border-bottom:none;}
+.tt-label{background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 5px;border-radius:4px;min-width:20px;text-align:center;font-family:'Space Mono',monospace;}
+.tt-grammar{background:var(--bg2);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text-dim);margin-top:10px;}
+
+/* TOPICS */
+.topic-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px;}
+.topic-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;margin-bottom:3px;}
+.topic-theme{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-bottom:14px;}
+.vocab-item{background:var(--bg2);border-radius:8px;padding:6px 10px;font-size:12px;display:flex;justify-content:space-between;gap:6px;}
+.vocab-it{color:var(--accent3);font-weight:600;}
+.vocab-en{color:var(--text-muted);}
+
+/* CONNECTORS */
+.connector-group{margin-bottom:20px;}
+.connector-group h3{color:var(--accent);font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;text-transform:none;letter-spacing:0;margin-bottom:8px;}
+.connector-list{display:flex;flex-wrap:wrap;gap:6px;}
+.connector-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 11px;font-size:13px;cursor:pointer;transition:all 0.18s;}
+.connector-item:hover{border-color:var(--accent);background:#fff;}
+.connector-item strong{color:var(--accent3);}
+.connector-item span{color:var(--text-muted);font-size:11px;}
+
+/* HIGHER LEVEL */
+.hl-card{background:linear-gradient(135deg,var(--surface) 0%,#f5f0e8 100%);border:1px solid var(--gold);border-radius:12px;padding:16px 18px;margin-bottom:11px;position:relative;}
+.hl-card::before{content:'★';position:absolute;top:12px;right:14px;color:var(--gold);font-size:15px;}
+.hl-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:5px;}
+.hl-sentence{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text);margin-bottom:4px;}
+.hl-breakdown{font-size:12px;color:var(--text-muted);line-height:1.6;}
+
+/* WRITING */
+.writing-area{width:100%;min-height:180px;background:#fff;border:2px solid var(--border);border-radius:10px;padding:14px;font-family:'Outfit',sans-serif;font-size:15px;line-height:1.7;color:var(--text);resize:vertical;outline:none;transition:border-color 0.18s;}
+.writing-area:focus{border-color:var(--accent);}
+.writing-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-muted);margin-top:6px;}
+.word-count{font-family:'Space Mono',monospace;}
+.word-count.ok{color:var(--green);}
+.word-count.low{color:var(--red);}
+.saved-entry{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.saved-entry-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.saved-entry-title{font-weight:600;font-size:14px;}
+.saved-entry-date{font-size:11px;color:var(--text-muted);font-family:'Space Mono',monospace;}
+.saved-entry-text{font-size:13px;color:var(--text-dim);line-height:1.6;white-space:pre-wrap;}
+
+/* GAMES */
+.game-container{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;margin-bottom:20px;text-align:center;}
+.game-question{font-family:'Cormorant Garamond',serif;font-size:24px;font-style:italic;color:var(--text);margin:18px 0;min-height:56px;display:flex;align-items:center;justify-content:center;}
+.game-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:500px;margin:0 auto 18px;}
+.game-opt-btn{background:var(--bg2);border:2px solid var(--border);border-radius:10px;padding:13px;font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);cursor:pointer;transition:all 0.18s;}
+.game-opt-btn:hover{border-color:var(--accent);background:#fff;}
+.game-opt-btn.correct{background:#e8f5ee;border-color:var(--green);color:var(--green);}
+.game-opt-btn.wrong{background:#fdecea;border-color:var(--red);color:var(--red);}
+.score-display{display:flex;gap:20px;justify-content:center;margin-bottom:14px;}
+.score-item{text-align:center;}
+.score-num{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--accent);}
+.score-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;}
+.progress-bar{height:6px;background:var(--bg2);border-radius:3px;overflow:hidden;margin:10px 0;}
+.progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.4s;}
+.game-feedback{font-size:15px;min-height:24px;margin:8px 0;font-weight:500;}
+.game-input-area{display:flex;gap:10px;max-width:500px;margin:0 auto 14px;}
+
+/* RULES */
+.rule-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;}
+.rule-card-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--accent);margin-bottom:10px;}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:14px;line-height:1.5;}
+.checklist-item:last-child{border-bottom:none;}
+.check-icon{font-size:16px;min-width:20px;}
+
+/* MISC */
+.divider{height:1px;background:var(--border);margin:22px 0;}
+.alert{padding:11px 15px;border-radius:8px;font-size:13px;margin-bottom:13px;}
+.alert-info{background:#e8eef5;border:1px solid #a8c0d8;color:var(--blue);}
+.alert-warning{background:#fdf5e8;border:1px solid #d8b87a;color:#7a5010;}
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge-red{background:#fdecea;color:var(--red);}
+.badge-green{background:#e8f5ee;color:var(--green);}
+.badge-blue{background:#e8eef5;color:var(--blue);}
+.badge-gold{background:#fdf5e0;color:var(--gold);}
+#sb-input{width:100%;background:var(--bg2);border:2px solid var(--border);border-radius:10px;padding:11px 14px;font-size:15px;font-family:'Outfit',sans-serif;color:var(--text);outline:none;}
+#sb-input:focus{border-color:var(--accent);background:#fff;}
+select.practice-input{min-height:0;resize:none;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo" onclick="showSection('home')">🇮🇹 Italiano</div>
+  <div class="nav-scroll">
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('grammar')">Grammatica</button>
+    <button class="nav-btn" onclick="showSection('sentences')">Frasi</button>
+    <button class="nav-btn" onclick="showSection('texttypes')">Text Types</button>
+    <button class="nav-btn" onclick="showSection('topics')">Argomenti</button>
+    <button class="nav-btn" onclick="showSection('connectors')">Connettori</button>
+    <button class="nav-btn" onclick="showSection('higher')">Higher Level</button>
+    <button class="nav-btn" onclick="showSection('writing')">Writing</button>
+    <button class="nav-btn" onclick="showSection('games')">Giochi</button>
+    <button class="nav-btn" onclick="showSection('rules')">Rules</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="section active" style="padding-top:0;max-width:100%;">
+  <div class="home-hero">
+    <div style="font-size:44px;margin-bottom:10px;">🇮🇹</div>
+    <div class="hero-title">Italiano</div>
+    <div class="hero-sub">IB Ab Initio · SL · Complete Revision App</div>
+    <div class="hero-stats">
+      <div class="hero-stat">📚 5 Themes · 20 Topics</div>
+      <div class="hero-stat">✏️ 65+ Sentence Templates</div>
+      <div class="hero-stat">📄 18 Text Types</div>
+      <div class="hero-stat">🎮 5 Games</div>
+      <div class="hero-stat">⭐ Higher-Level Phrases</div>
+    </div>
+  </div>
+  <div class="home-grid">
+    <div class="home-card" style="--card-color:#c0392b" onclick="showSection('grammar')">
+      <div class="card-icon">🔤</div>
+      <div class="card-title">Grammatica</div>
+      <div class="card-desc">All verb tenses with conjugation tables, pronouns, adjectives, negation — plus grammar practice exercises.</div>
+      <div class="card-badge">Presente · Passato · Futuro · Imperfetto</div>
+    </div>
+    <div class="home-card" style="--card-color:#1a3a5c" onclick="showSection('sentences')">
+      <div class="card-icon">💬</div>
+      <div class="card-title">Frasi Modello</div>
+      <div class="card-desc">65+ model sentences across all topics and tenses. Filter, shuffle, and practise translation.</div>
+      <div class="card-badge">65+ sentences · All topics</div>
+    </div>
+    <div class="home-card" style="--card-color:#b8860b" onclick="showSection('texttypes')">
+      <div class="card-icon">📄</div>
+      <div class="card-title">Tipologie Testuali</div>
+      <div class="card-desc">All 18 text types for Paper 1 with full structure, grammar, register notes and model examples.</div>
+      <div class="card-badge">18 text types · From PDF</div>
+    </div>
+    <div class="home-card" style="--card-color:#2c6e49" onclick="showSection('topics')">
+      <div class="card-icon">🗂️</div>
+      <div class="card-title">Argomenti</div>
+      <div class="card-desc">Key vocab and your personal writing notes for all 20 IB topics. Auto-saved to your browser.</div>
+      <div class="card-badge">5 Themes · 20 Topics</div>
+    </div>
+    <div class="home-card" style="--card-color:#7c4daa" onclick="showSection('connectors')">
+      <div class="card-icon">🔗</div>
+      <div class="card-title">Connettori</div>
+      <div class="card-desc">All discourse connectors by function from the PDF. Click any to copy it to your clipboard.</div>
+      <div class="card-badge">50+ connectors · Click to copy</div>
+    </div>
+    <div class="home-card" style="--card-color:#b8860b" onclick="showSection('higher')">
+      <div class="card-icon">⭐</div>
+      <div class="card-title">Higher Level</div>
+      <div class="card-desc">Advanced structures, sophisticated vocabulary upgrades and examiner-pleasing phrases by topic.</div>
+      <div class="card-badge">Complex structures · Per topic</div>
+    </div>
+    <div class="home-card" style="--card-color:#c0392b" onclick="showSection('writing')">
+      <div class="card-icon">✍️</div>
+      <div class="card-title">Writing Practice</div>
+      <div class="card-desc">Prompted writing tasks, sentence builder with typing, auto-saves all your work locally.</div>
+      <div class="card-badge">Auto-saves · Word count · Feedback</div>
+    </div>
+    <div class="home-card" style="--card-color:#1a3a5c" onclick="showSection('games')">
+      <div class="card-icon">🎮</div>
+      <div class="card-title">Giochi</div>
+      <div class="card-desc">5 fully developed games: vocab quiz, conjugation, translation, gender/articles, and gap fill.</div>
+      <div class="card-badge">5 games · Score tracking</div>
+    </div>
+    <div class="home-card" style="--card-color:#2c6e49" onclick="showSection('rules')">
+      <div class="card-icon">📏</div>
+      <div class="card-title">Rules & Register</div>
+      <div class="card-desc">Italian writing rules, formal vs informal register, exam checklist, and oral preparation tips.</div>
+      <div class="card-badge">Exam checklist · Register guide</div>
+    </div>
+  </div>
+</div>
+
+<!-- GRAMMAR -->
+<div id="grammar" class="section">
+  <div class="page-header">
+    <h1>Grammatica</h1>
+    <p>All verb tenses and grammar structures for IB ab initio — with tables, rules and practice.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showGTab('presente')">Presente</button>
+    <button class="tab-btn" onclick="showGTab('passato')">Passato Prossimo</button>
+    <button class="tab-btn" onclick="showGTab('imperfetto')">Imperfetto</button>
+    <button class="tab-btn" onclick="showGTab('futuro')">Futuro</button>
+    <button class="tab-btn" onclick="showGTab('condizionale')">Condizionale</button>
+    <button class="tab-btn" onclick="showGTab('imperativo')">Imperativo</button>
+    <button class="tab-btn" onclick="showGTab('pronouns')">Pronomi</button>
+    <button class="tab-btn" onclick="showGTab('nouns')">Nomi & Articoli</button>
+    <button class="tab-btn" onclick="showGTab('adjectives')">Aggettivi</button>
+    <button class="tab-btn" onclick="showGTab('piacere')">Piacere</button>
+    <button class="tab-btn" onclick="showGTab('reflexive')">Riflessivi</button>
+    <button class="tab-btn" onclick="showGTab('negation')">Negazione</button>
+  </div>
+  <div id="gram-content"></div>
+  <div class="grammar-block">
+    <div class="grammar-title">✏️ Grammar Practice</div>
+    <div id="gram-practice-area"></div>
+    <button class="btn btn-secondary" onclick="loadNextGramPractice()" style="margin-top:10px;">Next Exercise →</button>
+  </div>
+</div>
+
+<!-- SENTENCES -->
+<div id="sentences" class="section">
+  <div class="page-header">
+    <h1>Frasi Modello</h1>
+    <p>65+ model sentences by topic and tense. Filter, shuffle and study.</p>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;">
+    <select id="sent-topic" class="practice-input" style="max-width:210px;" onchange="filterSentences()">
+      <option value="all">All Topics</option>
+      <option value="identita">Identità</option>
+      <option value="famiglia">Famiglia</option>
+      <option value="cibo">Cibo & Salute</option>
+      <option value="routine">Routine quotidiana</option>
+      <option value="tempo">Tempo libero</option>
+      <option value="vacanze">Vacanze & Feste</option>
+      <option value="scuola">Scuola</option>
+      <option value="lavoro">Lavoro</option>
+      <option value="ambiente">Ambiente</option>
+      <option value="tecnologia">Tecnologia</option>
+      <option value="societa">Società</option>
+    </select>
+    <select id="sent-tense" class="practice-input" style="max-width:200px;" onchange="filterSentences()">
+      <option value="all">All Tenses</option>
+      <option value="presente">Presente</option>
+      <option value="passato">Passato Prossimo</option>
+      <option value="imperfetto">Imperfetto</option>
+      <option value="futuro">Futuro</option>
+      <option value="condizionale">Condizionale</option>
+    </select>
+    <button class="btn btn-secondary" onclick="shuffleSentences()">🔀 Shuffle</button>
+    <span id="sent-count" style="font-size:12px;color:var(--text-muted);"></span>
+  </div>
+  <div id="sentences-list"></div>
+</div>
+
+<!-- TEXT TYPES -->
+<div id="texttypes" class="section">
+  <div class="page-header">
+    <h1>Tipologie Testuali</h1>
+    <p>All 18 text types — structure, grammar, register and examples from the IB document.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTTCat('personal')">📝 Personal</button>
+    <button class="tab-btn" onclick="showTTCat('professional')">💼 Professional/Mass Media</button>
+  </div>
+  <div id="tt-personal"></div>
+  <div id="tt-professional" style="display:none"></div>
+</div>
+
+<!-- TOPICS -->
+<div id="topics" class="section">
+  <div class="page-header">
+    <h1>Argomenti</h1>
+    <p>All 20 IB topics with key vocab and your writing notes. Auto-saved.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTheme(1)">Identità</button>
+    <button class="tab-btn" onclick="showTheme(2)">Esperienze</button>
+    <button class="tab-btn" onclick="showTheme(3)">Ingegno Umano</button>
+    <button class="tab-btn" onclick="showTheme(4)">Org. Sociale</button>
+    <button class="tab-btn" onclick="showTheme(5)">Il Pianeta</button>
+  </div>
+  <div id="topics-content"></div>
+</div>
+
+<!-- CONNECTORS -->
+<div id="connectors" class="section">
+  <div class="page-header">
+    <h1>Connettori Testuali</h1>
+    <p>All discourse connectors by function. Click any to copy to clipboard.</p>
+  </div>
+  <div class="alert alert-info">💡 Click any connector to copy it. These are sourced directly from the IB text types PDF.</div>
+  <div id="connectors-content"></div>
+</div>
+
+<!-- HIGHER LEVEL -->
+<div id="higher" class="section">
+  <div class="page-header">
+    <h1>Higher Level ⭐</h1>
+    <p>Advanced structures and vocabulary to push your writing from a 4 to a 7.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showHLTab('structures')">Complex Structures</button>
+    <button class="tab-btn" onclick="showHLTab('vocab')">Better Vocab</button>
+    <button class="tab-btn" onclick="showHLTab('opinions')">Opinion Phrases</button>
+    <button class="tab-btn" onclick="showHLTab('bytopic')">By Topic</button>
+  </div>
+  <div id="hl-structures"></div>
+  <div id="hl-vocab" style="display:none"></div>
+  <div id="hl-opinions" style="display:none"></div>
+  <div id="hl-bytopic" style="display:none"></div>
+</div>
+
+<!-- WRITING -->
+<div id="writing" class="section">
+  <div class="page-header">
+    <h1>Writing Practice ✍️</h1>
+    <p>Prompted tasks, sentence builder with typing, and saved work — all in one place.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showWritingTab('tasks')">Prompted Tasks</button>
+    <button class="tab-btn" onclick="showWritingTab('builder')">Sentence Builder</button>
+    <button class="tab-btn" onclick="showWritingTab('saved')">Saved Work</button>
+  </div>
+
+  <!-- TASKS -->
+  <div id="writing-tasks">
+    <div class="card">
+      <h3>Select a Writing Task</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+        <select id="task-type" class="practice-input" style="max-width:220px;" onchange="updatePrompt()">
+          <option value="">Choose text type...</option>
+          <option>Blog</option><option>Diario personale</option><option>Email informale</option>
+          <option>Email formale</option><option>Cartolina</option><option>Articolo</option>
+          <option>Discorso/Presentazione</option><option>Intervista</option><option>Messaggio</option>
+          <option>Recensione</option><option>Opuscolo</option><option>Annuncio pubblicitario</option>
+          <option>Istruzioni</option><option>Post social media</option><option>Dichiarazione personale</option>
+          <option>Invito informale</option><option>Invito formale</option><option>Resoconto ufficiale</option>
+        </select>
+        <select id="task-topic" class="practice-input" style="max-width:220px;" onchange="updatePrompt()">
+          <option value="">Choose topic...</option>
+          <option>Identità personale</option><option>La famiglia</option><option>Cibo e salute</option>
+          <option>La routine quotidiana</option><option>Il tempo libero</option><option>Le vacanze</option>
+          <option>Le feste e le tradizioni</option><option>La scuola</option><option>Il lavoro</option>
+          <option>I problemi sociali</option><option>Il quartiere</option><option>I trasporti</option>
+          <option>L'intrattenimento</option><option>I media e la tecnologia</option>
+          <option>Il clima e l'ambiente</option><option>I problemi globali</option>
+        </select>
+        <button class="btn btn-secondary" onclick="randomTask()">🎲 Random Task</button>
+      </div>
+      <div id="task-prompt" class="feedback-box info" style="display:none;margin-bottom:14px;"></div>
+      <div id="task-checklist" style="display:none;margin-bottom:12px;"></div>
+      <textarea id="main-writing-area" class="writing-area" placeholder="Scrivi qui il tuo testo in italiano... (70–150 parole per Paper 1)" oninput="updateWordCount()"></textarea>
+      <div class="writing-meta">
+        <span id="word-count-display" class="word-count">0 words</span>
+        <span style="color:var(--text-muted)">Target: 70–150 words for Paper 1</span>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="saveWriting()">💾 Save</button>
+        <button class="btn btn-secondary" onclick="clearWriting()">🗑️ Clear</button>
+        <button class="btn btn-secondary" onclick="checkWritingBasic()">✔️ Quick Check</button>
+      </div>
+      <div id="writing-feedback" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- SENTENCE BUILDER -->
+  <div id="writing-builder" style="display:none;">
+    <div class="card">
+      <h2>Sentence Builder</h2>
+      <div class="alert alert-info">Use the elements below to build the correct Italian sentence. Type your answer and check it!</div>
+      <div id="sb-current"></div>
+      <div style="margin-top:14px;">
+        <input type="text" id="sb-input" placeholder="Scrivi la frase completa qui..." oninput="" />
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="checkSB()">✔️ Check</button>
+          <button class="btn btn-secondary" onclick="nextSB()">→ Next</button>
+          <button class="btn btn-secondary" onclick="showHintSB()">💡 Hint</button>
+          <button class="btn btn-secondary" onclick="revealSB()">👁 Reveal</button>
+        </div>
+        <div id="sb-feedback" style="margin-top:10px;"></div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Session score:</div>
+          <span class="badge badge-green" id="sb-score-correct">✅ 0 correct</span>
+          <span class="badge badge-red" id="sb-score-wrong" style="margin-left:6px;">❌ 0 wrong</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAVED -->
+  <div id="writing-saved" style="display:none;">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 style="margin:0;">Saved Work</h2>
+        <button class="btn btn-secondary" style="font-size:12px;" onclick="if(confirm('Delete ALL saved entries?')){savedEntries=[];localStorage.removeItem('italiano_saved');loadSaved();}">🗑️ Clear All</button>
+      </div>
+      <div id="saved-entries-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GAMES -->
+<div id="games" class="section">
+  <div class="page-header">
+    <h1>Giochi 🎮</h1>
+    <p>Five games to test your Italian — track your scores and beat your best.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showGame('vocab')">🔤 Vocab</button>
+    <button class="tab-btn" onclick="showGame('conj')">🔤 Conjugation</button>
+    <button class="tab-btn" onclick="showGame('translate')">🔄 Translation</button>
+    <button class="tab-btn" onclick="showGame('gender')">👫 Gender</button>
+    <button class="tab-btn" onclick="showGame('fill')">📝 Gap Fill</button>
+  </div>
+  <div id="game-vocab"></div>
+  <div id="game-conj" style="display:none"></div>
+  <div id="game-translate" style="display:none"></div>
+  <div id="game-gender" style="display:none"></div>
+  <div id="game-fill" style="display:none"></div>
+</div>
+
+<!-- RULES -->
+<div id="rules" class="section">
+  <div class="page-header">
+    <h1>Rules & Register 📏</h1>
+    <p>Italian-specific rules that cost marks when broken. Know these cold before the exam.</p>
+  </div>
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showRulesTab('writing')">Writing Rules</button>
+    <button class="tab-btn" onclick="showRulesTab('register')">Register</button>
+    <button class="tab-btn" onclick="showRulesTab('checklist')">Exam Checklist</button>
+    <button class="tab-btn" onclick="showRulesTab('oral')">Oral Tips</button>
+  </div>
+  <div id="rules-writing"></div>
+  <div id="rules-register" style="display:none"></div>
+  <div id="rules-checklist" style="display:none"></div>
+  <div id="rules-oral" style="display:none"></div>
+</div>
+
+<script>
+// ==================== DATA ====================
+
+const SENTENCES = [
+  // IDENTITÀ — PRESENTE
+  {it:"Mi chiamo [Nome] e ho [età] anni.",en:"My name is [Name] and I am [age] years old.",topic:"identita",tense:"presente",tags:["identity","intro"]},
+  {it:"Sono alto/a con i capelli castani e gli occhi verdi.",en:"I am tall with brown hair and green eyes.",topic:"identita",tense:"presente",tags:["appearance"]},
+  {it:"Sono una persona gentile, curiosa e un po' timida.",en:"I am a kind, curious and slightly shy person.",topic:"identita",tense:"presente",tags:["personality"]},
+  {it:"Sono di origine italiana ma vivo in Inghilterra da dieci anni.",en:"I am of Italian origin but I have lived in England for ten years.",topic:"identita",tense:"presente",tags:["nationality"]},
+  {it:"Parlo tre lingue: l'inglese, l'italiano e un po' di spagnolo.",en:"I speak three languages: English, Italian and a bit of Spanish.",topic:"identita",tense:"presente",tags:["languages"]},
+  {it:"Mi piace molto la musica e suono la chitarra da tre anni.",en:"I really like music and I have been playing guitar for three years.",topic:"identita",tense:"presente",tags:["hobbies"]},
+  {it:"Non mi piacciono i film d'orrore perché sono troppo spaventosi.",en:"I don't like horror films because they are too scary.",topic:"tempo",tense:"presente",tags:["opinions","films"]},
+  {it:"La mia materia preferita è la biologia perché è molto interessante.",en:"My favourite subject is biology because it is very interesting.",topic:"scuola",tense:"presente",tags:["school"]},
+  // FAMIGLIA
+  {it:"La mia famiglia è composta da quattro persone: i miei genitori, mia sorella e io.",en:"My family consists of four people: my parents, my sister and me.",topic:"famiglia",tense:"presente",tags:["family"]},
+  {it:"Mio padre lavora come ingegnere in una grande azienda internazionale.",en:"My father works as an engineer at a large international company.",topic:"famiglia",tense:"presente",tags:["family","work"]},
+  {it:"Vado d'accordo molto bene con mia sorella, anche se a volte litighiamo.",en:"I get on very well with my sister, even though we sometimes argue.",topic:"famiglia",tense:"presente",tags:["family","relationships"]},
+  {it:"I miei nonni vivono in Italia e li vedo solo d'estate.",en:"My grandparents live in Italy and I only see them in summer.",topic:"famiglia",tense:"presente",tags:["family","Italy"]},
+  // CIBO
+  {it:"Mangio molta frutta e verdura perché voglio stare bene.",en:"I eat lots of fruit and vegetables because I want to be healthy.",topic:"cibo",tense:"presente",tags:["food","health"]},
+  {it:"Preferisco il cibo italiano a quello inglese.",en:"I prefer Italian food to English food.",topic:"cibo",tense:"presente",tags:["food","preferences"]},
+  {it:"In Italia si mangia molta pasta, pizza e gelato.",en:"In Italy people eat a lot of pasta, pizza and ice cream.",topic:"cibo",tense:"presente",tags:["Italy","food","culture"]},
+  {it:"È importante fare colazione ogni mattina per avere energia durante la giornata.",en:"It is important to have breakfast every morning to have energy during the day.",topic:"cibo",tense:"presente",tags:["health","routine"]},
+  {it:"Non mangio carne da due anni perché sono vegetariano/a.",en:"I haven't eaten meat for two years because I am vegetarian.",topic:"cibo",tense:"presente",tags:["food","lifestyle"]},
+  // ROUTINE
+  {it:"Di solito mi alzo alle sette e faccio colazione.",en:"I usually get up at seven and have breakfast.",topic:"routine",tense:"presente",tags:["daily routine","reflexive"]},
+  {it:"Vado a scuola in autobus ogni mattina.",en:"I go to school by bus every morning.",topic:"routine",tense:"presente",tags:["transport","routine"]},
+  {it:"Dopo la scuola faccio i compiti e poi vedo i miei amici.",en:"After school I do my homework and then I see my friends.",topic:"routine",tense:"presente",tags:["routine","school"]},
+  {it:"La sera mi addormento verso le undici dopo aver letto un po'.",en:"In the evening I fall asleep around eleven after reading a bit.",topic:"routine",tense:"presente",tags:["routine","evening"]},
+  // TEMPO LIBERO
+  {it:"Nel tempo libero faccio sport e vedo i miei amici.",en:"In my free time I do sport and see my friends.",topic:"tempo",tense:"presente",tags:["free time"]},
+  {it:"Il mio sport preferito è il nuoto perché è rilassante e fa bene alla salute.",en:"My favourite sport is swimming because it is relaxing and good for health.",topic:"tempo",tense:"presente",tags:["sport","health"]},
+  {it:"Ogni sabato vado al cinema con i miei amici del quartiere.",en:"Every Saturday I go to the cinema with my neighbourhood friends.",topic:"tempo",tense:"presente",tags:["cinema","friends"]},
+  // TECNOLOGIA
+  {it:"Uso il telefono molte ore al giorno per studiare e per comunicare.",en:"I use my phone for many hours a day to study and to communicate.",topic:"tecnologia",tense:"presente",tags:["technology"]},
+  {it:"Secondo me, i social media possono essere sia utili che pericolosi.",en:"In my opinion, social media can be both useful and dangerous.",topic:"tecnologia",tense:"presente",tags:["media","opinion"]},
+  {it:"Grazie alla tecnologia, possiamo comunicare con persone di tutto il mondo.",en:"Thanks to technology, we can communicate with people from all over the world.",topic:"tecnologia",tense:"presente",tags:["technology","communication"]},
+  {it:"L'intelligenza artificiale sta cambiando il modo in cui lavoriamo e studiamo.",en:"Artificial intelligence is changing the way we work and study.",topic:"tecnologia",tense:"presente",tags:["AI","change"]},
+  // AMBIENTE
+  {it:"L'ambiente è uno dei problemi più gravi del nostro tempo.",en:"The environment is one of the most serious problems of our time.",topic:"ambiente",tense:"presente",tags:["environment","global"]},
+  {it:"Cerco di riciclare il più possibile per aiutare il pianeta.",en:"I try to recycle as much as possible to help the planet.",topic:"ambiente",tense:"presente",tags:["recycling","environment"]},
+  {it:"Mi preoccupo molto per il cambiamento climatico e per il futuro del pianeta.",en:"I am very worried about climate change and the future of the planet.",topic:"ambiente",tense:"presente",tags:["climate change","concern"]},
+  // SOCIETÀ
+  {it:"Il mio quartiere è abbastanza tranquillo ma non ci sono molti negozi.",en:"My neighbourhood is quite quiet but there aren't many shops.",topic:"societa",tense:"presente",tags:["neighbourhood"]},
+  {it:"La disoccupazione giovanile è un problema serio in molti paesi europei.",en:"Youth unemployment is a serious problem in many European countries.",topic:"societa",tense:"presente",tags:["unemployment","Europe"]},
+  // SCUOLA
+  {it:"La mia scuola ha circa mille studenti ed è molto grande.",en:"My school has about a thousand students and is very large.",topic:"scuola",tense:"presente",tags:["school","description"]},
+  {it:"Lavorare in gruppo aiuta a sviluppare competenze sociali importanti.",en:"Working in a group helps to develop important social skills.",topic:"scuola",tense:"presente",tags:["school","skills"]},
+  // LAVORO
+  {it:"In futuro vorrei diventare medico per aiutare le persone.",en:"In the future I would like to become a doctor to help people.",topic:"lavoro",tense:"presente",tags:["work","future"]},
+  // VACANZE
+  {it:"Le feste tradizionali italiane sono molto diverse da quelle inglesi.",en:"Italian traditional celebrations are very different from English ones.",topic:"vacanze",tense:"presente",tags:["culture","traditions"]},
+  {it:"In Italia il Natale si festeggia il 25 dicembre con tutta la famiglia.",en:"In Italy, Christmas is celebrated on 25 December with the whole family.",topic:"vacanze",tense:"presente",tags:["Christmas","Italy"]},
+
+  // PASSATO PROSSIMO
+  {it:"La settimana scorsa sono andato/a al cinema con i miei amici.",en:"Last week I went to the cinema with my friends.",topic:"tempo",tense:"passato",tags:["cinema","past"]},
+  {it:"Ho mangiato una pizza deliziosa in un ristorante italiano ieri sera.",en:"I ate a delicious pizza at an Italian restaurant yesterday evening.",topic:"cibo",tense:"passato",tags:["food","restaurant"]},
+  {it:"L'anno scorso sono andato/a in vacanza in Italia con la mia famiglia.",en:"Last year I went on holiday to Italy with my family.",topic:"vacanze",tense:"passato",tags:["holiday","Italy"]},
+  {it:"Ho studiato molto per gli esami e ho ottenuto buoni risultati.",en:"I studied a lot for the exams and got good results.",topic:"scuola",tense:"passato",tags:["school","exams"]},
+  {it:"Siamo partiti presto e siamo arrivati a Roma nel pomeriggio.",en:"We left early and arrived in Rome in the afternoon.",topic:"vacanze",tense:"passato",tags:["travel","Rome"]},
+  {it:"Ho visto un film fantastico che mi ha fatto riflettere molto.",en:"I saw a fantastic film that made me think a lot.",topic:"tempo",tense:"passato",tags:["film","opinion"]},
+  {it:"Mia sorella si è laureata l'anno scorso all'università di Milano.",en:"My sister graduated last year from the University of Milan.",topic:"famiglia",tense:"passato",tags:["family","university"]},
+  {it:"Abbiamo festeggiato il Natale tutti insieme con una grande cena.",en:"We celebrated Christmas all together with a big dinner.",topic:"vacanze",tense:"passato",tags:["Christmas","celebration"]},
+  {it:"Ho imparato a cucinare durante il lockdown e ora cucino ogni giorno.",en:"I learnt to cook during lockdown and now I cook every day.",topic:"cibo",tense:"passato",tags:["cooking","learning"]},
+  {it:"Il concerto è stato fantastico e la musica era meravigliosa.",en:"The concert was fantastic and the music was wonderful.",topic:"tempo",tense:"passato",tags:["music","concert"]},
+  {it:"Non ho mai visto un film italiano prima di quest'anno.",en:"I had never seen an Italian film before this year.",topic:"tempo",tense:"passato",tags:["film","Italy"]},
+  {it:"Mi sono alzato/a tardi e ho perso l'autobus per la scuola.",en:"I got up late and missed the school bus.",topic:"routine",tense:"passato",tags:["routine","morning"]},
+  {it:"Abbiamo visitato il Colosseo e i Musei Vaticani durante il viaggio a Roma.",en:"We visited the Colosseum and the Vatican Museums during our trip to Rome.",topic:"vacanze",tense:"passato",tags:["Rome","tourism"]},
+
+  // IMPERFETTO
+  {it:"Quando ero piccolo/a, giocavo sempre in giardino con i miei amici.",en:"When I was little, I always played in the garden with my friends.",topic:"identita",tense:"imperfetto",tags:["childhood","routine"]},
+  {it:"Da bambino/a, mangiavo la pizza ogni venerdì sera con la famiglia.",en:"As a child, I ate pizza every Friday evening with the family.",topic:"cibo",tense:"imperfetto",tags:["childhood","food"]},
+  {it:"Mia nonna mi raccontava sempre storie bellissime prima di dormire.",en:"My grandmother always told me wonderful stories before bed.",topic:"famiglia",tense:"imperfetto",tags:["family","childhood"]},
+  {it:"Quando andavo alle elementari, avevo molti amici nel quartiere.",en:"When I went to primary school, I had many friends in the neighbourhood.",topic:"scuola",tense:"imperfetto",tags:["school","childhood"]},
+  {it:"Stavo studiando quando il telefono ha squillato all'improvviso.",en:"I was studying when the phone suddenly rang.",topic:"routine",tense:"imperfetto",tags:["past continuous"]},
+  {it:"In passato, le persone usavano meno la tecnologia e leggevano di più.",en:"In the past, people used technology less and read more.",topic:"tecnologia",tense:"imperfetto",tags:["technology","past"]},
+  {it:"Da bambino/a, non capivo l'importanza di proteggere l'ambiente.",en:"As a child, I didn't understand the importance of protecting the environment.",topic:"ambiente",tense:"imperfetto",tags:["environment","childhood"]},
+  {it:"Mio padre lavorava sempre fino a tardi e non lo vedevo molto.",en:"My father always worked until late and I didn't see him much.",topic:"famiglia",tense:"imperfetto",tags:["family","work"]},
+
+  // FUTURO
+  {it:"L'anno prossimo andrò all'università per studiare biologia.",en:"Next year I will go to university to study biology.",topic:"scuola",tense:"futuro",tags:["future","university"]},
+  {it:"In futuro, spero di lavorare come medico in un paese in via di sviluppo.",en:"In the future, I hope to work as a doctor in a developing country.",topic:"lavoro",tense:"futuro",tags:["future","work"]},
+  {it:"Quest'estate andremo in vacanza in Sicilia per due settimane.",en:"This summer we will go on holiday to Sicily for two weeks.",topic:"vacanze",tense:"futuro",tags:["holidays","plans"]},
+  {it:"Se continuerò a praticare, diventerò più fluente in italiano.",en:"If I keep practising, I will become more fluent in Italian.",topic:"identita",tense:"futuro",tags:["language","future"]},
+  {it:"In futuro, la tecnologia cambierà completamente il modo in cui lavoriamo.",en:"In the future, technology will completely change the way we work.",topic:"tecnologia",tense:"futuro",tags:["technology","future"]},
+  {it:"Spero che il governo prenderà misure concrete per proteggere l'ambiente.",en:"I hope the government will take concrete measures to protect the environment.",topic:"ambiente",tense:"futuro",tags:["environment","government"]},
+  {it:"Domani sera farò una cena speciale per il compleanno di mia madre.",en:"Tomorrow evening I will make a special dinner for my mother's birthday.",topic:"famiglia",tense:"futuro",tags:["family","celebration"]},
+  {it:"L'anno prossimo inizierò un corso di chitarra per migliorare la mia tecnica.",en:"Next year I will start a guitar course to improve my technique.",topic:"tempo",tense:"futuro",tags:["music","plans"]},
+
+  // CONDIZIONALE
+  {it:"Vorrei visitare Roma perché è una città bellissima e ricca di storia.",en:"I would like to visit Rome because it is a beautiful city full of history.",topic:"vacanze",tense:"condizionale",tags:["travel","wishes"]},
+  {it:"Vorrei lavorare come traduttrice perché amo le lingue straniere.",en:"I would like to work as a translator because I love foreign languages.",topic:"lavoro",tense:"condizionale",tags:["work","languages"]},
+  {it:"Se potessi, vivrei in un piccolo paese di montagna lontano dalla città.",en:"If I could, I would live in a small mountain village far from the city.",topic:"societa",tense:"condizionale",tags:["hypothetical","lifestyle"]},
+  {it:"Dovremmo fare di più per ridurre le emissioni di CO₂.",en:"We should do more to reduce CO₂ emissions.",topic:"ambiente",tense:"condizionale",tags:["environment","suggestion"]},
+  {it:"Se avessi più tempo, studierei anche il giapponese e il cinese.",en:"If I had more time, I would also study Japanese and Chinese.",topic:"identita",tense:"condizionale",tags:["hypothetical","languages"]},
+  {it:"Potrei avere maggiori informazioni sul programma del corso, per favore?",en:"Could I have more information about the course programme, please?",topic:"scuola",tense:"condizionale",tags:["polite request","formal"]},
+  {it:"Dovrei mangiare in modo più sano, ma adoro la pizza e i dolci.",en:"I should eat more healthily, but I love pizza and sweets.",topic:"cibo",tense:"condizionale",tags:["health","food"]},
+];
+
+const TEXT_TYPES = {
+  personal:[
+    {name:"Blog",icon:"📝",register:"Informale / Semi-formale",func:"dare opinioni, riflettere",
+     struct:["Titolo","Nome utente, data, orario","Indirizzo ai lettori (una riga)","Introduzione (argomento)","Corpo del testo (paragrafi)","Frase di chiusura e saluto","[Commenti dei lettori]"],
+     grammar:"presente, passato prossimo, imperfetto, pronomi dir./indir., imperativo",
+     notes:"Address readers directly: 'Ciao ragazzi!' Close with invitation to comment: 'Cosa ne pensate? Scrivetemi!'",
+     example:"Il ruolo dei social media nella società di oggi — <em>mariorossi79, il 19.06.2024 alle 10:54</em><br>Ragazzi, oggi voglio parlarvi di un argomento di attualità..."},
+    {name:"Diario personale",icon:"📔",register:"Personale, intimo",func:"riflettere, dare opinioni, raccontare",
+     struct:["Data","Apertura: 'Caro diario,'","Breve introduzione (argomento)","Corpo del testo","Frase di chiusura","Congedo","Firma"],
+     grammar:"presente, passato prossimo, imperfetto, pronomi dir./indir., futuro",
+     notes:"Very personal tone — no audience except yourself. Express emotions freely. Lower-case is fine.",
+     example:"16 giugno 2024<br>Caro diario, oggi voglio parlarti di una cosa che è successa a scuola..."},
+    {name:"Cartolina / Biglietto d'auguri",icon:"🃏",register:"Informale",func:"raccontare, informare",
+     struct:["Data","Apertura: 'Cara/o [nome],'","Breve introduzione","Corpo","Frase di chiusura","Congedo","Firma"],
+     grammar:"presente, passato prossimo, imperfetto, pronomi dir./indir.",
+     notes:"Short and informal — written as if sent from a trip. Keep it brief! A stamp/postcard visual helps.",
+     example:"Roma, 18 novembre 2024<br>Cara Marta, come va? Qui a Roma ci divertiamo un sacco!"},
+    {name:"Email / Lettera informale",icon:"💌",register:"Informale (tu)",func:"informare, raccontare, invitare, dare opinioni",
+     struct:["Da:, A:, Data:, Oggetto:","Apertura: 'Caro/a...'","Breve introduzione","Corpo (paragrafi)","Frase di chiusura","Congedo","Firma"],
+     grammar:"presente, passato prossimo, imperfetto, pronomi dir./indir., futuro",
+     notes:"Use 'tu' throughout. Closings: 'Un abbraccio', 'A presto', 'Baci, [nome]'.",
+     example:"Da: mario.russo@gmail.com | A: paoloverdi@yahoo.it | Data: 7 aprile 2024<br>Oggetto: Passeggiata in montagna<br><br>Caro Paolo, come stai?..."},
+    {name:"Messaggio / Appunto",icon:"📱",register:"Molto informale",func:"informare",
+     struct:["Saluto / destinatario","Breve introduzione","Corpo (bullet points)","Frase di chiusura","Firma"],
+     grammar:"presente, passato prossimo, futuro, imperativo, condizionale",
+     notes:"Very short — sticky note, WhatsApp style. Direct and to the point. Can use dashes for lists.",
+     example:"Ciao mamma! (Per la mamma)<br>Sto partendo ora per l'aeroporto..."},
+    {name:"Messaggio di testo / Social media",icon:"💬",register:"Molto informale",func:"informare, invitare, raccontare",
+     struct:["Saluto","Breve introduzione","Corpo","Frase di chiusura","[Firma]"],
+     grammar:"presente, passato prossimo, futuro, imperativo, condizionale, pronomi",
+     notes:"Can use abbreviations and emoticons 😊. Very direct. No formal structure needed.",
+     example:"Ciao Marco, come stai? Senti, l'altro giorno ho visto Federico qui a Padova..."},
+    {name:"Invito informale",icon:"🎉",register:"Informale",func:"invitare",
+     struct:["[Data, email, oggetto]","Apertura / saluto","Corpo: evento, dove, quando","Frase di chiusura","Firma"],
+     grammar:"presente, futuro, condizionale, imperativo, pronomi dir./indir.",
+     notes:"Can be a message, email or letter. Ask for confirmation. Include: date, time, place.",
+     example:"Sabato sera alle 8 do una piccola festa! Vuoi venire? Fammi sapere!"},
+  ],
+  professional:[
+    {name:"Email formale",icon:"📧",register:"Formale (Lei)",func:"informare, chiedere info, dare opinioni",
+     struct:["Da:, A:, Data:, Oggetto:","Apertura: 'Gentile...', 'Egregio...'","Breve introduzione (scopo)","Corpo (paragrafi + connettori)","Frase di chiusura","Congedo formale","Firma"],
+     grammar:"presente, passato prossimo, imperfetto, pronomi dir./indir., futuro",
+     notes:"Use 'Lei' (NOT 'tu') throughout. NO exclamation marks! Closings: 'Distinti saluti', 'Cordiali saluti'.",
+     example:"Gentile Istituto, vi scrivo riguardo al corso intensivo di spagnolo pubblicizzato sul vostro sito..."},
+    {name:"Dichiarazione personale / Lettera di accompagnamento",icon:"📋",register:"Formale (Lei)",func:"informare, proporre",
+     struct:["Nome + recapiti del mittente / destinatario","Oggetto","Data","Apertura: 'Gentile direttore,'","Introduzione (come ha saputo del posto)","Corpo (informazioni personali + motivazione)","Frase di chiusura","Congedo","Firma"],
+     grammar:"presente, passato prossimo, pronomi dir./indir.",
+     notes:"Formal cover letter for job/volunteer application. Use 'Lei'. Express motivation clearly.",
+     example:"Ho appreso dal vostro sito che la vostra associazione organizza progetti di volontariato in Africa..."},
+    {name:"Discorso / Presentazione / Dibattito",icon:"🎤",register:"Formale / Semi-formale",func:"persuadere, informare",
+     struct:["Titolo","Apertura: indirizzare il pubblico","Introduzione","Corpo (pro/contro, argomenti)","[Invito all'azione]","Conclusione","Ringraziamento al pubblico"],
+     grammar:"presente, imperativo, pronomi dir./indir., futuro",
+     notes:"Address the audience directly. End with a call to action. Use rhetorical questions.",
+     example:"Elezione dei rappresentanti di istituto<br><br>Buongiorno a tutti! Come sapete la settimana prossima..."},
+    {name:"Invito formale",icon:"📨",register:"Formale (Lei)",func:"invitare",
+     struct:["Da:, A:, Data:, Oggetto:","Apertura: 'Gentile dott.ssa...', 'Egregio...'","Corpo: evento, dove, quando","Frase di chiusura","Firma con titolo"],
+     grammar:"presente, futuro, condizionale, imperativo, pronomi dir./indir.",
+     notes:"Must be structured as email. Use 'Lei'. No exclamation marks. Request RSVP confirmation.",
+     example:"L'Associazione Culturale Meta ha il piacere di invitarLa all'inaugurazione della mostra..."},
+    {name:"Istruzioni / Linee guida",icon:"📋",register:"Neutro / Semi-formale",func:"informare",
+     struct:["Titolo","Introduzione (argomento)","Corpo (bullet points numerati)","Conclusione"],
+     grammar:"presente, imperativo, condizionale, pronomi dir./indir.",
+     notes:"Numbered list. Use imperative: 'Seguite le istruzioni...', 'Non correte...' Can use 'È vietato...'",
+     example:"Raccomandazioni per gli utenti della zona piscina<br><br>Durante la vostra permanenza..."},
+    {name:"Articolo",icon:"📰",register:"Semi-formale / Formale",func:"informare, intrattenere, dare opinioni",
+     struct:["Titolo","[Luogo e data]","Introduzione (argomento)","Corpo (paragrafi organizzati)","Conclusione / frase finale","Nome dell'autore"],
+     grammar:"presente, passato prossimo, imperfetto, pronomi dir./indir.",
+     notes:"Journalistic style. Engaging headline. Can include opinions. Mostly third person.",
+     example:"L'Epifania in Italia — Roma, 6 gennaio 2024<br><br>L'Epifania è una festa che in Italia si celebra..."},
+    {name:"Intervista",icon:"🎙️",register:"Semi-formale",func:"informare, intrattenere",
+     struct:["Titolo","Introduzione (chi, contesto)","Corpo: domande e risposte (D:/R: format)","Conclusione (ringraziamenti)"],
+     grammar:"presente, passato prossimo, imperfetto, pronomi dir./indir., futuro",
+     notes:"Use bold for questions or D:/R: format. At least 3–4 exchanges. Introduce the interviewee.",
+     example:"Intervista con Paolo Sorrentino<br><br>D: Il tuo film è stato accolto molto bene. Te l'aspettavi?<br>R: Sono molto soddisfatto..."},
+    {name:"Opuscolo / Volantino / Depliant",icon:"📄",register:"Semi-formale / Informale",func:"informare, persuadere",
+     struct:["Titolo","Breve introduzione","Informazioni concise (bullet points)","Frasi accattivanti (! e ?)","Frase di chiusura","[Contatti: sito/email]"],
+     grammar:"presente, imperativo, pronomi dir./indir., futuro",
+     notes:"Short punchy phrases. Use exclamations and rhetorical questions. Very visual and eye-catching.",
+     example:"Il modo migliore di tenerti in forma!<br><br>Sai che il modo migliore di mantenerti in forma è a portata di mano?"},
+    {name:"Annuncio pubblicitario",icon:"📣",register:"Informale / Semi-formale, persuasivo",func:"persuadere, informare",
+     struct:["Titolo (catchy)","Breve introduzione","Corpo (lista, bullet points)","Frase di chiusura","Contatti"],
+     grammar:"presente, passato prossimo, imperativo, pronomi dir./indir., forma passiva",
+     notes:"Eye-catching headline. Short punchy descriptions. Appeal to reader's desires. Include contact info.",
+     example:"Vendo libri di seconda mano in ottime condizioni!<br><br>Ho finito la scuola a giugno e vorrei vendere i libri..."},
+    {name:"Post sui social media / Forum online",icon:"📱",register:"Informale / Semi-formale",func:"informare, intrattenere, chiedere, raccontare",
+     struct:["[Titolo — solo per forum]","Nome/username","Data/orario","Corpo (esclamazioni, domande, emoticon)"],
+     grammar:"presente, passato prossimo, imperativo, pronomi dir./indir.",
+     notes:"Can include hashtags, emojis, rhetorical questions. Engage the audience: 'Cosa ne pensate?'",
+     example:"chiaraferrari.nutrizionista · Casa<br><br>Siate flessibili e godetevi la colazione..."},
+    {name:"Recensione",icon:"⭐",register:"Semi-formale",func:"dare opinioni, informare",
+     struct:["Titolo","Data","Corpo","Nome/username dell'autore","Valutazione (es. 4/5 stelle)"],
+     grammar:"presente, passato prossimo, futuro, imperativo",
+     notes:"Give clear opinion. Use varied adjectives. Star rating adds authenticity to the review.",
+     example:"Pessimo! Da evitare — il 13.12.2024, alle 19:35<br><br>giallonero25 – Abbiamo mangiato davvero male..."},
+    {name:"Resoconto ufficiale",icon:"📊",register:"Formale",func:"informare",
+     struct:["Data","Titolo","[Sommario]","Introduzione","Corpo (conciso, bullet points)","Conclusione","Firma"],
+     grammar:"presente, forma passiva, passato prossimo, imperfetto",
+     notes:"Third person. Passive voice strongly recommended. Factual and objective. No opinions.",
+     example:"18 giugno 2024<br>Resoconto del progetto 'Frutta e verdura nelle scuole'"},
+  ]
+};
+
+const CONNECTORS = [
+  {group:"Aggiungere informazioni",items:[{it:"Inoltre",en:"moreover, furthermore"},{it:"Poi",en:"then, furthermore"},{it:"A proposito",en:"by the way"},{it:"Tra l'altro",en:"among other things, also"},{it:"Non solo... ma anche",en:"not only... but also"},{it:"In aggiunta",en:"in addition"}]},
+  {group:"Contrastare / Confrontare",items:[{it:"Ma",en:"but"},{it:"Però",en:"however, but"},{it:"Tuttavia",en:"nevertheless, however"},{it:"Invece",en:"instead, on the contrary"},{it:"Al contrario",en:"on the contrary"},{it:"D'altra parte",en:"on the other hand"},{it:"Da una parte... dall'altra",en:"on the one hand... on the other"},{it:"Mentre",en:"while, whereas"},{it:"Comunque",en:"anyway, however"}]},
+  {group:"Causa e ragione",items:[{it:"Perché",en:"because"},{it:"Siccome",en:"as, since"},{it:"Visto che",en:"given that, since"},{it:"Dato che",en:"given that"},{it:"Poiché",en:"since, as"}]},
+  {group:"Conseguenze",items:[{it:"Quindi",en:"so, therefore"},{it:"Perciò",en:"therefore, thus"},{it:"Per cui",en:"for which reason"},{it:"Per questo",en:"for this reason"},{it:"Di conseguenza",en:"as a consequence"}]},
+  {group:"Dare esempi",items:[{it:"Per esempio",en:"for example"},{it:"Ad esempio",en:"for example"},{it:"Come",en:"such as, like"},{it:"Tra cui",en:"among which"}]},
+  {group:"Opinione",items:[{it:"Secondo me",en:"in my opinion"},{it:"Dal mio punto di vista",en:"from my point of view"},{it:"A mio parere",en:"in my opinion"},{it:"Penso che",en:"I think that"},{it:"Credo che",en:"I believe that"},{it:"Sono convinto/a che",en:"I am convinced that"}]},
+  {group:"Fare una correzione",items:[{it:"In realtà",en:"in fact, actually"},{it:"In effetti",en:"in fact, indeed"},{it:"Anzi",en:"on the contrary, indeed"},{it:"Piuttosto",en:"rather"}]},
+  {group:"Concessione",items:[{it:"Anche se",en:"even if, even though"},{it:"Nonostante",en:"despite, although"},{it:"Sebbene",en:"although"},{it:"Benché",en:"although"}]},
+  {group:"Ordinare cronologicamente",items:[{it:"Prima di + infinito",en:"before..."},{it:"Prima",en:"earlier, before"},{it:"Dopo che / Poi",en:"after / afterwards"},{it:"Durante",en:"during"},{it:"Nel frattempo / Intanto",en:"meanwhile"},{it:"Alla fine / Infine",en:"in the end / finally"},{it:"Adesso / Ora",en:"now"}]},
+  {group:"Fare una lista",items:[{it:"Per prima cosa / Anzitutto",en:"first of all"},{it:"In primo luogo",en:"firstly"},{it:"In secondo luogo",en:"secondly"},{it:"Infine / Insomma",en:"finally / in short"}]},
+  {group:"Spiegare",items:[{it:"Infatti",en:"in fact, indeed"},{it:"Vale a dire",en:"that is to say"},{it:"Cioè",en:"that is, i.e."},{it:"Tranne / Eccetto",en:"except for"}]},
+];
+
+const HIGHER_STRUCTURES = [
+  {label:"Hypothetical (se + imperfetto)",sentence:"Se potessi, vivrei in una piccola città di montagna lontana dal caos urbano.",breakdown:"Se + imperfetto → condizionale — if I could, I would... (polished hypothetical)"},
+  {label:"Nonostante + noun",sentence:"Nonostante i progressi tecnologici, molte persone si sentono ancora isolate.",breakdown:"Nonostante + noun — despite (more formal than 'anche se + subj.')"},
+  {label:"Passive voice",sentence:"Negli ultimi anni, molte misure sono state adottate per ridurre le emissioni.",breakdown:"Essere + past participle — passive gives formal, objective tone"},
+  {label:"Gerundio",sentence:"Lavorando ogni giorno, ho migliorato notevolmente il mio italiano.",breakdown:"Gerundio — by doing / while doing (replaces 'mentre + verb')"},
+  {label:"Cleft sentence",sentence:"È proprio la mancanza di risorse che rende difficile la situazione.",breakdown:"È... che — it is... that (strong emphasis structure)"},
+  {label:"Si impersonale",sentence:"In Italia si mangia bene e si vive all'aria aperta.",breakdown:"Si + verb — impersonal one eats / people eat (very natural in Italian)"},
+  {label:"Per + infinitive",sentence:"Per capire il problema, bisogna analizzare le cause storiche.",breakdown:"Per + infinitive — in order to (purpose clause)"},
+  {label:"Double negation",sentence:"Non ho ancora del tutto capito come affrontare questa situazione.",breakdown:"Non... ancora + del tutto — not yet entirely (complex negation)"},
+  {label:"Affinché + subj.",sentence:"Studio molto affinché io possa superare gli esami con ottimi risultati.",breakdown:"Affinché + subjunctive — in order that (very formal, high marks)"},
+  {label:"Relative pronoun cui",sentence:"Il problema, di cui tutti parlano, è difficile da risolvere rapidamente.",breakdown:"Di cui — of which / about which (replaces basic 'che')"},
+];
+
+const HIGHER_VOCAB = [
+  {basic:"bello",high:"magnifico / straordinario / eccezionale",en:"beautiful → magnificent/extraordinary"},
+  {basic:"brutto",high:"pessimo / deplorevole / deludente",en:"bad → terrible/deplorable/disappointing"},
+  {basic:"buono",high:"eccellente / soddisfacente / notevole",en:"good → excellent/satisfying/notable"},
+  {basic:"importante",high:"fondamentale / cruciale / determinante",en:"important → fundamental/crucial/decisive"},
+  {basic:"problema",high:"problematica / questione / sfida",en:"problem → issue/matter/challenge"},
+  {basic:"penso che",high:"sono convinto/a che / a mio avviso",en:"I think → I am convinced / in my view"},
+  {basic:"perché",high:"poiché / siccome / in quanto",en:"because → since/as/inasmuch as"},
+  {basic:"ma",high:"tuttavia / nonostante ciò / ciononostante",en:"but → however / despite this / nevertheless"},
+  {basic:"molto",high:"notevolmente / considerevolmente / decisamente",en:"very → notably/considerably/decidedly"},
+  {basic:"cambiare",high:"trasformare / modificare / alterare",en:"to change → to transform/modify/alter"},
+  {basic:"dire",high:"affermare / sostenere / dichiarare",en:"to say → to affirm/maintain/declare"},
+  {basic:"fare",high:"realizzare / attuare / svolgere",en:"to do → to realize/implement/carry out"},
+];
+
+const HIGHER_OPINIONS = [
+  {phrase:"A mio parere, questa è una delle questioni più urgenti del nostro tempo.",en:"In my view, this is one of the most urgent issues of our time."},
+  {phrase:"Non si può negare che la situazione sia preoccupante.",en:"One cannot deny that the situation is worrying."},
+  {phrase:"Sono fermamente convinto/a che l'educazione sia la chiave del cambiamento.",en:"I am firmly convinced that education is the key to change."},
+  {phrase:"Da un lato... dall'altro lato, bisogna considerare...",en:"On the one hand... on the other, one must consider..."},
+  {phrase:"Vale la pena di riflettere sulle conseguenze a lungo termine.",en:"It is worth reflecting on the long-term consequences."},
+  {phrase:"È indubbio che la tecnologia abbia trasformato il nostro modo di vivere.",en:"It is undeniable that technology has transformed our way of living."},
+  {phrase:"Sebbene sia difficile trovare una soluzione immediata, è fondamentale agire ora.",en:"Although it is difficult to find an immediate solution, it is fundamental to act now."},
+  {phrase:"Per quanto mi riguarda, preferisco...",en:"As far as I am concerned, I prefer..."},
+  {phrase:"In conclusione, ritengo che sia necessario un approccio più responsabile.",en:"In conclusion, I believe that a more responsible approach is necessary."},
+  {phrase:"Non bisogna dimenticare che...",en:"One must not forget that..."},
+];
+
+const THEMES = [
+  {num:1,name:"Identità",topics:[
+    {name:"Caratteristiche personali",vocab:[["Mi chiamo","My name is"],["Ho [X] anni","I am [X] years old"],["Sono alto/a","I am tall"],["Ho i capelli castani","I have brown hair"],["Sono simpatico/a","I am likeable"],["gentile","kind"],["timido/a","shy"],["intelligente","intelligent"],["divertente","funny"],["coraggioso/a","brave"],["sensibile","sensitive"],["estroverso/a","extroverted"]]},
+    {name:"Relazioni personali",vocab:[["la famiglia","family"],["il padre","father"],["la madre","mother"],["il fratello","brother"],["la sorella","sister"],["i nonni","grandparents"],["il fidanzato/a","boyfriend/girlfriend"],["amare","to love"],["litigare","to argue"],["aiutare","to help"],["sposarsi","to get married"],["andare d'accordo","to get on well"]]},
+    {name:"Mangiare e bere",vocab:[["la colazione","breakfast"],["il pranzo","lunch"],["la cena","dinner"],["la pasta","pasta"],["il pesce","fish"],["il caffè","coffee"],["delizioso/a","delicious"],["vegetariano/a","vegetarian"],["biologico/a","organic"],["sano/a","healthy"]]},
+    {name:"Benessere fisico",vocab:[["stare bene","to be well"],["ho mal di testa","I have a headache"],["ho la febbre","I have a fever"],["il medico","doctor"],["la medicina","medicine"],["fare sport","to do sport"],["mangiare sano","to eat healthily"],["riposarsi","to rest"],["allenarsi","to train"],["dormire","to sleep"]]},
+  ]},
+  {num:2,name:"Esperienze",topics:[
+    {name:"La routine quotidiana",vocab:[["svegliarsi","to wake up"],["alzarsi","to get up"],["fare colazione","to have breakfast"],["andare a scuola","to go to school"],["fare i compiti","to do homework"],["addormentarsi","to fall asleep"],["di solito","usually"],["ogni giorno","every day"],["la mattina","in the morning"],["la sera","in the evening"]]},
+    {name:"Il tempo libero",vocab:[["il cinema","cinema"],["lo sport","sport"],["la musica","music"],["leggere","to read"],["giocare","to play"],["uscire con gli amici","to go out with friends"],["navigare in internet","to browse the internet"],["mi piace","I like"],["preferisco","I prefer"],["adoro","I love"]]},
+    {name:"Le vacanze",vocab:[["andare in vacanza","to go on holiday"],["l'albergo","hotel"],["la spiaggia","beach"],["la montagna","mountain"],["visitare","to visit"],["il passaporto","passport"],["il volo","flight"],["prenotare","to book"],["il turista","tourist"],["la valigia","suitcase"]]},
+    {name:"Le feste e le tradizioni",vocab:[["Natale","Christmas"],["Pasqua","Easter"],["il Capodanno","New Year"],["la Befana","Epiphany (6 Jan)"],["il Carnevale","Carnival"],["festeggiare","to celebrate"],["il regalo","gift"],["il panettone","Christmas cake"],["i fuochi d'artificio","fireworks"],["tradizionale","traditional"]]},
+  ]},
+  {num:3,name:"Ingegno Umano",topics:[
+    {name:"I trasporti",vocab:[["l'autobus","bus"],["il treno","train"],["l'aereo","plane"],["la bicicletta","bicycle"],["la macchina","car"],["la metropolitana","underground"],["il traffico","traffic"],["l'inquinamento","pollution"],["viaggiare","to travel"],["il binario","platform/track"]]},
+    {name:"L'intrattenimento",vocab:[["il film","film"],["la serie TV","TV series"],["il concerto","concert"],["il teatro","theatre"],["il videogioco","video game"],["lo spettacolo","show/performance"],["divertente","entertaining"],["emozionante","exciting"],["noioso/a","boring"],["lo streaming","streaming"]]},
+    {name:"I media",vocab:[["il giornale","newspaper"],["la televisione","television"],["la radio","radio"],["il sito web","website"],["i social media","social media"],["il podcast","podcast"],["informarsi","to get information"],["pubblicare","to publish"],["condividere","to share"],["la notizia","news"]]},
+    {name:"La tecnologia",vocab:[["il computer","computer"],["lo smartphone","smartphone"],["l'intelligenza artificiale","AI"],["l'applicazione","app"],["internet","internet"],["il robot","robot"],["digitale","digital"],["innovazione","innovation"],["programmare","to programme"],["il dato","data"]]},
+  ]},
+  {num:4,name:"Organizzazione Sociale",topics:[
+    {name:"Il quartiere",vocab:[["il negozio","shop"],["la biblioteca","library"],["il parco","park"],["il mercato","market"],["il comune","town hall"],["tranquillo/a","quiet"],["vivace","lively"],["sicuro/a","safe"],["inquinato/a","polluted"],["il centro commerciale","shopping centre"]]},
+    {name:"L'educazione",vocab:[["la scuola","school"],["l'università","university"],["l'esame","exam"],["il voto","grade"],["il professore","teacher"],["il compagno","classmate"],["studiare","to study"],["imparare","to learn"],["superare","to pass"],["bocciare","to fail"]]},
+    {name:"Il lavoro",vocab:[["il lavoro","work/job"],["l'ufficio","office"],["lo stipendio","salary"],["il collega","colleague"],["assumere","to hire"],["il curriculum","CV"],["il tirocinio","internship"],["fare domanda","to apply"],["la riunione","meeting"],["lo smart working","remote working"]]},
+    {name:"I problemi sociali",vocab:[["la disoccupazione","unemployment"],["la povertà","poverty"],["la discriminazione","discrimination"],["il razzismo","racism"],["l'uguaglianza","equality"],["la diversità","diversity"],["affrontare","to face/deal with"],["risolvere","to solve"],["il governo","government"],["la legge","law"]]},
+  ]},
+  {num:5,name:"Condivisione del Pianeta",topics:[
+    {name:"Il clima",vocab:[["il clima","climate"],["il cambiamento climatico","climate change"],["il meteo","weather"],["la temperatura","temperature"],["le inondazioni","floods"],["la siccità","drought"],["il riscaldamento globale","global warming"],["le energie rinnovabili","renewable energies"],["il ghiacciaio","glacier"],["l'uragano","hurricane"]]},
+    {name:"La geografia fisica",vocab:[["la montagna","mountain"],["il fiume","river"],["il mare","sea"],["il lago","lake"],["la foresta","forest"],["il deserto","desert"],["la pianura","plain"],["la costa","coast"],["il terremoto","earthquake"],["il vulcano","volcano"]]},
+    {name:"L'ambiente",vocab:[["riciclare","to recycle"],["inquinare","to pollute"],["proteggere","to protect"],["la natura","nature"],["l'ecosistema","ecosystem"],["le specie in via di estinzione","endangered species"],["la plastica","plastic"],["le emissioni","emissions"],["sostenibile","sustainable"],["la biodiversità","biodiversity"]]},
+    {name:"I problemi globali",vocab:[["la fame","hunger"],["la guerra","war"],["i rifugiati","refugees"],["i diritti umani","human rights"],["la migrazione","migration"],["la cooperazione","cooperation"],["la solidarietà","solidarity"],["la pace","peace"],["il debito","debt"],["lo sviluppo sostenibile","sustainable development"]]},
+  ]},
+];
+
+const VOCAB_GAME_DATA=[{it:"la casa",en:"house"},{it:"il libro",en:"book"},{it:"mangiare",en:"to eat"},{it:"bello",en:"beautiful"},{it:"andare",en:"to go"},{it:"la scuola",en:"school"},{it:"il cane",en:"dog"},{it:"parlare",en:"to speak"},{it:"grande",en:"big/great"},{it:"piccolo",en:"small"},{it:"il treno",en:"train"},{it:"la città",en:"city"},{it:"studiare",en:"to study"},{it:"la famiglia",en:"family"},{it:"il lavoro",en:"work"},{it:"capire",en:"to understand"},{it:"veloce",en:"fast"},{it:"lento",en:"slow"},{it:"la strada",en:"street/road"},{it:"il negozio",en:"shop"},{it:"comprare",en:"to buy"},{it:"vendere",en:"to sell"},{it:"il sole",en:"sun"},{it:"la pioggia",en:"rain"},{it:"caldo",en:"hot"},{it:"freddo",en:"cold"},{it:"la finestra",en:"window"},{it:"aprire",en:"to open"},{it:"chiudere",en:"to close"},{it:"il mare",en:"sea"},{it:"l'estate",en:"summer"},{it:"l'inverno",en:"winter"},{it:"trovare",en:"to find"},{it:"perdere",en:"to lose"},{it:"sapere",en:"to know (facts)"},{it:"potere",en:"to be able to"},{it:"volere",en:"to want"},{it:"dovere",en:"must / to have to"},{it:"la sera",en:"evening"},{it:"il mattino",en:"morning"},{it:"ieri",en:"yesterday"},{it:"oggi",en:"today"},{it:"domani",en:"tomorrow"},{it:"spesso",en:"often"},{it:"sempre",en:"always"},{it:"mai",en:"never"},{it:"ancora",en:"still / yet"},{it:"già",en:"already"},{it:"insieme",en:"together"},{it:"il cibo",en:"food"},{it:"bere",en:"to drink"},{it:"l'acqua",en:"water"},{it:"il pane",en:"bread"},{it:"la scelta",en:"the choice"}];
+
+const CONJ_GAME_DATA=[{verb:"parlare",pronoun:"io",tense:"presente",answer:"parlo"},{verb:"mangiare",pronoun:"tu",tense:"presente",answer:"mangi"},{verb:"avere",pronoun:"lui",tense:"presente",answer:"ha"},{verb:"essere",pronoun:"noi",tense:"presente",answer:"siamo"},{verb:"andare",pronoun:"voi",tense:"presente",answer:"andate"},{verb:"fare",pronoun:"loro",tense:"presente",answer:"fanno"},{verb:"venire",pronoun:"io",tense:"presente",answer:"vengo"},{verb:"potere",pronoun:"tu",tense:"presente",answer:"puoi"},{verb:"volere",pronoun:"lui",tense:"presente",answer:"vuole"},{verb:"dovere",pronoun:"noi",tense:"presente",answer:"dobbiamo"},{verb:"parlare",pronoun:"io",tense:"passato prossimo",answer:"ho parlato"},{verb:"andare",pronoun:"lei",tense:"passato prossimo",answer:"è andata"},{verb:"fare",pronoun:"noi",tense:"passato prossimo",answer:"abbiamo fatto"},{verb:"venire",pronoun:"tu",tense:"passato prossimo",answer:"sei venuto/a"},{verb:"essere",pronoun:"loro",tense:"passato prossimo",answer:"sono stati/e"},{verb:"mangiare",pronoun:"tu",tense:"imperfetto",answer:"mangiavi"},{verb:"essere",pronoun:"loro",tense:"imperfetto",answer:"erano"},{verb:"fare",pronoun:"lui",tense:"imperfetto",answer:"faceva"},{verb:"parlare",pronoun:"io",tense:"futuro",answer:"parlerò"},{verb:"andare",pronoun:"noi",tense:"futuro",answer:"andremo"},{verb:"essere",pronoun:"tu",tense:"futuro",answer:"sarai"},{verb:"volere",pronoun:"io",tense:"condizionale",answer:"vorrei"},{verb:"dovere",pronoun:"tu",tense:"condizionale",answer:"dovresti"},{verb:"potere",pronoun:"lui",tense:"condizionale",answer:"potrebbe"}];
+
+const GENDER_GAME_DATA=[{word:"libro",article:"il"},{word:"casa",article:"la"},{word:"studente",article:"lo"},{word:"amica",article:"l'"},{word:"amico",article:"l'"},{word:"ragazza",article:"la"},{word:"ragazzo",article:"il"},{word:"zaino",article:"lo"},{word:"pizza",article:"la"},{word:"pasta",article:"la"},{word:"caffè",article:"il"},{word:"acqua",article:"l'"},{word:"ristorante",article:"il"},{word:"università",article:"l'"},{word:"psicologo",article:"lo"},{word:"sport",article:"lo"},{word:"scuola",article:"la"},{word:"museo",article:"il"},{word:"aereo",article:"l'"},{word:"autobus",article:"l'"},{word:"problema",article:"il"},{word:"giornale",article:"il"},{word:"borsa",article:"la"},{word:"albero",article:"l'"},{word:"sole",article:"il"},{word:"luna",article:"la"},{word:"notte",article:"la"},{word:"giorno",article:"il"}];
+
+const GAP_FILL_DATA=[{sentence:"Ieri ____ (andare, io, passato prossimo) al cinema con Maria.",answer:"sono andato/a",hint:"essere + past participle of andare, agrees with gender"},{sentence:"Mi ____ (piacere) molto la musica classica.",answer:"piace",hint:"singular thing → piace"},{sentence:"Quando ____ (essere, io, imperfetto) piccolo, giocavo sempre fuori.",answer:"ero",hint:"essere imperfetto io → ero"},{sentence:"L'anno prossimo ____ (andare, noi, futuro) in Italia.",answer:"andremo",hint:"irregular future stem: andr-"},{sentence:"Non ho ____ (mangiare, participio) la carne da due anni.",answer:"mangiato",hint:"past participle of -are verb"},{sentence:"Da bambina, mia sorella ____ (leggere, imperfetto) molto.",answer:"leggeva",hint:"-ere verb imperfetto lei/lui"},{sentence:"____ (volere, io, condizionale) un caffè, per favore.",answer:"vorrei",hint:"volere condizionale → vorrei"},{sentence:"Loro si ____ (alzarsi, presente) sempre alle sette.",answer:"alzano",hint:"reflexive verb — si alzano (loro)"},{sentence:"La pizza è ____ (buono, fem. sing.) in quel ristorante.",answer:"buona",hint:"buono agrees with pizza (f. sg.)"},{sentence:"Non ____ (venire, tu, presente) alla festa stasera?",answer:"vieni",hint:"venire presente tu → vieni"},{sentence:"Abbiamo ____ (vedere, participio) un film bellissimo.",answer:"visto",hint:"irregular: vedere → visto"},{sentence:"Mi ____ (piacere) tantissimo i film italiani.",answer:"piacciono",hint:"plural things → piacciono"}];
+
+const SB_DATA=[{elements:["io","mangiare (passato prossimo)","una pizza","ieri sera"],answer:"Ho mangiato una pizza ieri sera.",hint:"avere + mangiato (transitive verb)"},{elements:["noi","andare (futuro)","in Italia","l'estate prossima"],answer:"L'estate prossima andremo in Italia.",hint:"future irregular stem: andr-"},{elements:["mi","piacere","molto","i film italiani"],answer:"Mi piacciono molto i film italiani.",hint:"piacere pl = piacciono (plural subject)"},{elements:["lei","essere (imperfetto)","molto stanca","ieri"],answer:"Ieri era molto stanca.",hint:"essere imperfetto: era"},{elements:["io","volere (condizionale)","visitare","Roma"],answer:"Vorrei visitare Roma.",hint:"volere condizionale: vorrei"},{elements:["voi","alzarsi (presente)","alle 7","ogni giorno"],answer:"Vi alzate alle 7 ogni giorno.",hint:"reflexive voi: vi alzate"},{elements:["non","io","mangiare (presente)","la carne"],answer:"Non mangio la carne.",hint:"non goes immediately before the conjugated verb"},{elements:["la mia famiglia","essere (passato prossimo)","in vacanza","la settimana scorsa"],answer:"La mia famiglia è stata in vacanza la settimana scorsa.",hint:"essere + stato, agrees with famiglia (f sg)"},{elements:["io","dovere (condizionale)","studiare","di più"],answer:"Dovrei studiare di più.",hint:"dovere condizionale: dovrei"},{elements:["quando","essere (imperfetto)","piccolo/a","io — giocare","sempre fuori"],answer:"Quando ero piccolo/a, giocavo sempre fuori.",hint:"essere imperfetto: ero; mangiare imperfetto: giocavo"}];
+
+const GRAM_PRACTICE=[{q:"Complete: Ogni mattina io _____ (alzarsi) alle sette.",a:"mi alzo",hint:"reflexive verb — io: mi alzo"},{q:"Complete: Ieri noi _____ (andare) al mercato.",a:"siamo andati",hint:"essere + andati (motion verb)"},{q:"Complete: Non _____ mai _____ (mangiare, io) le olive.",a:["non","ho mangiato"],aStr:"non ho mai mangiato",hint:"non...mai + avere (mangiare = transitive)"},{q:"Complete: Da bambino/a _____ (giocare, io) sempre in giardino.",a:"giocavo",hint:"-are verb imperfetto io: -avo"},{q:"Complete: L'anno prossimo loro _____ (partire) per il Brasile.",a:"partiranno",hint:"futuro regolare -ire: partiranno"},{q:"Complete: Mi _____ (piacere) la musica jazz.",a:"piace",hint:"singular subject → piace"},{q:"Complete: Ho comprato la camicia → _____ (direct pronoun) ho comprata.",a:"l'",hint:"la/l' replaces la camicia; participle agrees: comprata"},{q:"Complete: _____ (piacere) a te i film di Fellini?",a:"ti piacciono",hint:"Ti piacciono (plural films → piacciono)"}];
+
+// GAME DATA
+let filteredSents=[...SENTENCES];
+let sbIdx=0,sbCorrect=0,sbWrong=0;
+let gramPracticeIdx=0;
+let savedEntries=JSON.parse(localStorage.getItem('italiano_saved')||'[]');
+
+// ==================== NAVIGATION ====================
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{if(b.getAttribute('onclick')?.includes(`'${id}'`))b.classList.add('active');});
+  if(id==='sentences')renderSentences();
+  if(id==='texttypes')renderTextTypes();
+  if(id==='topics'){document.getElementById('topics-content').innerHTML='';showTheme(1);}
+  if(id==='connectors')renderConnectors();
+  if(id==='higher')renderHigher();
+  if(id==='games'){showGame('vocab');}
+  if(id==='rules'){renderRules();showRulesTab('writing');}
+  if(id==='grammar'){showGTab('presente');}
+  if(id==='writing'){loadSaved();showWritingTab('tasks');}
+  window.scrollTo(0,0);
+}
+
+// ==================== GRAMMAR ====================
+const GRAM_TABS = {
+  presente:`<div class="grammar-block"><div class="grammar-title">🟢 Presente Indicativo</div>
+  <div class="rule-box">Used for: current actions, habits, general truths, near future.</div>
+  <div class="grid-2">
+  <div><h3>-ARE verbs (parlare)</h3><table class="conj-table"><tr><th>Pronoun</th><th>Form</th><th>English</th></tr><tr><td class="pronoun">io</td><td class="verb-form">parlo</td><td class="meaning">I speak</td></tr><tr><td class="pronoun">tu</td><td class="verb-form">parli</td><td class="meaning">you speak</td></tr><tr><td class="pronoun">lui/lei</td><td class="verb-form">parla</td><td class="meaning">he/she speaks</td></tr><tr><td class="pronoun">noi</td><td class="verb-form">parliamo</td><td class="meaning">we speak</td></tr><tr><td class="pronoun">voi</td><td class="verb-form">parlate</td><td class="meaning">you pl speak</td></tr><tr><td class="pronoun">loro</td><td class="verb-form">parlano</td><td class="meaning">they speak</td></tr></table></div>
+  <div><h3>-ERE verbs (scrivere) & -IRE (dormire)</h3><table class="conj-table"><tr><th>Pronoun</th><th>-ere</th><th>-ire</th></tr><tr><td class="pronoun">io</td><td class="verb-form">scrivo</td><td class="verb-form">dormo</td></tr><tr><td class="pronoun">tu</td><td class="verb-form">scrivi</td><td class="verb-form">dormi</td></tr><tr><td class="pronoun">lui/lei</td><td class="verb-form">scrive</td><td class="verb-form">dorme</td></tr><tr><td class="pronoun">noi</td><td class="verb-form">scriviamo</td><td class="verb-form">dormiamo</td></tr><tr><td class="pronoun">voi</td><td class="verb-form">scrivete</td><td class="verb-form">dormite</td></tr><tr><td class="pronoun">loro</td><td class="verb-form">scrivono</td><td class="verb-form">dormono</td></tr></table></div>
+  </div>
+  <h3 style="margin-top:12px;">Key Irregulars</h3>
+  <table class="conj-table"><tr><th>essere</th><th>avere</th><th>andare</th><th>fare</th><th>venire</th><th>potere</th><th>volere</th><th>dovere</th></tr><tr><td class="verb-form">sono</td><td class="verb-form">ho</td><td class="verb-form">vado</td><td class="verb-form">faccio</td><td class="verb-form">vengo</td><td class="verb-form">posso</td><td class="verb-form">voglio</td><td class="verb-form">devo</td></tr><tr><td class="verb-form">sei</td><td class="verb-form">hai</td><td class="verb-form">vai</td><td class="verb-form">fai</td><td class="verb-form">vieni</td><td class="verb-form">puoi</td><td class="verb-form">vuoi</td><td class="verb-form">devi</td></tr><tr><td class="verb-form">è</td><td class="verb-form">ha</td><td class="verb-form">va</td><td class="verb-form">fa</td><td class="verb-form">viene</td><td class="verb-form">può</td><td class="verb-form">vuole</td><td class="verb-form">deve</td></tr><tr><td class="verb-form">siamo</td><td class="verb-form">abbiamo</td><td class="verb-form">andiamo</td><td class="verb-form">facciamo</td><td class="verb-form">veniamo</td><td class="verb-form">possiamo</td><td class="verb-form">vogliamo</td><td class="verb-form">dobbiamo</td></tr><tr><td class="verb-form">siete</td><td class="verb-form">avete</td><td class="verb-form">andate</td><td class="verb-form">fate</td><td class="verb-form">venite</td><td class="verb-form">potete</td><td class="verb-form">volete</td><td class="verb-form">dovete</td></tr><tr><td class="verb-form">sono</td><td class="verb-form">hanno</td><td class="verb-form">vanno</td><td class="verb-form">fanno</td><td class="verb-form">vengono</td><td class="verb-form">possono</td><td class="verb-form">vogliono</td><td class="verb-form">devono</td></tr></table>
+  <div style="margin-top:12px;display:grid;gap:8px;"><div><div class="example-it">Parlo italiano tutti i giorni.</div><div class="example-en">I speak Italian every day.</div></div><div><div class="example-it">Non voglio mangiare la carne.</div><div class="example-en">I don't want to eat meat.</div></div><div><div class="example-it">Facciamo sport il weekend.</div><div class="example-en">We do sport at the weekend.</div></div></div></div>`,
+
+  passato:`<div class="grammar-block"><div class="grammar-title">🔵 Passato Prossimo</div>
+  <div class="rule-box">Used for: completed actions in the past ("I did" / "I have done").</div>
+  <div class="rule-box blue"><strong>Formula:</strong> avere OR essere (present) + past participle</div>
+  <div class="grid-2">
+  <div><h3>Regular Past Participles</h3><table class="conj-table"><tr><th>Infinitive</th><th>Participle</th></tr><tr><td>parlare (-are)</td><td class="verb-form">parlato</td></tr><tr><td>mangiare (-are)</td><td class="verb-form">mangiato</td></tr><tr><td>scrivere (-ere)</td><td class="verb-form">scritto ⚠️</td></tr><tr><td>leggere (-ere)</td><td class="verb-form">letto ⚠️</td></tr><tr><td>dormire (-ire)</td><td class="verb-form">dormito</td></tr><tr><td>finire (-ire)</td><td class="verb-form">finito</td></tr><tr><td>fare</td><td class="verb-form">fatto ⚠️</td></tr><tr><td>vedere</td><td class="verb-form">visto ⚠️</td></tr><tr><td>venire</td><td class="verb-form">venuto</td></tr><tr><td>essere</td><td class="verb-form">stato/a ⚠️</td></tr><tr><td>aprire</td><td class="verb-form">aperto ⚠️</td></tr><tr><td>mettere</td><td class="verb-form">messo ⚠️</td></tr><tr><td>prendere</td><td class="verb-form">preso ⚠️</td></tr><tr><td>bere</td><td class="verb-form">bevuto ⚠️</td></tr></table></div>
+  <div><h3>AVERE vs ESSERE</h3>
+  <div class="rule-box green"><strong>AVERE:</strong> Most verbs (transitive). Participle does NOT agree with subject.<br><em>Ho mangiato la pizza. / Abbiamo visto un film.</em></div>
+  <div class="rule-box" style="border-color:var(--red)"><strong>ESSERE:</strong> Motion/state verbs + ALL reflexive verbs. Participle AGREES with subject gender/number!<br><em>Sono andato (m) / Sono andata (f) / Siamo andati (m+) / Siamo andate (f)</em></div>
+  <div class="rule-box blue"><strong>Common ESSERE verbs:</strong> andare, venire, partire, arrivare, uscire, entrare, tornare, nascere, morire, essere, restare, stare, diventare, salire, scendere — plus all reflexive verbs</div></div>
+  </div>
+  <div style="margin-top:12px;display:grid;gap:8px;"><div><div class="example-it">Ieri ho mangiato la pasta con i miei amici.</div><div class="example-en">Yesterday I ate pasta with my friends.</div></div><div><div class="example-it">Siamo andati al cinema sabato scorso.</div><div class="example-en">We went to the cinema last Saturday.</div></div><div><div class="example-it">La mia professoressa è arrivata tardi.</div><div class="example-en">My teacher arrived late. (essere, arrivare = motion)</div></div></div></div>`,
+
+  imperfetto:`<div class="grammar-block"><div class="grammar-title">🟡 Imperfetto</div>
+  <div class="rule-box">Used for: habitual/repeated past actions ("used to"), descriptions in the past, background context, ongoing past states.</div>
+  <div class="grid-2">
+  <div><h3>Regular forms</h3><table class="conj-table"><tr><th>Pronoun</th><th>-are (mangiare)</th><th>-ere/ire (dormire)</th></tr><tr><td class="pronoun">io</td><td class="verb-form">mangiavo</td><td class="verb-form">dormivo</td></tr><tr><td class="pronoun">tu</td><td class="verb-form">mangiavi</td><td class="verb-form">dormivi</td></tr><tr><td class="pronoun">lui/lei</td><td class="verb-form">mangiava</td><td class="verb-form">dormiva</td></tr><tr><td class="pronoun">noi</td><td class="verb-form">mangiavamo</td><td class="verb-form">dormivamo</td></tr><tr><td class="pronoun">voi</td><td class="verb-form">mangiavate</td><td class="verb-form">dormivate</td></tr><tr><td class="pronoun">loro</td><td class="verb-form">mangiavano</td><td class="verb-form">dormivano</td></tr></table></div>
+  <div><h3>Irregulars (essere, fare, bere)</h3><table class="conj-table"><tr><th>Pronoun</th><th>essere</th><th>fare</th><th>bere</th></tr><tr><td class="pronoun">io</td><td class="verb-form">ero</td><td class="verb-form">facevo</td><td class="verb-form">bevevo</td></tr><tr><td class="pronoun">tu</td><td class="verb-form">eri</td><td class="verb-form">facevi</td><td class="verb-form">bevevi</td></tr><tr><td class="pronoun">lui/lei</td><td class="verb-form">era</td><td class="verb-form">faceva</td><td class="verb-form">beveva</td></tr><tr><td class="pronoun">noi</td><td class="verb-form">eravamo</td><td class="verb-form">facevamo</td><td class="verb-form">bevevamo</td></tr><tr><td class="pronoun">voi</td><td class="verb-form">eravate</td><td class="verb-form">facevate</td><td class="verb-form">bevevate</td></tr><tr><td class="pronoun">loro</td><td class="verb-form">erano</td><td class="verb-form">facevano</td><td class="verb-form">bevevano</td></tr></table></div>
+  </div>
+  <div class="rule-box blue"><strong>Imperfetto vs Passato Prossimo:</strong> Imperfetto = background/habitual ("quando ero piccolo, giocavo sempre…"); Passato prossimo = completed single event ("ieri ho giocato…"). Often together: "Stavo dormendo quando il telefono ha squillato."</div>
+  <div style="margin-top:12px;display:grid;gap:8px;"><div><div class="example-it">Quando ero piccolo, mangiavo sempre la pizza il venerdì.</div><div class="example-en">When I was little, I always ate pizza on Fridays.</div></div><div><div class="example-it">C'era molto rumore e non riuscivo a dormire.</div><div class="example-en">There was a lot of noise and I couldn't sleep.</div></div></div></div>`,
+
+  futuro:`<div class="grammar-block"><div class="grammar-title">🔴 Futuro Semplice</div>
+  <div class="rule-box">Used for: future plans, promises, predictions. Drop the final -e of the infinitive and add endings.</div>
+  <div class="grid-2">
+  <div><h3>Regular forms</h3><table class="conj-table"><tr><th>Pronoun</th><th>-are (parlare)</th><th>-ere/-ire (scrivere)</th></tr><tr><td class="pronoun">io</td><td class="verb-form">parlerò</td><td class="verb-form">scriverò</td></tr><tr><td class="pronoun">tu</td><td class="verb-form">parlerai</td><td class="verb-form">scriverai</td></tr><tr><td class="pronoun">lui/lei</td><td class="verb-form">parlerà</td><td class="verb-form">scriverà</td></tr><tr><td class="pronoun">noi</td><td class="verb-form">parleremo</td><td class="verb-form">scriveremo</td></tr><tr><td class="pronoun">voi</td><td class="verb-form">parlerete</td><td class="verb-form">scriverete</td></tr><tr><td class="pronoun">loro</td><td class="verb-form">parleranno</td><td class="verb-form">scriveranno</td></tr></table></div>
+  <div><h3>Key Irregular Stems</h3><table class="conj-table"><tr><th>Verb</th><th>Stem</th><th>io form</th></tr><tr><td>essere</td><td>sar-</td><td class="verb-form">sarò</td></tr><tr><td>avere</td><td>avr-</td><td class="verb-form">avrò</td></tr><tr><td>andare</td><td>andr-</td><td class="verb-form">andrò</td></tr><tr><td>fare</td><td>far-</td><td class="verb-form">farò</td></tr><tr><td>venire</td><td>verr-</td><td class="verb-form">verrò</td></tr><tr><td>potere</td><td>potr-</td><td class="verb-form">potrò</td></tr><tr><td>volere</td><td>vorr-</td><td class="verb-form">vorrò</td></tr><tr><td>dovere</td><td>dovr-</td><td class="verb-form">dovrò</td></tr></table></div>
+  </div>
+  <div style="margin-top:12px;display:grid;gap:8px;"><div><div class="example-it">L'anno prossimo andrò in Italia.</div><div class="example-en">Next year I will go to Italy.</div></div><div><div class="example-it">Farò una festa per il mio compleanno.</div><div class="example-en">I will have a party for my birthday.</div></div></div></div>`,
+
+  condizionale:`<div class="grammar-block"><div class="grammar-title">🟣 Condizionale</div>
+  <div class="rule-box">Used for: polite requests ("I would like"), hypothetical situations, suggestions. Same stem as futuro + endings: -ei, -esti, -ebbe, -emmo, -este, -ebbero.</div>
+  <div class="grid-2">
+  <div><h3>Regular (parlare)</h3><table class="conj-table"><tr><th>Pronoun</th><th>Form</th></tr><tr><td class="pronoun">io</td><td class="verb-form">parlerei</td></tr><tr><td class="pronoun">tu</td><td class="verb-form">parleresti</td></tr><tr><td class="pronoun">lui/lei</td><td class="verb-form">parlerebbe</td></tr><tr><td class="pronoun">noi</td><td class="verb-form">parleremmo</td></tr><tr><td class="pronoun">voi</td><td class="verb-form">parlereste</td></tr><tr><td class="pronoun">loro</td><td class="verb-form">parlerebbero</td></tr></table></div>
+  <div><h3>Key Irregulars</h3><table class="conj-table"><tr><th>Verb</th><th>io form</th></tr><tr><td>essere</td><td class="verb-form">sarei</td></tr><tr><td>avere</td><td class="verb-form">avrei</td></tr><tr><td>andare</td><td class="verb-form">andrei</td></tr><tr><td>volere</td><td class="verb-form">vorrei ⭐</td></tr><tr><td>potere</td><td class="verb-form">potrei</td></tr><tr><td>dovere</td><td class="verb-form">dovrei</td></tr><tr><td>fare</td><td class="verb-form">farei</td></tr><tr><td>venire</td><td class="verb-form">verrei</td></tr></table></div>
+  </div>
+  <div class="rule-box green"><strong>Most used:</strong> <em>Vorrei</em> (I would like) — the most useful condizionale for ab initio. Use in formal emails, invitations, requests. Also: <em>Potrei</em> (I could), <em>Dovrei</em> (I should).</div>
+  <div style="margin-top:12px;display:grid;gap:8px;"><div><div class="example-it">Vorrei prenotare un tavolo per due persone.</div><div class="example-en">I would like to book a table for two.</div></div><div><div class="example-it">Dovrei studiare di più, ma non ho tempo.</div><div class="example-en">I should study more, but I don't have time.</div></div></div></div>`,
+
+  imperativo:`<div class="grammar-block"><div class="grammar-title">🟠 Imperativo</div>
+  <div class="rule-box">Used for: commands, instructions, advice, invitations. Key for blog, annuncio, istruzioni, discorso.</div>
+  <div class="grid-2">
+  <div><h3>Tu form (informal)</h3><table class="conj-table"><tr><th>-ARE</th><th>-ERE</th><th>-IRE</th></tr><tr><td class="verb-form">parla!</td><td class="verb-form">scrivi!</td><td class="verb-form">dormi!</td></tr></table><div class="rule-box">⚠️ -ARE tu imperative = parla (NOT parli!)</div></div>
+  <div><h3>Voi form (formal/plural)</h3><table class="conj-table"><tr><th>-ARE</th><th>-ERE</th><th>-IRE</th></tr><tr><td class="verb-form">parlate!</td><td class="verb-form">scrivete!</td><td class="verb-form">dormite!</td></tr></table><div class="rule-box blue">Voi imperative = same as present tense voi</div></div>
+  </div>
+  <h3 style="margin-top:12px;">Key Irregulars</h3>
+  <table class="conj-table"><tr><th>Verb</th><th>Tu!</th><th>Voi!</th></tr><tr><td>essere</td><td class="verb-form">sii!</td><td class="verb-form">siate!</td></tr><tr><td>avere</td><td class="verb-form">abbi!</td><td class="verb-form">abbiate!</td></tr><tr><td>andare</td><td class="verb-form">vai! / va'!</td><td class="verb-form">andate!</td></tr><tr><td>fare</td><td class="verb-form">fai! / fa'!</td><td class="verb-form">fate!</td></tr><tr><td>venire</td><td class="verb-form">vieni!</td><td class="verb-form">venite!</td></tr></table>
+  <div class="rule-box"><strong>Negative (tu):</strong> non + infinitive → <em>Non parlare!</em> (Don't speak!)</div>
+  <div style="margin-top:12px;display:grid;gap:8px;"><div><div class="example-it">Seguite le istruzioni e andate direttamente all'uscita.</div><div class="example-en">Follow the instructions and go straight to the exit.</div></div><div><div class="example-it">Non perdete questa opportunità straordinaria!</div><div class="example-en">Don't miss this extraordinary opportunity!</div></div></div></div>`,
+
+  pronouns:`<div class="grammar-block"><div class="grammar-title">🔷 Pronomi Diretti e Indiretti</div>
+  <div class="grid-2">
+  <div><h3>Direct Object (Pronomi diretti)</h3><table class="conj-table"><tr><th>Person</th><th>Pronoun</th><th>Meaning</th></tr><tr><td>1st sg</td><td class="verb-form">mi</td><td>me</td></tr><tr><td>2nd sg</td><td class="verb-form">ti</td><td>you</td></tr><tr><td>3rd sg m</td><td class="verb-form">lo</td><td>him/it (m)</td></tr><tr><td>3rd sg f</td><td class="verb-form">la</td><td>her/it (f)</td></tr><tr><td>1st pl</td><td class="verb-form">ci</td><td>us</td></tr><tr><td>2nd pl</td><td class="verb-form">vi</td><td>you (pl)</td></tr><tr><td>3rd pl m</td><td class="verb-form">li</td><td>them (m)</td></tr><tr><td>3rd pl f</td><td class="verb-form">le</td><td>them (f)</td></tr></table></div>
+  <div><h3>Indirect Object (Pronomi indiretti)</h3><table class="conj-table"><tr><th>Person</th><th>Pronoun</th><th>Meaning</th></tr><tr><td>1st sg</td><td class="verb-form">mi</td><td>to me</td></tr><tr><td>2nd sg</td><td class="verb-form">ti</td><td>to you</td></tr><tr><td>3rd sg m</td><td class="verb-form">gli</td><td>to him</td></tr><tr><td>3rd sg f</td><td class="verb-form">le</td><td>to her</td></tr><tr><td>1st pl</td><td class="verb-form">ci</td><td>to us</td></tr><tr><td>2nd pl</td><td class="verb-form">vi</td><td>to you pl</td></tr><tr><td>3rd pl</td><td class="verb-form">gli / loro</td><td>to them</td></tr></table></div>
+  </div>
+  <div class="rule-box"><strong>Position:</strong> Go BEFORE the conjugated verb: <em>Lo mangio</em>. After infinitive they attach: <em>Voglio mangiarlo</em>.</div>
+  <div class="rule-box blue"><strong>With passato prossimo (avere):</strong> Participle agrees with direct object pronoun: <em>Ho comprato la pizza → L'ho comprata.</em></div>
+  <div style="margin-top:12px;display:grid;gap:8px;"><div><div class="example-it">Lo vedo ogni giorno a scuola.</div><div class="example-en">I see him every day at school.</div></div><div><div class="example-it">Gli ho scritto una lettera.</div><div class="example-en">I wrote him a letter.</div></div></div></div>`,
+
+  nouns:`<div class="grammar-block"><div class="grammar-title">📝 Nomi e Articoli</div>
+  <div class="grid-2">
+  <div><h3>Definite Articles</h3><table class="conj-table"><tr><th>Context</th><th>Singular</th><th>Plural</th></tr><tr><td>masc. consonant</td><td class="verb-form">il ragazzo</td><td class="verb-form">i ragazzi</td></tr><tr><td>masc. s+c, z, ps, gn</td><td class="verb-form">lo studente</td><td class="verb-form">gli studenti</td></tr><tr><td>masc. vowel</td><td class="verb-form">l'amico</td><td class="verb-form">gli amici</td></tr><tr><td>fem. consonant</td><td class="verb-form">la ragazza</td><td class="verb-form">le ragazze</td></tr><tr><td>fem. vowel</td><td class="verb-form">l'amica</td><td class="verb-form">le amiche</td></tr></table></div>
+  <div><h3>Indefinite Articles</h3><table class="conj-table"><tr><th>Context</th><th>Form</th></tr><tr><td>masc. consonant</td><td class="verb-form">un ragazzo</td></tr><tr><td>masc. s+c, z, ps, gn</td><td class="verb-form">uno studente</td></tr><tr><td>masc. vowel</td><td class="verb-form">un amico</td></tr><tr><td>fem. consonant</td><td class="verb-form">una ragazza</td></tr><tr><td>fem. vowel</td><td class="verb-form">un'amica</td></tr></table><div class="rule-box">⚠️ No plural indefinite articles — use "dei/delle" for "some".</div></div>
+  </div>
+  <div class="grid-2" style="margin-top:12px;"><div class="rule-box green"><strong>Usually masc (-o):</strong> il libro, il ragazzo, il tavolo, il vino</div><div class="rule-box blue"><strong>Usually fem (-a):</strong> la pasta, la ragazza, la scuola, la casa</div><div class="rule-box"><strong>-e (can be either!):</strong> il ristorante (m), la classe (f), il dente (m)</div><div class="rule-box"><strong>Irregular plurals:</strong> l'uomo → gli uomini | la mano → le mani</div></div></div>`,
+
+  adjectives:`<div class="grammar-block"><div class="grammar-title">✨ Aggettivi</div>
+  <div class="rule-box"><strong>KEY RULE:</strong> Adjectives MUST agree with the noun in gender AND number.</div>
+  <div class="grid-2">
+  <div><h3>-o/-a adjectives (4 forms)</h3><table class="conj-table"><tr><th></th><th>Singular</th><th>Plural</th></tr><tr><td>Masc</td><td class="verb-form">bello</td><td class="verb-form">belli</td></tr><tr><td>Fem</td><td class="verb-form">bella</td><td class="verb-form">belle</td></tr></table><div class="example-it" style="margin-top:8px;">un ragazzo alto / una ragazza alta / due ragazzi alti</div></div>
+  <div><h3>-e adjectives (2 forms)</h3><table class="conj-table"><tr><th></th><th>Singular</th><th>Plural</th></tr><tr><td>M + F</td><td class="verb-form">intelligente</td><td class="verb-form">intelligenti</td></tr></table><div class="rule-box blue">BELLO before nouns follows article pattern: bel ragazzo, bell'uomo, bello studente, bella donna, bei ragazzi, begli studenti, belle ragazze</div></div>
+  </div>
+  <div class="rule-box"><strong>Position:</strong> Most adjectives come AFTER the noun. Before the noun (BBAG): bello, buono, brutto, grande (piccolo, vecchio, giovane, nuovo, lungo, breve).</div></div>`,
+
+  piacere:`<div class="grammar-block"><div class="grammar-title">❤️ Piacere — To Like</div>
+  <div class="rule-box"><strong>KEY RULE:</strong> Piacere works IN REVERSE. The thing liked = subject. The person who likes it = indirect object. Think: "pizza is pleasing TO me."</div>
+  <div class="grid-2">
+  <div><h3>Formula</h3><table class="conj-table"><tr><th>If you like...</th><th>Use</th><th>Example</th></tr><tr><td>one thing (sg)</td><td class="verb-form">piace</td><td><em>Mi piace la pasta.</em></td></tr><tr><td>multiple things (pl)</td><td class="verb-form">piacciono</td><td><em>Mi piacciono i film.</em></td></tr><tr><td>an infinitive</td><td class="verb-form">piace</td><td><em>Mi piace cantare.</em></td></tr></table></div>
+  <div><h3>All persons</h3><table class="conj-table"><tr><th>Pronoun</th><th>Example</th><th>English</th></tr><tr><td class="verb-form">Mi</td><td><em>Mi piace</em></td><td>I like</td></tr><tr><td class="verb-form">Ti</td><td><em>Ti piace</em></td><td>You like</td></tr><tr><td class="verb-form">Gli/Le</td><td><em>Gli piace</em></td><td>He/she likes</td></tr><tr><td class="verb-form">Ci</td><td><em>Ci piace</em></td><td>We like</td></tr><tr><td class="verb-form">Vi</td><td><em>Vi piace</em></td><td>You pl like</td></tr><tr><td class="verb-form">Gli</td><td><em>Gli piace</em></td><td>They like</td></tr></table></div>
+  </div>
+  <div class="rule-box blue"><strong>With names:</strong> <em>A Marco piace il calcio.</em> | <strong>Past tense:</strong> uses ESSERE → <em>Mi è piaciuto il film.</em> / <em>Mi sono piaciuti i film.</em> (agrees with thing liked!)</div>
+  <div style="margin-top:12px;display:grid;gap:8px;"><div><div class="example-it">Non mi piacciono le verdure crude.</div><div class="example-en">I don't like raw vegetables.</div></div><div><div class="example-it">Mi è piaciuto tantissimo il concerto!</div><div class="example-en">I really liked the concert!</div></div></div></div>`,
+
+  reflexive:`<div class="grammar-block"><div class="grammar-title">🔄 Verbi Riflessivi</div>
+  <div class="rule-box">Reflexive verbs describe actions done to oneself. Always need the reflexive pronoun before the verb. Use ESSERE in compound tenses.</div>
+  <div class="grid-2">
+  <div><h3>Reflexive pronouns</h3><table class="conj-table"><tr><th>Subject</th><th>Pronoun</th></tr><tr><td class="pronoun">io</td><td class="verb-form">mi</td></tr><tr><td class="pronoun">tu</td><td class="verb-form">ti</td></tr><tr><td class="pronoun">lui/lei</td><td class="verb-form">si</td></tr><tr><td class="pronoun">noi</td><td class="verb-form">ci</td></tr><tr><td class="pronoun">voi</td><td class="verb-form">vi</td></tr><tr><td class="pronoun">loro</td><td class="verb-form">si</td></tr></table></div>
+  <div><h3>Alzarsi (to get up)</h3><table class="conj-table"><tr><th>Person</th><th>Form</th></tr><tr><td class="pronoun">io</td><td class="verb-form">mi alzo</td></tr><tr><td class="pronoun">tu</td><td class="verb-form">ti alzi</td></tr><tr><td class="pronoun">lui/lei</td><td class="verb-form">si alza</td></tr><tr><td class="pronoun">noi</td><td class="verb-form">ci alziamo</td></tr><tr><td class="pronoun">voi</td><td class="verb-form">vi alzate</td></tr><tr><td class="pronoun">loro</td><td class="verb-form">si alzano</td></tr></table></div>
+  </div>
+  <h3 style="margin-top:12px;">Common Reflexive Verbs (Daily Routine)</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;"><span class="tag blue">alzarsi — get up</span><span class="tag blue">svegliarsi — wake up</span><span class="tag blue">lavarsi — wash oneself</span><span class="tag blue">vestirsi — get dressed</span><span class="tag blue">pettinarsi — comb hair</span><span class="tag blue">addormentarsi — fall asleep</span><span class="tag blue">sedersi — sit down</span><span class="tag blue">chiamarsi — be called</span><span class="tag blue">sentirsi — feel</span><span class="tag blue">divertirsi — enjoy oneself</span></div>
+  <div class="rule-box"><strong>Passato prossimo:</strong> Always ESSERE. Participle agrees with subject: <em>Mi sono alzato/a.</em></div></div>`,
+
+  negation:`<div class="grammar-block"><div class="grammar-title">❌ Negazione</div>
+  <div class="rule-box"><strong>Basic rule:</strong> Place NON immediately before the conjugated verb. Nothing goes between NON and the verb.</div>
+  <table class="conj-table"><tr><th>Meaning</th><th>Italian</th><th>Example</th></tr><tr><td>not</td><td class="verb-form">non</td><td><em>Non mangio carne.</em></td></tr><tr><td>never</td><td class="verb-form">non...mai</td><td><em>Non vado mai in palestra.</em></td></tr><tr><td>no longer</td><td class="verb-form">non...più</td><td><em>Non studio più il francese.</em></td></tr><tr><td>nothing</td><td class="verb-form">non...niente/nulla</td><td><em>Non ho mangiato niente.</em></td></tr><tr><td>nobody</td><td class="verb-form">non...nessuno</td><td><em>Non conosco nessuno qui.</em></td></tr><tr><td>neither...nor</td><td class="verb-form">non...né...né</td><td><em>Non bevo né caffè né tè.</em></td></tr><tr><td>not yet</td><td class="verb-form">non...ancora</td><td><em>Non ho ancora finito.</em></td></tr></table>
+  <div class="rule-box blue">In compound tenses: non goes before auxiliary. Mai/ancora/più go BETWEEN auxiliary and participle: <em>Non ho mai mangiato sushi.</em></div></div>`,
+};
+
+function showGTab(tab){
+  const area=document.getElementById('gram-content');
+  area.innerHTML=GRAM_TABS[tab]||'<p>Coming soon.</p>';
+  document.querySelectorAll('#grammar .tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')?.includes(`'${tab}'`)));
+  renderGramPractice();
+}
+
+function renderGramPractice(){
+  const area=document.getElementById('gram-practice-area');
+  if(!area)return;
+  const ex=GRAM_PRACTICE[gramPracticeIdx%GRAM_PRACTICE.length];
+  area.innerHTML=`<div class="card"><p style="font-size:14px;font-weight:600;margin-bottom:10px;">${ex.q}</p>
+  <input type="text" class="practice-input" id="gp-input" placeholder="Type your answer..." style="margin-bottom:10px;" onkeydown="if(event.key==='Enter')checkGramPractice()">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <button class="btn btn-primary" onclick="checkGramPractice()">✔️ Check</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('gp-hint').style.display='block'">💡 Hint</button>
+  </div>
+  <div id="gp-hint" style="display:none;margin-top:8px;" class="feedback-box info">💡 ${ex.hint}</div>
+  <div id="gp-result" style="margin-top:10px;"></div></div>`;
+}
+
+function checkGramPractice(){
+  const ex=GRAM_PRACTICE[gramPracticeIdx%GRAM_PRACTICE.length];
+  const val=document.getElementById('gp-input')?.value?.trim().toLowerCase();
+  const correct=(ex.aStr||ex.a).toLowerCase();
+  const res=document.getElementById('gp-result');
+  if(val===correct||val===correct.replace('/','').trim()){
+    res.innerHTML=`<div class="feedback-box good">✅ Perfetto! <strong>${ex.aStr||ex.a}</strong></div>`;
+  } else {
+    res.innerHTML=`<div class="feedback-box bad">❌ The answer is: <strong>${ex.aStr||ex.a}</strong></div>`;
+  }
+}
+
+function loadNextGramPractice(){gramPracticeIdx++;renderGramPractice();}
+
+// ==================== SENTENCES ====================
+function renderSentences(){
+  const list=document.getElementById('sentences-list');
+  if(!list)return;
+  list.innerHTML=filteredSents.map(s=>`<div class="sentence-card">
+    <div class="sentence-it">${s.it}</div>
+    <div class="sentence-en">${s.en}</div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;">
+      <span class="tag blue">${s.tense}</span><span class="tag">${s.topic}</span>
+      ${(s.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}
+    </div></div>`).join('');
+  document.getElementById('sent-count').textContent=`${filteredSents.length} sentences`;
+}
+
+function filterSentences(){
+  const topic=document.getElementById('sent-topic').value;
+  const tense=document.getElementById('sent-tense').value;
+  filteredSents=SENTENCES.filter(s=>(topic==='all'||s.topic===topic)&&(tense==='all'||s.tense===tense));
+  renderSentences();
+}
+
+function shuffleSentences(){filteredSents=shuffle([...filteredSents]);renderSentences();}
+
+// ==================== TEXT TYPES ====================
+function renderTextTypes(){
+  ['personal','professional'].forEach(cat=>{
+    const el=document.getElementById('tt-'+cat);
+    if(!el||el.innerHTML)return;
+    el.innerHTML=TEXT_TYPES[cat].map(tt=>`<div class="text-type-card">
+      <div class="tt-header">
+        <span style="font-size:22px">${tt.icon}</span>
+        <div><div class="tt-name">${tt.name}</div><div style="font-size:11px;color:var(--text-muted)">Register: ${tt.register}</div></div>
+        <div class="tt-function">📌 ${tt.func}</div>
+      </div>
+      <div class="tt-body">
+        <div class="grid-2">
+          <div>
+            <h3>Structure</h3>
+            <ul class="tt-struct">${tt.struct.map((item,i)=>`<li><span class="tt-label">${String.fromCharCode(65+i)}</span>${item}</li>`).join('')}</ul>
+          </div>
+          <div>
+            <h3>Grammar Required</h3>
+            <div class="tt-grammar"><strong>${tt.grammar}</strong></div>
+            <h3 style="margin-top:13px;">Notes</h3>
+            <div class="rule-box" style="font-size:12px;">${tt.notes}</div>
+            <h3 style="margin-top:13px;">Example Opening</h3>
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--accent3);border:1px solid var(--border);border-radius:8px;padding:10px;background:var(--bg2);">${tt.example}</div>
+          </div>
+        </div>
+      </div></div>`).join('');
+  });
+}
+
+function showTTCat(cat){
+  ['personal','professional'].forEach(c=>{document.getElementById('tt-'+c).style.display=c===cat?'block':'none';});
+  document.querySelectorAll('#texttypes .tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')?.includes(`'${cat}'`)));
+  renderTextTypes();
+}
+
+// ==================== TOPICS ====================
+function showTheme(num){
+  const content=document.getElementById('topics-content');
+  const theme=THEMES[num-1];
+  content.innerHTML=theme.topics.map(t=>`<div class="topic-card">
+    <div class="topic-name">${t.name}</div>
+    <div class="topic-theme">Theme ${num}: ${theme.name}</div>
+    <div class="vocab-grid">${t.vocab.map(([it,en])=>`<div class="vocab-item"><span class="vocab-it">${it}</span><span class="vocab-en">${en}</span></div>`).join('')}</div>
+    <h3 style="margin-top:14px;">My Notes — ${t.name}</h3>
+    <textarea class="writing-area" style="min-height:90px;" placeholder="Write key vocab, sentences or notes for this topic..." oninput="autoSaveTopic(this,'${num}_${t.name.replace(/\s/g,'_')}')">${localStorage.getItem('topic_${num}_${t.name.replace(/\\s/g,"_")}')||''}</textarea>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Auto-saved ✓</div>
+    </div>`).join('');
+  // Load saved values properly
+  theme.topics.forEach(t=>{
+    const key=`topic_${num}_${t.name.replace(/\s/g,'_')}`;
+    const val=localStorage.getItem(key);
+    if(val){const ta=content.querySelector(`[oninput*="${num}_${t.name.replace(/\s/g,'_')}"]`);if(ta)ta.value=val;}
+  });
+  document.querySelectorAll('#topics .tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')?.includes(`showTheme(${num})`)));
+}
+
+function autoSaveTopic(el,key){localStorage.setItem('topic_'+key,el.value);}
+
+// ==================== CONNECTORS ====================
+function renderConnectors(){
+  const content=document.getElementById('connectors-content');
+  if(!content||content.innerHTML)return;
+  content.innerHTML=CONNECTORS.map(group=>`<div class="connector-group">
+    <h3>${group.group}</h3>
+    <div class="connector-list">${group.items.map(item=>`<div class="connector-item" onclick="copyConnector(this,'${item.it}')"><strong>${item.it}</strong><br><span>${item.en}</span></div>`).join('')}</div>
+    </div><div class="divider"></div>`).join('');
+}
+
+function copyConnector(el,text){
+  navigator.clipboard?.writeText(text).catch(()=>{});
+  el.style.background='#e8f5ee';el.style.borderColor='var(--green)';
+  setTimeout(()=>{el.style.background='';el.style.borderColor='';},800);
+}
+
+// ==================== HIGHER LEVEL ====================
+function renderHigher(){
+  const hl=document.getElementById('hl-structures');
+  if(hl&&!hl.innerHTML){
+    hl.innerHTML=`<div class="alert alert-warning">⭐ These structures push your writing from a 4 to a 6–7. Aim to use 2–3 per piece.</div>
+    ${HIGHER_STRUCTURES.map(s=>`<div class="hl-card"><div class="hl-label">${s.label}</div><div class="hl-sentence">${s.sentence}</div><div class="hl-breakdown">📖 ${s.breakdown}</div></div>`).join('')}`;
+  }
+  const vo=document.getElementById('hl-vocab');
+  if(vo&&!vo.innerHTML){
+    vo.innerHTML=`<div class="alert alert-info">Replace basic words with these higher-register alternatives to impress the examiner.</div>
+    <table class="conj-table" style="width:100%;background:var(--surface);">
+    <tr><th>Basic</th><th>Higher Alternative</th><th>English</th></tr>
+    ${HIGHER_VOCAB.map(v=>`<tr><td style="color:var(--text-muted)">${v.basic}</td><td class="verb-form">${v.high}</td><td style="font-size:12px;color:var(--text-muted)">${v.en}</td></tr>`).join('')}
+    </table>`;
+  }
+  const op=document.getElementById('hl-opinions');
+  if(op&&!op.innerHTML){
+    op.innerHTML=`<div class="alert alert-info">Use these to structure arguments and evaluations — they signal sophistication to the examiner.</div>
+    ${HIGHER_OPINIONS.map(o=>`<div class="hl-card"><div class="hl-sentence">${o.phrase}</div><div class="hl-breakdown">${o.en}</div></div>`).join('')}`;
+  }
+  const bt=document.getElementById('hl-bytopic');
+  if(bt&&!bt.innerHTML){
+    const topicPhrases=[
+      {t:"Ambiente",p:["Il riscaldamento globale costituisce una delle sfide più urgenti del XXI secolo.","Bisognerebbe adottare politiche più severe per ridurre le emissioni di CO₂.","L'inquinamento atmosferico ha conseguenze devastanti sulla salute pubblica.","È fondamentale sensibilizzare le nuove generazioni all'importanza della sostenibilità."]},
+      {t:"Tecnologia",p:["I social media, se usati in modo irresponsabile, possono avere effetti negativi sul benessere mentale.","L'intelligenza artificiale sta trasformando radicalmente il mercato del lavoro.","Non si può negare che la digitalizzazione abbia semplificato molti aspetti della vita quotidiana.","Bisogna però considerare i rischi legati alla dipendenza tecnologica."]},
+      {t:"Identità",p:["La mia identità è plasmata da esperienze culturali diverse.","Essere bilingue mi ha permesso di vedere il mondo da prospettive differenti.","L'identità personale si costruisce attraverso le relazioni e le esperienze vissute.","La diversità culturale arricchisce la nostra società in modo inestimabile."]},
+      {t:"Istruzione",p:["Un sistema educativo di qualità è il fondamento di una società equa.","L'apprendimento delle lingue straniere apre porte a nuove opportunità professionali.","La scuola non dovrebbe limitarsi a trasmettere nozioni, ma formare cittadini consapevoli.","Il divario educativo tra zone rurali e urbane rimane un problema irrisolto."]},
+      {t:"Lavoro",p:["Il mercato del lavoro contemporaneo richiede competenze sempre più versatili.","Lo smart working ha ridefinito il concetto tradizionale di ufficio.","La parità salariale tra uomini e donne è ancora un obiettivo da raggiungere.","Un lavoro soddisfacente contribuisce al benessere psicologico dell'individuo."]},
+    ];
+    bt.innerHTML=topicPhrases.map(tp=>`<div style="margin-bottom:20px;"><h3>${tp.t}</h3>${tp.p.map(p=>`<div class="hl-card" style="margin-bottom:8px;"><div class="hl-sentence">${p}</div></div>`).join('')}</div>`).join('');
+  }
+}
+
+function showHLTab(tab){
+  ['structures','vocab','opinions','bytopic'].forEach(t=>{document.getElementById('hl-'+t).style.display=t===tab?'block':'none';});
+  document.querySelectorAll('#higher .tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')?.includes(`'${tab}'`)));
+  renderHigher();
+}
+
+// ==================== WRITING ====================
+function showWritingTab(tab){
+  document.getElementById('writing-tasks').style.display=tab==='tasks'?'block':'none';
+  document.getElementById('writing-builder').style.display=tab==='builder'?'block':'none';
+  document.getElementById('writing-saved').style.display=tab==='saved'?'block':'none';
+  document.querySelectorAll('#writing .tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')?.includes(`'${tab}'`)));
+  if(tab==='builder')renderSB();
+  if(tab==='saved')loadSaved();
+}
+
+function updatePrompt(){
+  const type=document.getElementById('task-type').value;
+  const topic=document.getElementById('task-topic').value;
+  const prompt=document.getElementById('task-prompt');
+  const checklist=document.getElementById('task-checklist');
+  if(!type||!topic){prompt.style.display='none';checklist.style.display='none';return;}
+  prompt.style.display='block';
+  prompt.innerHTML=`✍️ <strong>Task:</strong> Write a <strong>${type}</strong> about <strong>${topic}</strong>. Use 70–150 words. Include all required structural features for this text type.`;
+  const tt=[...TEXT_TYPES.personal,...TEXT_TYPES.professional].find(t=>t.name.toLowerCase().includes(type.toLowerCase().split('/')[0].trim()));
+  checklist.style.display='block';
+  if(tt){
+    checklist.innerHTML=`<div class="card"><h3>Checklist — ${tt.name}</h3><div style="display:flex;flex-direction:column;gap:5px;">
+    ${tt.struct.map((s,i)=>`<label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox" style="accent-color:var(--green);"><span class="tt-label">${String.fromCharCode(65+i)}</span>${s}</label>`).join('')}
+    <div class="tt-grammar" style="margin-top:8px;">Grammar: <strong>${tt.grammar}</strong></div></div></div>`;
+  }
+}
+
+function randomTask(){
+  const types=['Blog','Diario personale','Email informale','Email formale','Cartolina','Articolo','Discorso/Presentazione','Intervista','Messaggio','Recensione','Opuscolo','Annuncio pubblicitario','Istruzioni'];
+  const topics=['Identità personale','La famiglia','Cibo e salute','La routine quotidiana','Il tempo libero','Le vacanze','La scuola','Il lavoro','Il clima e l\'ambiente','I media e la tecnologia'];
+  document.getElementById('task-type').value=types[Math.floor(Math.random()*types.length)];
+  document.getElementById('task-topic').value=topics[Math.floor(Math.random()*topics.length)];
+  updatePrompt();
+}
+
+function updateWordCount(){
+  const text=document.getElementById('main-writing-area').value.trim();
+  const count=text?text.split(/\s+/).length:0;
+  const el=document.getElementById('word-count-display');
+  el.textContent=`${count} word${count!==1?'s':''}`;
+  el.className='word-count '+(count>=70&&count<=150?'ok':'low');
+}
+
+function saveWriting(){
+  const text=document.getElementById('main-writing-area').value.trim();
+  const type=document.getElementById('task-type').value;
+  const topic=document.getElementById('task-topic').value;
+  if(!text){alert('Write something first!');return;}
+  const entry={id:Date.now(),title:`${type||'Writing'} — ${topic||'General'}`,text,date:new Date().toLocaleDateString('en-GB'),wordCount:text.split(/\s+/).length};
+  savedEntries.unshift(entry);
+  localStorage.setItem('italiano_saved',JSON.stringify(savedEntries));
+  document.getElementById('writing-feedback').innerHTML='<div class="feedback-box good">✅ Saved successfully!</div>';
+  setTimeout(()=>document.getElementById('writing-feedback').innerHTML='',2500);
+}
+
+function clearWriting(){if(confirm('Clear the writing area?')){document.getElementById('main-writing-area').value='';updateWordCount();}}
+
+function checkWritingBasic(){
+  const text=document.getElementById('main-writing-area').value.trim();
+  if(!text)return;
+  const words=text.split(/\s+/).length;
+  const issues=[];
+  if(words<70)issues.push(`⚠️ Too short (${words} words). Need at least 70 for Paper 1.`);
+  if(words>150)issues.push(`⚠️ Too long (${words} words). Maximum 150 words.`);
+  if(!/perché|quindi|però|tuttavia|inoltre|nonostante|mentre|invece/.test(text)) issues.push("💡 Add connectors: perché, quindi, però, tuttavia, inoltre...");
+  if(/voglio di |devo di |posso di /.test(text)) issues.push("⚠️ Remove 'di' after modal verbs: voglio andare (NOT voglio di andare).");
+  if(/\b(lunedì|martedì|mercoledì|giovedì|venerdì|sabato|domenica|gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)\b/.test(text)&&/[A-Z]/.test(text.match(/\b(Lunedì|Martedì|Mercoledì|Giovedì|Venerdì|Sabato|Domenica|Gennaio|Febbraio|Marzo|Aprile|Maggio|Giugno|Luglio|Agosto|Settembre|Ottobre|Novembre|Dicembre)\b/)||[''])[0])) issues.push("⚠️ Days and months are NOT capitalised in Italian.");
+  const fb=document.getElementById('writing-feedback');
+  if(issues.length===0){fb.innerHTML='<div class="feedback-box good">✅ Looking good! Basic checks passed. Word count is within range.</div>';}
+  else{fb.innerHTML=`<div class="feedback-box bad">${issues.map(i=>`<div>${i}</div>`).join('')}</div>`;}
+}
+
+function loadSaved(){
+  const list=document.getElementById('saved-entries-list');
+  if(!list)return;
+  if(savedEntries.length===0){list.innerHTML='<p style="color:var(--text-muted);font-size:14px;">No saved entries yet. Write something and click Save!</p>';return;}
+  list.innerHTML=savedEntries.map(e=>`<div class="saved-entry">
+    <div class="saved-entry-header">
+      <div class="saved-entry-title">${e.title}</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="badge badge-blue">${e.wordCount}w</span>
+        <span class="saved-entry-date">${e.date}</span>
+        <button class="btn btn-secondary" style="padding:3px 9px;font-size:11px;" onclick="deleteEntry(${e.id})">🗑️</button>
+      </div>
+    </div>
+    <div class="saved-entry-text">${e.text.substring(0,300)}${e.text.length>300?'…':''}</div>
+    </div>`).join('');
+}
+
+function deleteEntry(id){
+  savedEntries=savedEntries.filter(e=>e.id!==id);
+  localStorage.setItem('italiano_saved',JSON.stringify(savedEntries));
+  loadSaved();
+}
+
+// ==================== SENTENCE BUILDER ====================
+function renderSB(){
+  const ex=SB_DATA[sbIdx%SB_DATA.length];
+  document.getElementById('sb-current').innerHTML=`<div class="card">
+    <h3>Sentence ${(sbIdx%SB_DATA.length)+1} of ${SB_DATA.length}</h3>
+    <div class="progress-bar"><div class="progress-fill" style="width:${((sbIdx%SB_DATA.length)+1)/SB_DATA.length*100}%"></div></div>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:10px;">Build a correct Italian sentence using these elements:</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">${ex.elements.map(e=>`<span class="tag blue" style="font-size:13px;padding:6px 12px;">${e}</span>`).join('')}</div>
+    </div>`;
+  document.getElementById('sb-input').value='';
+  document.getElementById('sb-feedback').innerHTML='';
+  updateSBScore();
+}
+
+function checkSB(){
+  const ex=SB_DATA[sbIdx%SB_DATA.length];
+  const val=document.getElementById('sb-input').value.trim();
+  const fb=document.getElementById('sb-feedback');
+  const clean=s=>s.toLowerCase().replace(/[.,!?]/g,'').trim();
+  if(clean(val)===clean(ex.answer)){
+    sbCorrect++;fb.innerHTML=`<div class="feedback-box good">✅ Perfetto! <strong>${ex.answer}</strong></div>`;
+  } else {
+    sbWrong++;fb.innerHTML=`<div class="feedback-box bad">❌ Expected: <strong>${ex.answer}</strong></div>`;
+  }
+  updateSBScore();
+}
+
+function nextSB(){sbIdx++;renderSB();}
+
+function showHintSB(){
+  const ex=SB_DATA[sbIdx%SB_DATA.length];
+  document.getElementById('sb-feedback').innerHTML=`<div class="feedback-box info">💡 ${ex.hint}</div>`;
+}
+
+function revealSB(){
+  const ex=SB_DATA[sbIdx%SB_DATA.length];
+  document.getElementById('sb-input').value=ex.answer;
+  document.getElementById('sb-feedback').innerHTML=`<div class="feedback-box info">👁 Answer revealed: <strong>${ex.answer}</strong></div>`;
+}
+
+function updateSBScore(){
+  document.getElementById('sb-score-correct').textContent=`✅ ${sbCorrect} correct`;
+  document.getElementById('sb-score-wrong').textContent=`❌ ${sbWrong} wrong`;
+}
+
+// ==================== GAMES ====================
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5);}
+function updateGameScore(id,state){
+  const s=document.getElementById(id+'-score');const w=document.getElementById(id+'-wrong');const q=document.getElementById(id+'-q');
+  if(s)s.textContent=state.score;if(w)w.textContent=state.wrong;if(q)q.textContent=state.q;
+}
+function endGame(id,score,wrong){
+  const q=score+wrong;const pct=q?Math.round(score/q*100):0;
+  document.getElementById(id+'-question').innerHTML=`<div style="text-align:center;"><div style="font-size:32px;margin-bottom:8px;">${pct>=80?'🎉':pct>=60?'👍':'💪'}</div><strong>${score}/${q} correct (${pct}%)</strong><br><span style="font-size:14px;color:var(--text-dim);">${pct>=80?'Ottimo!':pct>=60?'Bene!':'Continua a studiare!'}</span></div>`;
+}
+
+function showGame(game){
+  ['vocab','conj','translate','gender','fill'].forEach(g=>{document.getElementById('game-'+g).style.display=g===game?'block':'none';});
+  document.querySelectorAll('#games .tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')?.includes(`'${game}'`)));
+  if(game==='vocab')initVocabGame();
+  if(game==='conj')initConjGame();
+  if(game==='translate')initTranslateGame();
+  if(game==='gender')initGenderGame();
+  if(game==='fill')initFillGame();
+}
+
+// VOCAB GAME
+let vocabState={score:0,wrong:0,q:0,data:[],idx:0};
+function initVocabGame(){
+  const el=document.getElementById('game-vocab');
+  el.innerHTML=`<div class="game-container">
+    <h2 style="font-family:'Cormorant Garamond',serif;margin-bottom:4px;">🔤 Vocabolario — Italian → English</h2>
+    <div class="score-display"><div class="score-item"><div class="score-num" id="vg-score">0</div><div class="score-label">Correct</div></div><div class="score-item"><div class="score-num" id="vg-wrong" style="color:var(--red)">0</div><div class="score-label">Wrong</div></div><div class="score-item"><div class="score-num" id="vg-q">0</div><div class="score-label">Total</div></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="vg-prog" style="width:0%"></div></div>
+    <div class="game-question" id="vg-question">Press Start!</div>
+    <div id="vg-options"></div>
+    <div class="game-feedback" id="vg-feedback"></div>
+    <button class="btn btn-primary" onclick="startVocab()">▶ Start</button>
+    </div>`;
+}
+
+function startVocab(){
+  vocabState={score:0,wrong:0,q:0,data:shuffle([...VOCAB_GAME_DATA]),idx:0};
+  nextVocabQ();
+}
+
+function nextVocabQ(){
+  if(vocabState.idx>=vocabState.data.length){endGame('vg',vocabState.score,vocabState.wrong);document.getElementById('vg-options').innerHTML=`<button class="btn btn-secondary" onclick="startVocab()">🔄 Play Again</button>`;return;}
+  const c=vocabState.data[vocabState.idx];
+  const others=shuffle(VOCAB_GAME_DATA.filter(v=>v.en!==c.en)).slice(0,3);
+  const opts=shuffle([c,...others]);
+  document.getElementById('vg-question').innerHTML=`<em>${c.it}</em>`;
+  document.getElementById('vg-options').innerHTML=`<div class="game-options">${opts.map(o=>`<button class="game-opt-btn" onclick="answerVocab('${o.en.replace(/'/g,"\\'")}','${c.en.replace(/'/g,"\\'")}','${c.it.replace(/'/g,"\\'")}')">${o.en}</button>`).join('')}</div>`;
+  document.getElementById('vg-feedback').innerHTML='';
+  updateGameScore('vg',vocabState);
+  document.getElementById('vg-prog').style.width=`${(vocabState.idx+1)/vocabState.data.length*100}%`;
+}
+
+function answerVocab(chosen,correct,word){
+  vocabState.q++;
+  const right=chosen===correct;
+  if(right)vocabState.score++;else vocabState.wrong++;
+  document.querySelectorAll('#game-vocab .game-opt-btn').forEach(b=>{
+    if(b.textContent===correct)b.classList.add('correct');
+    if(b.textContent===chosen&&!right)b.classList.add('wrong');
+    b.disabled=true;
+  });
+  document.getElementById('vg-feedback').innerHTML=right?`<span style="color:var(--green)">✅ Corretto!</span>`:`<span style="color:var(--red)">❌ Era: <strong>${correct}</strong></span>`;
+  vocabState.idx++;updateGameScore('vg',vocabState);
+  setTimeout(nextVocabQ,1200);
+}
+
+// CONJUGATION GAME
+let conjState={score:0,wrong:0,q:0,data:[],idx:0};
+function initConjGame(){
+  const el=document.getElementById('game-conj');
+  el.innerHTML=`<div class="game-container">
+    <h2 style="font-family:'Cormorant Garamond',serif;margin-bottom:4px;">🔤 Coniugazione — Type the Correct Form</h2>
+    <div class="score-display"><div class="score-item"><div class="score-num" id="cg-score">0</div><div class="score-label">Correct</div></div><div class="score-item"><div class="score-num" id="cg-wrong" style="color:var(--red)">0</div><div class="score-label">Wrong</div></div><div class="score-item"><div class="score-num" id="cg-q">0</div><div class="score-label">Total</div></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="cg-prog" style="width:0%"></div></div>
+    <div class="game-question" id="cg-question">Press Start!</div>
+    <div class="game-input-area"><input type="text" class="practice-input" id="cg-input" placeholder="Type conjugation..." style="min-height:0;resize:none;" onkeydown="if(event.key==='Enter')answerConj()"><button class="btn btn-primary" onclick="answerConj()">✔️</button></div>
+    <div class="game-feedback" id="cg-feedback"></div>
+    <button class="btn btn-primary" onclick="startConj()">▶ Start</button>
+    </div>`;
+}
+
+function startConj(){
+  conjState={score:0,wrong:0,q:0,data:shuffle([...CONJ_GAME_DATA]),idx:0};
+  nextConjQ();
+}
+
+function nextConjQ(){
+  if(conjState.idx>=conjState.data.length){document.getElementById('cg-question').innerHTML=`Game Over! ${conjState.score}/${conjState.q} correct.`;document.getElementById('cg-input').style.display='none';return;}
+  const c=conjState.data[conjState.idx];
+  document.getElementById('cg-question').innerHTML=`Conjugate <strong>${c.verb}</strong> — <strong>${c.pronoun}</strong> — (${c.tense})`;
+  document.getElementById('cg-input').value='';document.getElementById('cg-input').style.display='';
+  document.getElementById('cg-feedback').innerHTML='';
+  document.getElementById('cg-prog').style.width=`${(conjState.idx+1)/conjState.data.length*100}%`;
+  updateGameScore('cg',conjState);
+  setTimeout(()=>document.getElementById('cg-input').focus(),50);
+}
+
+function answerConj(){
+  if(conjState.idx>=conjState.data.length)return;
+  const c=conjState.data[conjState.idx];
+  const val=document.getElementById('cg-input').value.trim().toLowerCase();
+  conjState.q++;
+  const right=val===c.answer.toLowerCase()||c.answer.toLowerCase().split('/').some(a=>a.trim()===val);
+  if(right)conjState.score++;else conjState.wrong++;
+  document.getElementById('cg-feedback').innerHTML=right?`<span style="color:var(--green)">✅ Corretto!</span>`:`<span style="color:var(--red)">❌ Answer: <strong>${c.answer}</strong></span>`;
+  conjState.idx++;updateGameScore('cg',conjState);
+  setTimeout(nextConjQ,1300);
+}
+
+// TRANSLATION GAME
+let transState={score:0,wrong:0,q:0,data:[],idx:0};
+function initTranslateGame(){
+  const el=document.getElementById('game-translate');
+  el.innerHTML=`<div class="game-container">
+    <h2 style="font-family:'Cormorant Garamond',serif;margin-bottom:4px;">🔄 Traduzione — Translate into Italian</h2>
+    <div class="score-display"><div class="score-item"><div class="score-num" id="tg-score">0</div><div class="score-label">Correct</div></div><div class="score-item"><div class="score-num" id="tg-wrong" style="color:var(--red)">0</div><div class="score-label">Wrong</div></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="tg-prog" style="width:0%"></div></div>
+    <div class="game-question" id="tg-question" style="font-style:normal;font-size:17px;">Press Start to begin!</div>
+    <textarea class="practice-input" id="tg-input" style="max-width:560px;margin:0 auto 10px;display:block;min-height:70px;" placeholder="Type your Italian translation here..."></textarea>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;">
+      <button class="btn btn-primary" onclick="checkTranslate()">✔️ Check</button>
+      <button class="btn btn-secondary" onclick="nextTranslate()">→ Skip</button>
+    </div>
+    <div class="game-feedback" id="tg-feedback" style="max-width:560px;margin:0 auto;"></div>
+    <button class="btn btn-primary" onclick="startTranslate()" style="margin-top:10px;">▶ Start</button>
+    </div>`;
+}
+
+function startTranslate(){
+  transState={score:0,wrong:0,q:0,data:shuffle([...SENTENCES]).slice(0,20),idx:0};
+  nextTranslate();
+}
+
+function nextTranslate(){
+  if(transState.idx>=transState.data.length){document.getElementById('tg-question').textContent='All done! Great work.';document.getElementById('tg-input').style.display='none';return;}
+  const s=transState.data[transState.idx];
+  document.getElementById('tg-question').textContent=s.en;
+  document.getElementById('tg-input').value='';document.getElementById('tg-input').style.display='';
+  document.getElementById('tg-feedback').innerHTML='';
+  document.getElementById('tg-prog').style.width=`${(transState.idx+1)/transState.data.length*100}%`;
+  updateGameScore('tg',transState);
+}
+
+function checkTranslate(){
+  if(transState.idx>=transState.data.length)return;
+  const s=transState.data[transState.idx];
+  const val=document.getElementById('tg-input').value.trim();
+  transState.q++;
+  document.getElementById('tg-feedback').innerHTML=`<div class="feedback-box info">
+    <strong>Model answer:</strong> <em>${s.it}</em><br>
+    <small style="color:var(--text-muted)">Your answer: ${val||'(blank)'}</small><br>
+    <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-green" onclick="scoreTranslate(true)">✅ I got it right</button>
+      <button style="background:var(--red);color:#fff;" class="btn" onclick="scoreTranslate(false)">❌ I got it wrong</button>
+    </div></div>`;
+}
+
+function scoreTranslate(right){
+  if(right)transState.score++;else transState.wrong++;
+  transState.idx++;updateGameScore('tg',transState);
+  setTimeout(nextTranslate,300);
+}
+
+// GENDER GAME
+let genderState={score:0,wrong:0,q:0,data:[],idx:0};
+function initGenderGame(){
+  const el=document.getElementById('game-gender');
+  el.innerHTML=`<div class="game-container">
+    <h2 style="font-family:'Cormorant Garamond',serif;margin-bottom:4px;">👫 Genere — Choose the Correct Article</h2>
+    <div class="score-display"><div class="score-item"><div class="score-num" id="gg-score">0</div><div class="score-label">Correct</div></div><div class="score-item"><div class="score-num" id="gg-wrong" style="color:var(--red)">0</div><div class="score-label">Wrong</div></div><div class="score-item"><div class="score-num" id="gg-q">0</div><div class="score-label">Total</div></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="gg-prog" style="width:0%"></div></div>
+    <div class="game-question" id="gg-question">Press Start!</div>
+    <div id="gg-options"></div>
+    <div class="game-feedback" id="gg-feedback"></div>
+    <button class="btn btn-primary" onclick="startGender()">▶ Start</button>
+    </div>`;
+}
+
+function startGender(){
+  genderState={score:0,wrong:0,q:0,data:shuffle([...GENDER_GAME_DATA]),idx:0};
+  nextGenderQ();
+}
+
+function nextGenderQ(){
+  if(genderState.idx>=genderState.data.length){endGame('gg',genderState.score,genderState.wrong);document.getElementById('gg-options').innerHTML=`<button class="btn btn-secondary" onclick="startGender()">🔄 Play Again</button>`;return;}
+  const c=genderState.data[genderState.idx];
+  const allArts=['il','la','lo',"l'",'i','le','gli'];
+  const opts=shuffle([c.article,...shuffle(allArts.filter(a=>a!==c.article)).slice(0,3)]);
+  document.getElementById('gg-question').innerHTML=`<em>___ ${c.word}</em>`;
+  document.getElementById('gg-options').innerHTML=`<div class="game-options">${opts.map(o=>`<button class="game-opt-btn" onclick="answerGender('${o}','${c.article}','${c.word}')">${o}</button>`).join('')}</div>`;
+  document.getElementById('gg-feedback').innerHTML='';
+  updateGameScore('gg',genderState);
+  document.getElementById('gg-prog').style.width=`${(genderState.idx+1)/genderState.data.length*100}%`;
+}
+
+function answerGender(chosen,correct,word){
+  genderState.q++;
+  const right=chosen===correct;
+  if(right)genderState.score++;else genderState.wrong++;
+  document.querySelectorAll('#game-gender .game-opt-btn').forEach(b=>{if(b.textContent===correct)b.classList.add('correct');if(b.textContent===chosen&&!right)b.classList.add('wrong');b.disabled=true;});
+  document.getElementById('gg-feedback').innerHTML=right?`✅ Corretto! <em>${correct} ${word}</em>`:`❌ Era: <em>${correct} ${word}</em>`;
+  genderState.idx++;updateGameScore('gg',genderState);
+  setTimeout(nextGenderQ,1200);
+}
+
+// GAP FILL GAME
+let fillState={score:0,wrong:0,q:0,data:[],idx:0};
+function initFillGame(){
+  const el=document.getElementById('game-fill');
+  el.innerHTML=`<div class="game-container">
+    <h2 style="font-family:'Cormorant Garamond',serif;margin-bottom:4px;">📝 Completamento — Gap Fill</h2>
+    <div class="score-display"><div class="score-item"><div class="score-num" id="fg-score">0</div><div class="score-label">Correct</div></div><div class="score-item"><div class="score-num" id="fg-wrong" style="color:var(--red)">0</div><div class="score-label">Wrong</div></div><div class="score-item"><div class="score-num" id="fg-q">0</div><div class="score-label">Total</div></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="fg-prog" style="width:0%"></div></div>
+    <div class="game-question" id="fg-question" style="font-style:normal;">Press Start!</div>
+    <div class="game-input-area"><input type="text" class="practice-input" id="fg-input" placeholder="Fill in the gap..." style="min-height:0;resize:none;" onkeydown="if(event.key==='Enter')checkFill()"><button class="btn btn-primary" onclick="checkFill()">✔️</button></div>
+    <button class="btn btn-secondary" onclick="hintFill()" style="margin-bottom:10px;">💡 Hint</button>
+    <div class="game-feedback" id="fg-feedback"></div>
+    <button class="btn btn-primary" onclick="startFill()">▶ Start</button>
+    </div>`;
+}
+
+function startFill(){
+  fillState={score:0,wrong:0,q:0,data:shuffle([...GAP_FILL_DATA]),idx:0};
+  nextFillQ();
+}
+
+function nextFillQ(){
+  if(fillState.idx>=fillState.data.length){document.getElementById('fg-question').textContent=`Done! ${fillState.score}/${fillState.q} correct.`;return;}
+  const c=fillState.data[fillState.idx];
+  document.getElementById('fg-question').innerHTML=`<span style="font-size:17px;">${c.sentence}</span>`;
+  document.getElementById('fg-input').value='';document.getElementById('fg-feedback').innerHTML='';
+  document.getElementById('fg-prog').style.width=`${(fillState.idx+1)/fillState.data.length*100}%`;
+  updateGameScore('fg',fillState);
+  setTimeout(()=>document.getElementById('fg-input').focus(),50);
+}
+
+function checkFill(){
+  if(fillState.idx>=fillState.data.length)return;
+  const c=fillState.data[fillState.idx];
+  const val=document.getElementById('fg-input').value.trim().toLowerCase();
+  fillState.q++;
+  const right=c.answer.toLowerCase().split('/').some(a=>a.trim()===val);
+  if(right)fillState.score++;else fillState.wrong++;
+  document.getElementById('fg-feedback').innerHTML=right?`<span style="color:var(--green)">✅ Corretto! <strong>${c.answer}</strong></span>`:`<span style="color:var(--red)">❌ Answer: <strong>${c.answer}</strong></span>`;
+  fillState.idx++;updateGameScore('fg',fillState);
+  setTimeout(nextFillQ,1300);
+}
+
+function hintFill(){
+  if(fillState.idx>=fillState.data.length)return;
+  document.getElementById('fg-feedback').innerHTML=`<div class="feedback-box info">💡 ${fillState.data[fillState.idx].hint}</div>`;
+}
+
+// ==================== RULES ====================
+function renderRules(){
+  const rw=document.getElementById('rules-writing');
+  if(rw&&!rw.innerHTML){
+    rw.innerHTML=`
+    <div class="rule-card"><div class="rule-card-title">📌 Capitalisation Rules</div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Days of the week are NOT capitalised:</strong> lunedì, martedì, mercoledì, giovedì, venerdì, sabato, domenica</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Months are NOT capitalised:</strong> gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Languages and nationalities are NOT capitalised:</strong> italiano, inglese, francese (unlike English!)</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Proper nouns ARE capitalised:</strong> Roma, Italia, Marco, Natale (place names, people, holidays)</span></div>
+    </div>
+
+    <div class="rule-card"><div class="rule-card-title">📌 Modal Verbs — NO 'di' before infinitive!</div>
+    <div class="checklist-item"><span class="check-icon">❌</span><span><strong>WRONG:</strong> Voglio <u>di</u> andare / Devo <u>di</u> studiare / Posso <u>di</u> venire</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>CORRECT:</strong> Voglio andare / Devo studiare / Posso venire</span></div>
+    <div class="rule-box">The modal verbs volere, dovere, potere, sapere are DIRECTLY followed by the infinitive — no 'di' between them!</div>
+    </div>
+
+    <div class="rule-card"><div class="rule-card-title">📌 Piacere — The Reversed Verb</div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Singular thing or infinitive:</strong> Mi piace la pizza. / Mi piace studiare.</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Plural things:</strong> Mi piacciono i film. / Mi piacciono le vacanze.</span></div>
+    <div class="checklist-item"><span class="check-icon">❌</span><span><strong>WRONG:</strong> Mi piaccio la pizza / Mi piace i film.</span></div>
+    </div>
+
+    <div class="rule-card"><div class="rule-card-title">📌 Essere vs Avere in Passato Prossimo</div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>AVERE:</strong> most transitive verbs (those that take a direct object): ho mangiato, ho visto, ho fatto</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>ESSERE:</strong> motion/state verbs + ALL reflexives: sono andato/a, sono arrivato/a, mi sono alzato/a</span></div>
+    <div class="checklist-item"><span class="check-icon">⚠️</span><span><strong>Agreement with ESSERE:</strong> participle must agree with gender/number of subject: sono andato (m) / andata (f) / andati (m pl) / andate (f pl)</span></div>
+    </div>
+
+    <div class="rule-card"><div class="rule-card-title">📌 Adjective Agreement</div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span>Adjectives must agree in gender AND number: <em>un ragazzo alto / una ragazza alta / due ragazzi alti</em></span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span>Most adjectives follow the noun: <em>una casa grande, un libro interessante</em></span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span>Some go BEFORE: bello, buono, brutto, grande, piccolo, vecchio, giovane, nuovo</span></div>
+    </div>
+
+    <div class="rule-card"><div class="rule-card-title">📌 Accents and Apostrophes</div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Always use accents:</strong> è (is), è (and — rare), perché, città, università, caffè, già, può, però, né, sì (yes), lì (there)</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>è vs e:</strong> <em>è</em> = is (essere); <em>e</em> = and. These are different words!</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Apostrophes:</strong> l'amico, l'università, dell'acqua, un'amica (not *una amica)</span></div>
+    </div>`;
+  }
+
+  const rr=document.getElementById('rules-register');
+  if(rr&&!rr.innerHTML){
+    rr.innerHTML=`
+    <div class="alert alert-info">Register is one of the most important things assessed in Paper 1. Use the wrong one and you lose marks even if your Italian is correct.</div>
+    <div class="grid-2">
+    <div class="rule-card"><div class="rule-card-title" style="color:var(--blue)">💼 Formale (Lei)</div>
+    <div class="checklist-item"><span class="check-icon">📧</span><span>Used in: email formale, invito formale, dichiarazione personale, articolo, discorso (sometimes), resoconto ufficiale</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Address:</strong> Gentile direttore, Egregio professore, Spettabile ditta</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Pronouns:</strong> use Lei (capitalised) NOT tu</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Closings:</strong> Distinti saluti / Cordiali saluti / In attesa di un cortese riscontro...</span></div>
+    <div class="checklist-item"><span class="check-icon">❌</span><span><strong>Avoid:</strong> exclamation marks (!), contractions, colloquial expressions, emoticons</span></div>
+    <div style="margin-top:10px;"><div class="example-it">Gentile direttore, vi scrivo riguardo al corso...</div><div class="example-it">In attesa di un cortese riscontro, la ringrazio per l'attenzione.</div><div class="example-it">Distinti saluti, [Nome Cognome]</div></div>
+    </div>
+    <div class="rule-card"><div class="rule-card-title" style="color:var(--green)">😊 Informale (tu)</div>
+    <div class="checklist-item"><span class="check-icon">💌</span><span>Used in: email informale, diario, cartolina, blog, messaggio, invito informale</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Address:</strong> Caro Marco, Cara Sofia, Ciao Paolo</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Pronouns:</strong> use tu (and tu-forms of verbs)</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>Closings:</strong> Un abbraccio, Baci, A presto, Ci vediamo presto!</span></div>
+    <div class="checklist-item"><span class="check-icon">✅</span><span><strong>You can use:</strong> exclamations (!), emoticons 😊, contractions, colloquial expressions</span></div>
+    <div style="margin-top:10px;"><div class="example-it">Caro Paolo, come stai? Qui tutto bene...</div><div class="example-it">Dai, vieni alla festa! Non te ne pentirai!</div><div class="example-it">Un abbraccio e a presto! [Nome]</div></div>
+    </div>
+    </div>`;
+  }
+
+  const rc=document.getElementById('rules-checklist');
+  if(rc&&!rc.innerHTML){
+    rc.innerHTML=`
+    <div class="alert alert-warning">⚠️ Go through this checklist before submitting Paper 1. These are the most common errors that cost marks.</div>
+    <div class="rule-card"><div class="rule-card-title">📋 Pre-submission Checklist</div>
+    ${[
+      ["✅","Have you included ALL required structural elements for this text type? (e.g. date, opening line, signature for a letter)"],
+      ["✅","Is the register correct throughout? (all Lei OR all tu — not mixed)"],
+      ["✅","Word count between 70 and 150 words?"],
+      ["✅","No capitalised days/months/languages?"],
+      ["✅","No 'di' after modal verbs (voglio andare NOT voglio di andare)?"],
+      ["✅","Piacere agrees with subject (piace/piacciono)?"],
+      ["✅","Passato prossimo: correct auxiliary (avere/essere) and agreement where needed?"],
+      ["✅","Adjectives agree in gender and number?"],
+      ["✅","Accents on: è, perché, città, caffè, però, già, più, sì?"],
+      ["✅","At least 2–3 discourse connectors used?"],
+      ["✅","At least 2 different verb tenses used?"],
+      ["✅","Opening line and closing line appropriate for the text type?"],
+      ["✅","Formal email: no exclamation marks, signed with full name and title?"],
+    ].map(([icon,text])=>`<div class="checklist-item"><span class="check-icon">${icon}</span><label style="cursor:pointer;display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.5;"><input type="checkbox" style="accent-color:var(--green);margin-top:3px;">${text}</label></div>`).join('')}
+    </div>`;
+  }
+
+  const ro=document.getElementById('rules-oral');
+  if(ro&&!ro.innerHTML){
+    ro.innerHTML=`
+    <div class="rule-card"><div class="rule-card-title">🗣️ Individual Oral Tips</div>
+    <div class="checklist-item"><span class="check-icon">📸</span><span><strong>Photo description:</strong> Describe what you see (C'è / Ci sono / Si vede / Si trovano), speculate (Forse / Sembra che / Potrebbe essere), link to a theme</span></div>
+    <div class="checklist-item"><span class="check-icon">💬</span><span><strong>Useful openers:</strong> "In questa foto si vede..." / "La foto mostra..." / "Penso che questa foto parli di..."</span></div>
+    <div class="checklist-item"><span class="check-icon">⏱️</span><span><strong>Time filler phrases:</strong> "Dunque..." / "Come si dice..." / "Cioè..." / "In altre parole..." / "È una buona domanda..."</span></div>
+    <div class="checklist-item"><span class="check-icon">🎯</span><span><strong>Opinion phrases:</strong> "Secondo me..." / "A mio parere..." / "Penso che sia importante perché..." / "Sono convinto/a che..."</span></div>
+    <div class="checklist-item"><span class="check-icon">🔗</span><span><strong>Use connectors:</strong> "Inoltre..." / "Tuttavia..." / "D'altra parte..." / "Quindi..." / "In conclusione..."</span></div>
+    <div class="checklist-item"><span class="check-icon">🕐</span><span><strong>Use varied tenses:</strong> present to describe, past to talk about experiences, conditional for wishes/hypotheticals, future for plans</span></div>
+    </div>
+
+    <div class="rule-card"><div class="rule-card-title">📸 Photo Description Framework</div>
+    <div style="display:grid;gap:8px;margin-top:8px;">
+      <div class="rule-box"><strong>1. What you see:</strong> <em>In questa foto si vede/vedono... / C'è / Ci sono... / La foto mostra...</em></div>
+      <div class="rule-box blue"><strong>2. Where/context:</strong> <em>La scena si svolge... / Sembra che la foto sia stata scattata a... / Potrebbe essere...</em></div>
+      <div class="rule-box green"><strong>3. Speculation:</strong> <em>Forse stanno... / Sembra che... / Potrebbero essere... / Si direbbe che...</em></div>
+      <div class="rule-box gold"><strong>4. Link to theme:</strong> <em>Questa foto mi fa pensare a... / È collegata al tema di... / Questo è un esempio di...</em></div>
+      <div class="rule-box"><strong>5. Opinion:</strong> <em>Secondo me questa foto dimostra che... / A mio parere è importante perché...</em></div>
+    </div></div>`;
+  }
+}
+
+function showRulesTab(tab){
+  ['writing','register','checklist','oral'].forEach(t=>{document.getElementById('rules-'+t).style.display=t===tab?'block':'none';});
+  document.querySelectorAll('#rules .tab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')?.includes(`'${tab}'`)));
+  renderRules();
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded',()=>{
+  renderSentences();
+  renderTextTypes();
+  renderConnectors();
+  showGTab('presente');
+  showTheme(1);
+  renderHigher();
+  renderRules();
+  showRulesTab('writing');
+  showGame('vocab');
+  renderSB();
+});
+</script>
+</body>
+</html>
