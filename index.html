@@ -195,7 +195,7 @@ h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--te
 #sb-input:focus{border-color:var(--accent);background:#fff;}
 select.practice-input{min-height:0;resize:none;cursor:pointer;}
 
-.translation-toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:11px 14px;border-radius:10px;background:rgba(0,0,0,0.88);color:#fff;font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,0.25);opacity:0;transition:opacity 0.22s ease,transform 0.22s ease;transform:translateY(8px);pointer-events:none;}
+.translation-toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 16px;border-radius:12px;background:rgba(15,15,15,0.93);color:#fff;font-size:14px;box-shadow:0 8px 28px rgba(0,0,0,0.35);opacity:0;transition:opacity 0.22s ease,transform 0.22s ease;transform:translateY(10px);pointer-events:none;min-width:180px;max-width:320px;line-height:1.5;backdrop-filter:blur(6px);}
 .translation-toast.show{opacity:1;transform:translateY(0);}
 
 </style>
@@ -893,23 +893,79 @@ const TRANSLATION_DICTIONARY = {
   "Le vacanze":"Holidays"
 };
 
+let _richDict = null;
+function getRichDict(){
+  if(_richDict) return _richDict;
+  _richDict = Object.assign({}, TRANSLATION_DICTIONARY);
+  try{CONNECTORS.forEach(g => g.items.forEach(item => {
+    _richDict[item.it] = item.en;
+    _richDict[item.it.toLowerCase()] = item.en;
+  }));}catch(e){}
+  try{THEMES.forEach(theme => theme.topics.forEach(topic => topic.vocab.forEach(([it, en]) => {
+    _richDict[it] = en; _richDict[it.toLowerCase()] = en;
+    const m = it.match(/^(.+)\/[ao]$/);
+    if(m){_richDict[m[1]+'o']=en;_richDict[m[1]+'a']=en;_richDict[(m[1]+'o').toLowerCase()]=en;_richDict[(m[1]+'a').toLowerCase()]=en;}
+  })));}catch(e){}
+  try{SENTENCES.forEach(s=>{_richDict[s.it]=s.en;_richDict[s.it.toLowerCase()]=s.en;});}catch(e){}
+  return _richDict;
+}
+
+function lookupTranslation(raw){
+  if(!raw||raw.trim().length<2) return null;
+  const t=raw.trim(), tl=t.toLowerCase();
+  const d=getRichDict();
+  if(d[t]) return d[t];
+  if(d[tl]) return d[tl];
+  const stripped=tl.replace(/[.,!?;:'"\u201c\u201d]+$/,'').replace(/^['"\u201c\u201d]/,'').trim();
+  if(stripped&&d[stripped]) return d[stripped];
+  const noArt=stripped.replace(/^(il |la |l'|i |gli |le |un |uno |una |un')/i,'').trim();
+  if(noArt&&noArt!==stripped&&d[noArt]) return d[noArt];
+  const words=t.split(/\s+/).filter(w=>w.length>2);
+  const hits=[];
+  for(const w of words){
+    const wl=w.toLowerCase().replace(/[.,!?;:'"]/g,'');
+    const found=d[wl]||d[w];
+    if(found) hits.push(wl+': '+found);
+  }
+  if(hits.length) return hits.slice(0,4).join(' | ');
+  return null;
+}
+
 function showTranslation(text){
-  const toast = document.getElementById('translation-toast');
-  if(!toast || !text) return;
-  const cleaned = (text||'').trim();
-  const output = TRANSLATION_DICTIONARY[cleaned] || TRANSLATION_DICTIONARY[cleaned.replace(/^\s+|\s+$/g,'')] || `Translate: ${cleaned}`;
-  toast.textContent = output;
+  const toast=document.getElementById('translation-toast');
+  if(!toast||!text||text.trim().length<2) return;
+  const t=text.trim();
+  const result=lookupTranslation(t);
+  if(!result) return;
+  const display=t.length>45?t.slice(0,45)+'\u2026':t;
+  toast.innerHTML=`<span style="opacity:0.65;font-size:11px;letter-spacing:0.04em;">&#127470;&#127481;\u2192&#127468;&#127463;</span> <strong style="font-size:14px;">${display}</strong><br><span style="color:#c8e6c9;font-size:13px;">${result}</span>`;
   toast.classList.add('show');
   if(window.translationToastTimer) clearTimeout(window.translationToastTimer);
-  window.translationToastTimer = setTimeout(()=>{toast.classList.remove('show');}, 2600);
+  window.translationToastTimer=setTimeout(()=>{toast.classList.remove('show');},3400);
 }
 
 function initTranslateOnClick(){
   document.body.addEventListener('click', e => {
-    const target = e.target.closest('[data-translate], button, h1, h2, h3, h4, .card-title, .card-desc, .home-card');
+    const sel=window.getSelection();
+    if(sel&&sel.toString().trim().length>1) return;
+    const target=e.target.closest('[data-translate],.vocab-item,.vocab-it,.connector-item,.sentence-it,.sentence-en,.example-it,.hl-sentence,.hl-label,.verb-form,.meaning,button,h1,h2,h3,h4,.card-title,.card-desc,.home-card');
     if(!target) return;
-    const translateText = target.getAttribute('data-translate') || target.textContent || target.innerText || '';
-    if(translateText) showTranslation(translateText.trim());
+    const txt=target.getAttribute('data-translate')||target.textContent||'';
+    if(txt.trim()) showTranslation(txt.trim());
+  });
+  document.body.addEventListener('mouseup', ()=>{
+    const sel=window.getSelection();
+    if(!sel) return;
+    const selected=sel.toString().trim();
+    if(selected.length>=2) setTimeout(()=>showTranslation(selected),60);
+  });
+  document.body.addEventListener('touchend', ()=>{
+    setTimeout(()=>{
+      const sel=window.getSelection();
+      if(!sel) return;
+      const selected=sel.toString().trim();
+      if(selected.length>=2) showTranslation(selected);
+    },200);
   });
 }
 
